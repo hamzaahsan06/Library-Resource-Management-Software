@@ -2,7 +2,7 @@
 
 #ifndef USER_H
 #define USER_H
-#include<ctime>
+#include <ctime>
 #include <iostream>
 #include <string>
 #include "Resources.h"
@@ -24,9 +24,11 @@ protected:
         string borrowDate;
         string returnDate;
         string dueDate;
-        time_t dueDateRaw; // Store due date as time_t for easier calculations
-    } borrowingHistory[10];  // Assuming a maximum of 10 borrowing history records
+        time_t dueDateRaw;  // Store due date as time_t for easier calculations
+    } borrowingHistory[10]; // Assuming a maximum of 10 borrowing history records
     int maxBorrowLimit;
+
+    // fine rate
 
 public:
     User() : balance(0.0), maxBorrowLimit(2) {}
@@ -55,6 +57,9 @@ public:
     virtual void borrowResource(LibraryResource r) = 0;
     virtual void returnResource(LibraryResource r) = 0;
     virtual void displayInfo() = 0;
+    virtual double getFineRate() const = 0;
+    virtual int getBorrowLimit() const = 0;
+    virtual int getBorrowDuration() const = 0;
     virtual ~User() {}
     string getUsername() const
     {
@@ -90,213 +95,253 @@ public:
     }
 };
 
-
-
-class Student: public User{
+class Student : public User
+{
     int rollNo;
     string department;
     int batch;
-    public:
-    Student() : User() {
+
+public:
+    Student() : User()
+    {
         rollNo = 0;
         department = "Unknown";
         batch = 0;
-    } 
+    }
     Student(string user, string pass, double bal, string fname, string lname, string addr,
             int roll, string dept, int batch)
         : User(user, pass, bal, fname, lname, addr), rollNo(roll), department(dept), batch(batch) {}
-    void borrowResource(LibraryResource r) override{
-        if(balance < 0){
-            cout<<"Cannot borrow resource. Outstanding balance: "<<balance<<endl;
+    int getBorrowLimit() const override { return 2; }
+    int getBorrowDuration() const override { return 14; }
+    double getFineRate() const override { return 5.0; }
+
+    void borrowResource(LibraryResource r) override
+    {
+        if (balance < 0)
+        {
+            cout << "Cannot borrow resource. Outstanding balance: " << balance << endl;
             return;
         }
-        for(int i=0; i<maxBorrowLimit; i++){
-            if(borrowedResources[i].empty()){
-                if(r.borrowResource()){
-                    cout<<"Successfully borrowed "<<r.getTitle()<<endl;
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i].empty())
+            {
+                if (r.borrowResource())
+                {
+                    cout << "Successfully borrowed " << r.getTitle() << endl;
                     borrowedResources[i] = r.getTitle();
-                    cout<<"Borrowed: "<<r.getTitle()<<endl;
+                    cout << "Borrowed: " << r.getTitle() << endl;
                     borrowingHistory[i].resource = r.getTitle();
                     time_t now = time(0);
-                char buf[80];
-                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
-                borrowingHistory[i].borrowDate = buf;
+                    char buf[80];
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                    borrowingHistory[i].borrowDate = buf;
 
-                // --- Set Due Date (e.g., 10 days later) ---
-                time_t due = now + (10 * 24 * 60 * 60); // 10 days in seconds
-                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&due));
-                borrowingHistory[i].dueDate = buf;
+                    // --- Set Due Date (e.g., 10 days later) ---
+                    time_t due = now + (10 * 24 * 60 * 60); // 10 days in seconds
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&due));
+                    borrowingHistory[i].dueDate = buf;
 
-                // --- Set Return Date initially ---
-                borrowingHistory[i].returnDate = "Not returned yet";
-                } else {
-                    cout<<"Failed to borrow "<<r.getTitle()<<". No copies available."<<endl;
+                    // --- Set Return Date initially ---
+                    borrowingHistory[i].returnDate = "Not returned yet";
+                }
+                else
+                {
+                    cout << "Failed to borrow " << r.getTitle() << ". No copies available." << endl;
                 }
                 return;
             }
         }
-        cout<<"Cannot borrow more resources. Maximum limit reached."<<endl;
+        cout << "Cannot borrow more resources. Maximum limit reached." << endl;
     }
-    void returnResource(LibraryResource r) override {
-    for (int i = 0; i < maxBorrowLimit; i++) {
-        if (borrowedResources[i] == r.getTitle()) {
-            // Mark resource as returned in the library system
-            r.returnResource();
-            cout << "Successfully returned " << r.getTitle() << endl;
+    void returnResource(LibraryResource r) override
+    {
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i] == r.getTitle())
+            {
+                // Mark resource as returned in the library system
+                r.returnResource();
+                cout << "Successfully returned " << r.getTitle() << endl;
 
-            // Clear from borrowed list
-            borrowedResources[i].clear();
+                // Clear from borrowed list
+                borrowedResources[i].clear();
 
-            // --- Set Return Date ---
-            time_t now = time(0);
-            char buf[80];
-            strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
-            borrowingHistory[i].returnDate = "Returned on: " + string(buf);
+                // --- Set Return Date ---
+                time_t now = time(0);
+                char buf[80];
+                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                borrowingHistory[i].returnDate = "Returned on: " + string(buf);
 
-            // --- Fine Calculation ---
-            // Instead of parsing dueDate string, store dueDate as time_t in BorrowingHistory
-            // Let's assume you add: time_t dueDateRaw; in BorrowingHistory struct
-            time_t dueDate = borrowingHistory[i].dueDateRaw;
+                // --- Fine Calculation ---
+                // Instead of parsing dueDate string, store dueDate as time_t in BorrowingHistory
+                // Let's assume you add: time_t dueDateRaw; in BorrowingHistory struct
+                time_t dueDate = borrowingHistory[i].dueDateRaw;
 
-            if (difftime(now, dueDate) > 0) {
-                // Overdue: calculate fine
-                int daysLate = static_cast<int>(difftime(now, dueDate) / (60 * 60 * 24));
-                double finePerDay = 10.0; // Example fine rate
-                double fine = daysLate * finePerDay;
+                if (difftime(now, dueDate) > 0)
+                {
+                    // Overdue: calculate fine
+                    int daysLate = static_cast<int>(difftime(now, dueDate) / (60 * 60 * 24));
+                    double finePerDay = 10.0; // Example fine rate
+                    double fine = daysLate * finePerDay;
 
-                balance -= fine;
-                cout << "Resource was overdue by " << daysLate
-                     << " days. Fine of " << fine
-                     << " deducted. New balance: " << balance << endl;
+                    balance -= fine;
+                    cout << "Resource was overdue by " << daysLate
+                         << " days. Fine of " << fine
+                         << " deducted. New balance: " << balance << endl;
+                }
+
+                return;
             }
+        }
+        cout << "You have not borrowed " << r.getTitle() << endl;
+    }
+    void displayInfo() override
+    {
+        cout << "----- Student Information -----" << endl;
+        cout << "Username: " << getUsername() << endl;
+        cout << "Name: " << getFirstName() << " " << getLastName() << endl;
+        cout << "Address: " << getAddress() << endl;
+        cout << "Balance: " << getBalance() << endl;
+        cout << "Roll No: " << rollNo << endl;
+        cout << "Department: " << department << endl;
+        cout << "Batch: " << batch << endl;
 
-            return;
+        cout << "\nBorrowed Resources:" << endl;
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (!borrowedResources[i].empty())
+            {
+                cout << " - " << borrowedResources[i] << endl;
+            }
+        }
+
+        cout << "\nBorrowing History:" << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            if (!borrowingHistory[i].resource.empty())
+            {
+                cout << "Resource: " << borrowingHistory[i].resource << endl;
+                cout << "Borrow Date: " << borrowingHistory[i].borrowDate << endl;
+                cout << "Due Date: " << borrowingHistory[i].dueDate << endl;
+                cout << "Return Date: " << borrowingHistory[i].returnDate << endl;
+                cout << "-----------------------------" << endl;
+            }
         }
     }
-    cout << "You have not borrowed " << r.getTitle() << endl;
-}
-void displayInfo() override {
-    cout << "----- Student Information -----" << endl;
-    cout << "Username: " << getUsername() << endl;
-    cout << "Name: " << getFirstName() << " " << getLastName() << endl;
-    cout << "Address: " << getAddress() << endl;
-    cout << "Balance: " << getBalance() << endl;
-    cout << "Roll No: " << rollNo << endl;
-    cout << "Department: " << department << endl;
-    cout << "Batch: " << batch << endl;
-
-    cout << "\nBorrowed Resources:" << endl;
-    for (int i = 0; i < maxBorrowLimit; i++) {
-        if (!borrowedResources[i].empty()) {
-            cout << " - " << borrowedResources[i] << endl;
-        }
-    }
-
-    cout << "\nBorrowing History:" << endl;
-    for (int i = 0; i < 10; i++) {
-        if (!borrowingHistory[i].resource.empty()) {
-            cout << "Resource: " << borrowingHistory[i].resource << endl;
-            cout << "Borrow Date: " << borrowingHistory[i].borrowDate << endl;
-            cout << "Due Date: " << borrowingHistory[i].dueDate << endl;
-            cout << "Return Date: " << borrowingHistory[i].returnDate << endl;
-            cout << "-----------------------------" << endl;
-        }
-    }
-}
 };
-class Teacher:public User{
+class Teacher : public User
+{
     int employeeID;
     string department;
     string designation;
-    public:
-    Teacher() : User() {
-        maxBorrowLimit=5;
+
+public:
+    Teacher() : User()
+    {
+        maxBorrowLimit = 5;
         employeeID = 0;
         department = "Unknown";
         designation = "Unknown";
     }
     Teacher(string user, string pass, double bal, string fname, string lname, string addr,
             int empID, string dept, string desig)
-        : User(user, pass, bal, fname, lname, addr), employeeID(empID), department(dept), designation(desig) {maxBorrowLimit=5;} 
-    void borrowResource(LibraryResource r) override{
-        if(balance < 0){
-            cout<<"Cannot borrow resource. Outstanding balance: "<<balance<<endl;
+        : User(user, pass, bal, fname, lname, addr), employeeID(empID), department(dept), designation(desig) { maxBorrowLimit = 5; }
+    int getBorrowLimit() const override { return 5; }
+    int getBorrowDuration() const override { return 30; }
+    double getFineRate() const override { return 2.0; }
+
+    void borrowResource(LibraryResource r) override
+    {
+        if (balance < 0)
+        {
+            cout << "Cannot borrow resource. Outstanding balance: " << balance << endl;
             return;
         }
-        for(int i=0; i<maxBorrowLimit; i++){
-            if(borrowedResources[i].empty()){
-                if(r.borrowResource()){
-                    cout<<"Successfully borrowed "<<r.getTitle()<<endl;
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i].empty())
+            {
+                if (r.borrowResource())
+                {
+                    cout << "Successfully borrowed " << r.getTitle() << endl;
                     borrowedResources[i] = r.getTitle();
-                    cout<<"Borrowed: "<<r.getTitle()<<endl;
+                    cout << "Borrowed: " << r.getTitle() << endl;
                     borrowingHistory[i].resource = r.getTitle();
                     time_t now = time(0);
-                char buf[80];
-                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
-                borrowingHistory[i].borrowDate = buf;
+                    char buf[80];
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                    borrowingHistory[i].borrowDate = buf;
 
-                // --- Set Due Date (e.g., 14 days later) ---
-                time_t due = now + (14 * 24 * 60 * 60); // 14 days in seconds
-                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&due));
-                borrowingHistory[i].dueDate = buf;
+                    // --- Set Due Date (e.g., 14 days later) ---
+                    time_t due = now + (14 * 24 * 60 * 60); // 14 days in seconds
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&due));
+                    borrowingHistory[i].dueDate = buf;
 
-                // --- Set Return Date initially ---
-                borrowingHistory[i].returnDate = "Not returned yet";
-                } else {
-                    cout<<"Failed to borrow "<<r.getTitle()<<". No copies available."<<endl;
+                    // --- Set Return Date initially ---
+                    borrowingHistory[i].returnDate = "Not returned yet";
+                }
+                else
+                {
+                    cout << "Failed to borrow " << r.getTitle() << ". No copies available." << endl;
                 }
                 return;
             }
         }
-        cout<<"Cannot borrow more resources. Maximum limit reached."<<endl;
+        cout << "Cannot borrow more resources. Maximum limit reached." << endl;
     }
-    void returnResource(LibraryResource r) override {
-    for (int i = 0; i < maxBorrowLimit; i++) {
-        if (borrowedResources[i] == r.getTitle()) {
-            // Mark resource as returned in the library system
-            r.returnResource();
-            cout << "Successfully returned " << r.getTitle() << endl;
+    void returnResource(LibraryResource r) override
+    {
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i] == r.getTitle())
+            {
+                // Mark resource as returned in the library system
+                r.returnResource();
+                cout << "Successfully returned " << r.getTitle() << endl;
 
-            // Clear from borrowed list
-            borrowedResources[i].clear();
+                // Clear from borrowed list
+                borrowedResources[i].clear();
 
-            // --- Set Return Date ---
-            time_t now = time(0);
-            char buf[80];
-            strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
-            borrowingHistory[i].returnDate = "Returned on: " + string(buf);
+                // --- Set Return Date ---
+                time_t now = time(0);
+                char buf[80];
+                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                borrowingHistory[i].returnDate = "Returned on: " + string(buf);
 
-            // --- Fine Calculation ---
-            // Instead of parsing dueDate string, store dueDate as time_t in BorrowingHistory
-            // Let's assume you add: time_t dueDateRaw; in BorrowingHistory struct
-            time_t dueDate = borrowingHistory[i].dueDateRaw;
+                // --- Fine Calculation ---
+                // Instead of parsing dueDate string, store dueDate as time_t in BorrowingHistory
+                // Let's assume you add: time_t dueDateRaw; in BorrowingHistory struct
+                time_t dueDate = borrowingHistory[i].dueDateRaw;
 
-            if (difftime(now, dueDate) > 0) {
-                // Overdue: calculate fine
-                int daysLate = static_cast<int>(difftime(now, dueDate) / (60 * 60 * 24));
-                double finePerDay = 5.0; // Example fine rate
-                double fine = daysLate * finePerDay;
+                if (difftime(now, dueDate) > 0)
+                {
+                    // Overdue: calculate fine
+                    int daysLate = static_cast<int>(difftime(now, dueDate) / (60 * 60 * 24));
+                    double finePerDay = 5.0; // Example fine rate
+                    double fine = daysLate * finePerDay;
 
-                balance -= fine;
-                cout << "Resource was overdue by " << daysLate
-                     << " days. Fine of " << fine
-                     << " deducted. New balance: " << balance << endl;
+                    balance -= fine;
+                    cout << "Resource was overdue by " << daysLate
+                         << " days. Fine of " << fine
+                         << " deducted. New balance: " << balance << endl;
+                }
+
+                return;
             }
-
-            return;
         }
+        cout << "You have not borrowed " << r.getTitle() << endl;
     }
-    cout << "You have not borrowed " << r.getTitle() << endl;
-}
-    void displayInfo() override {
-    cout << "----- Teacher Information -----" << endl;
-    cout << "Username: " << getUsername() << endl;
-    cout << "Name: " << getFirstName() << " " << getLastName() << endl;
-    cout << "Address: " << getAddress() << endl;
-    cout << "Balance: " << getBalance() << endl;
-    cout << "Employee ID: " << employeeID << endl;
-    cout << "Department: " << department << endl;
-    cout << "Designation: " << designation << endl;
+    void displayInfo() override
+    {
+        cout << "----- Teacher Information -----" << endl;
+        cout << "Username: " << getUsername() << endl;
+        cout << "Name: " << getFirstName() << " " << getLastName() << endl;
+        cout << "Address: " << getAddress() << endl;
+        cout << "Balance: " << getBalance() << endl;
+        cout << "Employee ID: " << employeeID << endl;
+        cout << "Department: " << department << endl;
+        cout << "Designation: " << designation << endl;
     }
     void setEmployeeID(int id) { employeeID = id; }
     void setDepartment(string dept) { department = dept; }
@@ -305,16 +350,25 @@ class Teacher:public User{
     string getDepartment() const { return department; }
     string getDesignation() const { return designation; }
 };
-class Admin:public User{
+class Admin : public User
+{
     int adminID;
-    public:
-    Admin() : User() {
+
+public:
+    Admin() : User()
+    {
         adminID = 0;
     }
     Admin(string user, string pass, double bal, string fname, string lname, string addr,
-            int id)
+          int id)
         : User(user, pass, bal, fname, lname, addr), adminID(id) {}
-    void printUserInfo(User* user) {
+
+    int getBorrowLimit() const override { return 0; }
+    int getBorrowDuration() const override { return 0; }
+    double getFineRate() const override { return 0.0; }
+
+    void printUserInfo(User *user)
+    {
         cout << "----- User Information -----" << endl;
         cout << "Username: " << user->getUsername() << endl;
         cout << "Name: " << user->getFirstName() << " " << user->getLastName() << endl;
@@ -323,6 +377,190 @@ class Admin:public User{
     }
 };
 
+class Staff : public User
+{
+    int staffID;
+    string department;
+    string position;
+
+public:
+    Staff(string user, string pass, double bal, string fname, string lname, string addr,
+          int id, string dept, string pos)
+        : User(user, pass, bal, fname, lname, addr),
+          staffID(id), department(dept), position(pos)
+    {
+        maxBorrowLimit = 3; // Staff can borrow up to 3 resources
+    }
+    int getBorrowLimit() const override { return 3; }
+    int getBorrowDuration() const override { return 21; }
+    double getFineRate() const override { return 3.0; }
+
+    void borrowResource(LibraryResource r) override
+    {
+        if (balance < 0)
+        {
+            cout << "Cannot borrow resource. Outstanding balance: " << balance << endl;
+            return;
+        }
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i].empty())
+            {
+                if (r.borrowResource())
+                {
+                    cout << "Successfully borrowed " << r.getTitle() << endl;
+                    borrowedResources[i] = r.getTitle();
+
+                    // Borrow date
+                    time_t now = time(0);
+                    char buf[80];
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                    borrowingHistory[i].borrowDate = buf;
+
+                    // Due date (21 days for staff)
+                    time_t due = now + (21 * 24 * 60 * 60);
+                    strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&due));
+                    borrowingHistory[i].dueDate = buf;
+                    borrowingHistory[i].dueDateRaw = due;
+
+                    borrowingHistory[i].returnDate = "Not returned yet";
+                    borrowingHistory[i].resource = r.getTitle();
+                }
+                else
+                {
+                    cout << "Failed to borrow " << r.getTitle() << ". No copies available." << endl;
+                }
+                return;
+            }
+        }
+        cout << "Cannot borrow more resources. Maximum limit reached." << endl;
+    }
+
+    void returnResource(LibraryResource r) override
+    {
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (borrowedResources[i] == r.getTitle())
+            {
+                r.returnResource();
+                cout << "Successfully returned " << r.getTitle() << endl;
+                borrowedResources[i].clear();
+
+                // Return date
+                time_t now = time(0);
+                char buf[80];
+                strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&now));
+                borrowingHistory[i].returnDate = "Returned on: " + string(buf);
+
+                // Fine calculation (3 units/day for staff)
+                time_t dueDate = borrowingHistory[i].dueDateRaw;
+                if (difftime(now, dueDate) > 0)
+                {
+                    int daysLate = static_cast<int>(difftime(now, dueDate) / (60 * 60 * 24));
+                    double finePerDay = 3.0;
+                    double fine = daysLate * finePerDay;
+
+                    balance -= fine;
+                    cout << "Overdue by " << daysLate << " days. Fine of "
+                         << fine << " deducted. New balance: " << balance << endl;
+                }
+                return;
+            }
+        }
+        cout << "You have not borrowed " << r.getTitle() << endl;
+    }
+
+    void displayInfo() override
+    {
+        cout << "----- Staff Information -----" << endl;
+        cout << "Username: " << getUsername() << endl;
+        cout << "Name: " << getFirstName() << " " << getLastName() << endl;
+        cout << "Address: " << getAddress() << endl;
+        cout << "Balance: " << getBalance() << endl;
+        cout << "Staff ID: " << staffID << endl;
+        cout << "Department: " << department << endl;
+        cout << "Position: " << position << endl;
+
+        cout << "\nBorrowed Resources:" << endl;
+        for (int i = 0; i < maxBorrowLimit; i++)
+        {
+            if (!borrowedResources[i].empty())
+            {
+                cout << " - " << borrowedResources[i] << endl;
+            }
+        }
+
+        cout << "\nBorrowing History:" << endl;
+        for (int i = 0; i < 10; i++)
+        {
+            if (!borrowingHistory[i].resource.empty())
+            {
+                cout << "Resource: " << borrowingHistory[i].resource << endl;
+                cout << "Borrow Date: " << borrowingHistory[i].borrowDate << endl;
+                cout << "Due Date: " << borrowingHistory[i].dueDate << endl;
+                cout << "Return Date: " << borrowingHistory[i].returnDate << endl;
+                cout << "-----------------------------" << endl;
+            }
+        }
+    }
+};
+
+class BorrowTransaction
+{
+    LibraryResource *resource;
+    User *user;
+    time_t borrowDate;
+    time_t dueDate;
+    time_t returnDate;
+    double fine;
+
+public:
+    BorrowTransaction(User *u, LibraryResource *r, int durationDays)
+        : user(u), resource(r), fine(0.0)
+    {
+        borrowDate = time(0);
+        dueDate = borrowDate + (durationDays * 24 * 60 * 60);
+        returnDate = 0; // not yet returned
+    }
+
+    void markReturned()
+    {
+        returnDate = time(0);
+        if (difftime(returnDate, dueDate) > 0)
+        {
+            int daysLate = static_cast<int>(difftime(returnDate, dueDate) / (60 * 60 * 24));
+            double finePerDay = user->getFineRate(); // each user type defines this
+            fine = daysLate * finePerDay;
+            user->setBalance(user->getBalance() - fine);
+        }
+    }
+
+    User *getUser() const { return user; }
+    LibraryResource *getResource() const { return resource; }
+    double getFine() const { return fine; }
+
+    string getBorrowDate() const
+    {
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&borrowDate));
+        return std::string(buf);
+    }
+    string getDueDate() const
+    {
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&dueDate));
+        return std::string(buf);
+    }
+
+    string getReturnDate() const
+    {
+        if (returnDate == 0)
+            return "Not returned yet";
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&returnDate));
+        return std::string(buf);
+    }
+};
 // ....
 
 #endif // USER_H
