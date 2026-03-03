@@ -561,6 +561,61 @@ public:
         return std::string(buf);
     }
 };
-// ....
+/*
+class BorrowTransaction
+{
+    LibraryResource *resource;
+    time_t borrowDate;
+    time_t dueDate;
+    time_t returnDate;
+    double fine;
+
+public:
+    BorrowTransaction(LibraryResource *r, int durationDays)
+        : resource(r), fine(0.0)
+    {
+        borrowDate = time(0);
+        dueDate = borrowDate + (durationDays * 24 * 60 * 60);
+        returnDate = 0; // not yet returned
+    }
+
+    void markReturned()
+    {
+        returnDate = time(0);
+        if (difftime(returnDate, dueDate) > 0)
+        {
+            int daysLate = static_cast<int>(difftime(returnDate, dueDate) / (60 * 60 * 24));
+            double finePerDay = user->getFineRate(); // each user type defines this
+            fine = daysLate * finePerDay;
+            user->setBalance(user->getBalance() - fine);
+        }
+    }
+
+    LibraryResource *getResource() const { return resource; }
+    double getFine() const { return fine; }
+
+    string getBorrowDate() const
+    {
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&borrowDate));
+        return std::string(buf);
+    }
+    string getDueDate() const
+    {
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&dueDate));
+        return std::string(buf);
+    }
+
+    string getReturnDate() const
+    {
+        if (returnDate == 0)
+            return "Not returned yet";
+        char buf[80];
+        strftime(buf, sizeof(buf), "%Y-%m-%d", localtime(&returnDate));
+        return std::string(buf);
+    }
+};
+*/
 
 #endif // USER_H

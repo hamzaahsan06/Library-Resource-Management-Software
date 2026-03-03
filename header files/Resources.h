@@ -209,57 +209,6 @@ public:
     }
 };
 
-// Derived class for narrated audio versions of books
-class AudioBook : public LibraryResource
-{
-private:
-    string narrator;
-    int durationMinutes;
-    string format; // MP3, CD etc.
-
-public:
-    // default constructor
-    AudioBook() : LibraryResource()
-    {
-        narrator = "Unknown";
-        durationMinutes = 0;
-        format = "MP3";
-    }
-
-    // parameterized constructor
-    AudioBook(string title, string author, string category,
-              int totalCopies, string narrator, int duration, string format)
-        : LibraryResource(title, author, category, totalCopies)
-    {
-        this->narrator = narrator;
-        this->durationMinutes = duration;
-        this->format = format;
-    }
-
-    // getters
-    string getNarrator() const { return narrator; }
-    int getDuration() const { return durationMinutes; }
-    string getFormat() const { return format; }
-
-    // setters
-    void setNarrator(string n) { narrator = n; }
-    void setDuration(int d) { durationMinutes = d; }
-    void setFormat(string f) { format = f; }
-
-    void displayInfo() override
-    {
-        cout << "Resource ID  : " << resourceID << endl;
-        cout << "Title        : " << title << endl;
-        cout << "Author       : " << authorCreator << endl;
-        cout << "Category     : " << category << endl;
-        cout << "Narrator     : " << narrator << endl;
-        cout << "Duration     : " << durationMinutes << " mins" << endl;
-        cout << "Format       : " << format << endl;
-        cout << "Total Copies : " << totalCopies << endl;
-        cout << "Available    : " << availableCopies << endl;
-        cout << "Status       : " << availabilityStatus << endl;
-    }
-};
 
 // Derived class for periodical magazines
 class Magazine : public LibraryResource
@@ -314,58 +263,6 @@ public:
         cout << "Pub. Date    : " << publicationDate << endl;
         cout << "Total Copies : " << totalCopies << endl;
         cout << "Available    : " << availableCopies << endl;
-        cout << "Status       : " << availabilityStatus << endl;
-    }
-};
-
-// Derived class for digital books, copies set to 999 since its a digital resource
-class EBook : public LibraryResource
-{
-private:
-    string fileFormat; // PDF, EPUB, MOBI etc.
-    string accessLink;
-    string digitalISBN;
-
-public:
-    // default constructor
-    EBook() : LibraryResource()
-    {
-        fileFormat = "PDF";
-        accessLink = "N/A";
-        digitalISBN = "000-0000000000";
-        totalCopies = 999;
-        availableCopies = 999;
-    }
-
-    // no totalCopies parameter since ebooks have unlimited copies
-    EBook(string title, string author, string category,
-          string fileFormat, string accessLink, string digitalISBN)
-        : LibraryResource(title, author, category, 999)
-    {
-        this->fileFormat = fileFormat;
-        this->accessLink = accessLink;
-        this->digitalISBN = digitalISBN;
-    }
-
-    // getters
-    string getFileFormat() const { return fileFormat; }
-    string getAccessLink() const { return accessLink; }
-    string getDigitalISBN() const { return digitalISBN; }
-
-    // setters
-    void setFileFormat(string f) { fileFormat = f; }
-    void setAccessLink(string l) { accessLink = l; }
-    void setDigitalISBN(string d) { digitalISBN = d; }
-
-    void displayInfo() override
-    {
-        cout << "Resource ID  : " << resourceID << endl;
-        cout << "Title        : " << title << endl;
-        cout << "Author       : " << authorCreator << endl;
-        cout << "Category     : " << category << endl;
-        cout << "File Format  : " << fileFormat << endl;
-        cout << "Digital ISBN : " << digitalISBN << endl;
-        cout << "Access Link  : " << accessLink << endl;
         cout << "Status       : " << availabilityStatus << endl;
     }
 };
