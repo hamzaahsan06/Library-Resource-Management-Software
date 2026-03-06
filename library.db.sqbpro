@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?><sqlb_project><db path="C:/databaseforCEP/updated.db" readonly="0" foreign_keys="1" case_sensitive_like="0" temp_store="0" wal_autocheckpoint="1000" synchronous="2"/><attached/><window><main_tabs open="structure browser pragmas query" current="1"/></window><tab_structure><column_width id="0" width="300"/><column_width id="1" width="0"/><column_width id="2" width="100"/><column_width id="3" width="1301"/><column_width id="4" width="0"/><expanded_item id="0" parent="1"/><expanded_item id="1" parent="1"/><expanded_item id="2" parent="1"/><expanded_item id="3" parent="1"/></tab_structure><tab_browse><table title="users" custom_title="0" dock_id="3" table="4,5:mainusers"/><dock_state state="000000ff00000000fd0000000100000002000001c7000002defc0100000003fb000000160064006f0063006b00420072006f00770073006500310100000000000001c70000000000000000fb000000160064006f0063006b00420072006f00770073006500320100000000ffffffff0000000000000000fb000000160064006f0063006b00420072006f00770073006500330100000000000001c70000013000ffffff000001c70000000000000004000000040000000800000008fc00000000"/><default_encoding codec=""/><browse_table_settings><table schema="main" name="admins" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="52"/><column index="2" value="76"/><column index="3" value="75"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="sqlite_sequence" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="46"/><column index="2" value="31"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table><table schema="main" name="users" show_row_id="0" encoding="" plot_x_axis="" unlock_view_pk="_rowid_" freeze_columns="0"><sort/><column_widths><column index="1" value="29"/><column index="2" value="101"/><column index="3" value="202"/><column index="4" value="78"/><column index="5" value="85"/><column index="6" value="64"/></column_widths><filter_values/><conditional_formats/><row_id_formats/><display_formats/><hidden_columns/><plot_y_axes/><global_filter/></table></browse_table_settings></tab_browse><tab_sql><sql name="SQL 1*">DROP TABLE IF EXISTS admins;
+DROP TABLE IF EXISTS staff;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL UNIQUE,
+    password TEXT NOT NULL,
+    date_of_birth TEXT,
+    user_type TEXT NOT NULL
+);
+
+-- Add the batch_year column here
+ALTER TABLE users ADD COLUMN batch_year INTEGER;
+
+CREATE TABLE staff (
+    user_id INTEGER UNIQUE,
+    department TEXT,
+    salary REAL,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+CREATE TABLE admins (
+    user_id INTEGER UNIQUE,
+    admin_level INTEGER,
+    permissions TEXT,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+PRAGMA foreign_keys = ON;
+
+
+
+INSERT INTO users (id, name, email, password, date_of_birth, user_type, batch_year) VALUES
+(1,'Ahmed Khan','ahmed.khan1@example.com','pass123','2001-03-12','student',2019),
+(2,'Sana Sheikh','sana.sheikh2@example.com','pass123','2000-11-25','student',2020),
+(3,'Arjun Mehta','arjun.mehta3@example.com','pass123','2002-06-14','student',2021),
+(4,'Fatima Ali','fatima.ali4@example.com','pass123','2001-09-30','student',2019),
+(5,'Rahul Sharma','rahul.sharma5@example.com','pass123','2000-12-18','student',2020),
+(6,'Aliya Khan','aliya.khan6@example.com','pass123','2002-05-05','student',2021),
+(7,'Vikram Singh','vikram.singh7@example.com','pass123','2001-07-22','student',2019),
+(8,'Hira Zaidi','hira.zaidi8@example.com','pass123','2000-08-09','student',2020),
+(9,'Anil Gupta','anil.gupta9@example.com','pass123','2002-02-17','student',2021),
+(10,'Asma Ahmed','asma.ahmed10@example.com','pass123','2001-01-29','student',2019),
+(11,'Neha Sharma','neha.sharma11@example.com','pass123','2001-04-15','student',2020),
+(12,'Rohan Verma','rohan.verma12@example.com','pass123','2000-07-03','student',2021),
+(13,'Priya Nair','priya.nair13@example.com','pass123','2002-05-20','student',2022),
+(14,'Kabir Khan','kabir.khan14@example.com','pass123','2001-08-11','student',2023),
+(15,'Sara Malik','sara.malik15@example.com','pass123','2000-10-27','student',2024),
+(16,'Aditya Singh','aditya.singh16@example.com','pass123','2002-12-09','student',2022),
+(17,'Meera Patel','meera.patel17@example.com','pass123','2001-03-17','student',2023),
+(18,'Dev Kapoor','dev.kapoor18@example.com','pass123','2000-06-21','student',2024),
+(19,'Ananya Joshi','ananya.joshi19@example.com','pass123','2002-09-08','student',2022),
+(20,'Kabir Choudhary','kabir.choudhary20@example.com','pass123','2001-01-30','student',2023),
+(21,'Tania Reddy','tania.reddy21@example.com','pass123','2002-04-05','student',2024),
+(22,'Karan Mehra','karan.mehra22@example.com','pass123','2001-11-19','student',2025),
+(23,'Isha Jain','isha.jain23@example.com','pass123','2000-05-25','student',2019),
+(24,'Rishi Kapoor','rishi.kapoor24@example.com','pass123','2002-02-14','student',2020),
+(25,'Alia Bhatt','alia.bhatt25@example.com','pass123','2001-06-02','student',2021),
+(26,'Siddharth Malhotra','siddharth.malhotra26@example.com','pass123','2000-08-12','student',2022),
+(27,'Naina Sharma','naina.sharma27@example.com','pass123','2002-09-17','student',2023),
+(28,'Rohan Kapoor','rohan.kapoor28@example.com','pass123','2001-03-29','student',2024),
+(29,'Sara Khan','sara.khan29@example.com','pass123','2000-12-11','student',2025),
+(30,'Vikram Verma','vikram.verma30@example.com','pass123','2002-01-08','student',2019),
+(31,'Megha Singh','megha.singh31@example.com','pass123','2001-07-16','student',2020),
+(32,'Aditya Nair','aditya.nair32@example.com','pass123','2000-09-22','student',2021),
+(33,'Riya Patel','riya.patel33@example.com','pass123','2002-03-19','student',2022),
+(34,'Kabir Reddy','kabir.reddy34@example.com','pass123','2001-06-05','student',2023),
+(35,'Neha Kapoor','neha.kapoor35@example.com','pass123','2000-11-30','student',2024),
+(36,'Arjun Sharma','arjun.sharma36@example.com','pass123','2002-12-21','student',2025),
+(37,'Fatima Riaz','fatima.riaz37@example.com','pass123','2001-08-09','student',2019),
+(38,'Rohan Joshi','rohan.joshi38@example.com','pass123','2000-05-14','student',2020),
+(39,'Ananya Singh','ananya.singh39@example.com','pass123','2002-09-25','student',2021),
+(40,'Kabir Mehta','kabir.mehta40@example.com','pass123','2001-04-01','student',2022),
+(41,'Sana Patel','sana.patel41@example.com','pass123','2000-07-12','student',2023),
+(42,'Aditya Sharma','aditya.sharma42@example.com','pass123','2002-03-29','student',2024),
+(43,'Meera Reddy','meera.reddy43@example.com','pass123','2001-10-17','student',2025),
+(44,'Dev Malhotra','dev.malhotra44@example.com','pass123','2000-02-28','student',2019),
+(45,'Tania Singh','tania.singh45@example.com','pass123','2002-06-11','student',2020),
+(46,'Rishi Mehta','rishi.mehta46@example.com','pass123','2001-09-21','student',2021),
+(47,'Isha Kapoor','isha.kapoor47@example.com','pass123','2000-01-10','student',2022),
+(48,'Rohan Verma','rohan.verma48@example.com','pass123','2002-12-02','student',2023),
+(49,'Alia Singh','alia.singh49@example.com','pass123','2001-08-27','student',2024),
+(50,'Kabir Khan','kabir.khan50@example.com','pass123','2000-05-05','student',2025),
+(51,'Neha Mehta','neha.mehta51@example.com','pass123','2002-03-17','student',2019),
+(52,'Rohan Sharma','rohan.sharma52@example.com','pass123','2001-07-08','student',2020),
+(53,'Ananya Nair','ananya.nair53@example.com','pass123','2000-11-21','student',2021),
+(54,'Kabir Patel','kabir.patel54@example.com','pass123','2002-02-15','student',2022),
+(55,'Sara Reddy','sara.reddy55@example.com','pass123','2001-05-27','student',2023),
+(56,'Aditya Khan','aditya.khan56@example.com','pass123','2000-09-03','student',2024),
+(57,'Meera Verma','meera.verma57@example.com','pass123','2002-08-12','student',2025),
+(58,'Dev Sharma','dev.sharma58@example.com','pass123','2001-04-19','student',2019),
+(59,'Tania Mehta','tania.mehta59@example.com','pass123','2000-07-28','student',2020),
+(60,'Rishi Patel','rishi.patel60@example.com','pass123','2002-11-06','student',2021),
+(61,'Isha Singh','isha.singh61@example.com','pass123','2001-01-24','student',2022),
+(62,'Rohan Khan','rohan.khan62@example.com','pass123','2000-05-11','student',2023),
+(63,'Alia Mehta','alia.mehta63@example.com','pass123','2002-03-03','student',2024),
+(64,'Kabir Sharma','kabir.sharma64@example.com','pass123','2001-06-15','student',2025),
+(65,'Neha Singh','neha.singh65@example.com','pass123','2000-08-29','student',2019),
+(66,'Rohan Mehta','rohan.mehta66@example.com','pass123','2002-12-13','student',2020),
+(67,'Ananya Patel','ananya.patel67@example.com','pass123','2001-04-07','student',2021),
+(68,'Kabir Verma','kabir.verma68@example.com','pass123','2000-09-19','student',2022),
+(69,'Sara Kapoor','sara.kapoor69@example.com','pass123','2002-05-14','student',2023),
+(70,'Aditya Mehta','aditya.mehta70@example.com','pass123','2001-11-08','student',2024),
+(71,'Meera Sharma','meera.sharma71@example.com','pass123','2000-02-27','student',2025),
+(72,'Dev Patel','dev.patel72@example.com','pass123','2002-06-19','student',2019),
+(73,'Tania Khan','tania.khan73@example.com','pass123','2001-09-05','student',2020),
+(74,'Rishi Verma','rishi.verma74@example.com','pass123','2000-12-22','student',2021),
+(75,'Isha Mehta','isha.mehta75@example.com','pass123','2002-03-30','student',2022),
+(76,'Rohan Singh','rohan.singh76@example.com','pass123','2001-07-12','student',2023),
+(77,'Alia Verma','alia.verma77@example.com','pass123','2000-10-16','student',2024),
+(78,'Kabir Kapoor','kabir.kapoor78@example.com','pass123','2002-01-28','student',2025),
+(79,'Neha Reddy','neha.reddy79@example.com','pass123','2001-03-06','student',2019),
+(80,'Rohan Malhotra','rohan.malhotra80@example.com','pass123','2000-06-18','student',2020),
+(81,'Ananya Kapoor','ananya.kapoor81@example.com','pass123','2002-08-24','student',2021),
+(82,'Kabir Nair','kabir.nair82@example.com','pass123','2001-11-03','student',2022),
+(83,'Sara Sharma','sara.sharma83@example.com','pass123','2000-02-12','student',2023),
+(84,'Aditya Verma','aditya.verma84@example.com','pass123','2002-04-25','student',2024),
+(85,'Meera Kapoor','meera.kapoor85@example.com','pass123','2001-07-19','student',2025),
+(86,'Dev Mehta','dev.mehta86@example.com','pass123','2000-09-28','student',2019),
+(87,'Tania Verma','tania.verma87@example.com','pass123','2002-01-05','student',2020),
+(88,'Rishi Kapoor','rishi.kapoor88@example.com','pass123','2001-03-23','student',2021),
+(89,'Isha Reddy','isha.reddy89@example.com','pass123','2000-06-02','student',2022),
+(90,'Rohan Patel','rohan.patel90@example.com','pass123','2002-09-11','student',2023),
+(91,'Alia Sharma','alia.sharma91@example.com','pass123','2001-12-07','student',2024),
+(92,'Kabir Mehta','kabir.mehta92@example.com','pass123','2000-05-21','student',2025),
+(93,'Neha Kapoor','neha.kapoor93@example.com','pass123','2002-02-17','student',2019),
+(94,'Rohan Singh','rohan.singh94@example.com','pass123','2001-06-30','student',2020),
+(95,'Ananya Verma','ananya.verma95@example.com','pass123','2000-08-13','student',2021),
+(96,'Kabir Sharma','kabir.sharma96@example.com','pass123','2002-12-29','student',2022),
+(97,'Sara Khan','sara.khan97@example.com','pass123','2001-03-14','student',2023),
+(98,'Aditya Reddy','aditya.reddy98@example.com','pass123','2000-07-01','student',2024),
+(99,'Meera Verma','meera.verma99@example.com','pass123','2002-11-12','student',2025),
+(100,'Dev Kapoor','dev.kapoor100@example.com','pass123','2001-01-20','student',2019);
+
+INSERT INTO users (id, name, email, password, date_of_birth, user_type) VALUES
+(101,'Raj Mehta','raj.mehta101@example.com','teachpass','1985-04-15','teacher'),
+(102,'Isha Kapoor','isha.kapoor102@example.com','teachpass','1980-11-03','teacher'),
+(103,'Arjun Gupta','arjun.gupta103@example.com','teachpass','1978-06-21','teacher'),
+(104,'Tania Singh','tania.singh104@example.com','teachpass','1983-09-09','teacher'),
+(105,'Neha Reddy','neha.reddy105@example.com','teachpass','1982-12-18','teacher'),
+(106,'Vikram Jain','vikram.jain106@example.com','teachpass','1979-08-05','teacher'),
+(107,'Ayesha Khan','ayesha.khan107@example.com','teachpass','1986-01-22','teacher'),
+(108,'Siddharth Rao','siddharth.rao108@example.com','teachpass','1981-05-14','teacher');
+
+
+
+INSERT INTO staff (user_id, department, salary) VALUES
+(101,'CS',85000.00),
+(102,'EE',90000.00),
+(103,'ME',78000.00),
+(104,'CS',88000.00),
+(105,'EE',87000.00),
+(106,'ME',92000.00),
+(107,'CS',89000.00),
+(108,'EE',91000.00);
+
+
+
+INSERT INTO users (id, name, email, password, date_of_birth, user_type) VALUES
+(150,'Admin One','admin1@example.com','adminpass','1975-05-01','admin'),
+(151,'Admin Two','admin2@example.com','adminpass','1972-09-11','admin');
+
+
+
+
+INSERT INTO admins (user_id, admin_level, permissions) VALUES
+(150,1,'all'),
+(151,2,'manage_users,manage_staff');</sql><current_tab id="0"/></tab_sql></sqlb_project>
