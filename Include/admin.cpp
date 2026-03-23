@@ -1,6 +1,7 @@
-#include "Admin.h"
+#include "admin.h"
 #include "Resources.h"
 #include "Library.h"
+#include "FileHandler.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -28,48 +29,49 @@ int Admin::getBorrowDays() const { return 0; }    // admin does not borrow
 void Admin::printAllCustomersReport(Library &lib)
 {
     cout << "\n--- Customers Report ---" << endl;
-    cout << left << setw(6)  << "ID"
-                 << setw(25) << "Name"
-                 << setw(12) << "Type"
-                 << setw(20) << "Username"
-                 << setw(10) << "Balance" << endl;
+    cout << left << setw(6) << "ID"
+         << setw(25) << "Name"
+         << setw(12) << "Type"
+         << setw(20) << "Username"
+         << setw(10) << "Balance" << endl;
     cout << string(73, '-') << endl;
 
     for (auto u : lib.getUsers())
     {
-        cout << left << setw(6)  << u->getUserID()
-                     << setw(25) << u->getName()
-                     << setw(12) << u->getType()
-                     << setw(20) << u->getUsername()
-                     << setw(10) << u->getBalance() << endl;
+        cout << left << setw(6) << u->getUserID()
+             << setw(25) << u->getName()
+             << setw(12) << u->getType()
+             << setw(20) << u->getUsername()
+             << setw(10) << u->getBalance() << endl;
     }
 
     cout << "\n--- Borrowing History ---" << endl;
-    cout << left << setw(8)  << "User ID"
-                 << setw(30) << "Resource"
-                 << setw(25) << "Borrowed"
-                 << setw(25) << "Due"
-                 << setw(15) << "Returned"
-                 << setw(8)  << "Fine" << endl;
+    cout << left << setw(8) << "User ID"
+         << setw(30) << "Resource"
+         << setw(25) << "Borrowed"
+         << setw(25) << "Due"
+         << setw(15) << "Returned"
+         << setw(8) << "Fine" << endl;
     cout << string(111, '-') << endl;
 
     for (const auto &record : lib.getBorrowHistory())
     {
         // ctime adds newline at end so we strip it for clean output
-        string borrowed  = ctime(&record.borrowDate);
-        string due       = ctime(&record.dueDate);
-        string returned  = record.returnDate == 0 ? "Not yet" : ctime(&record.returnDate);
+        string borrowed = ctime(&record.borrowDate);
+        string due = ctime(&record.dueDate);
+        string returned = record.returnDate == 0 ? "Not yet" : ctime(&record.returnDate);
 
-        borrowed.pop_back();  // remove trailing newline from ctime
+        borrowed.pop_back(); // remove trailing newline from ctime
         due.pop_back();
-        if (record.returnDate != 0) returned.pop_back();
+        if (record.returnDate != 0)
+            returned.pop_back();
 
-        cout << left << setw(8)  << record.userID
-                     << setw(30) << record.resource->getTitle()
-                     << setw(25) << borrowed
-                     << setw(25) << due
-                     << setw(15) << returned
-                     << setw(8)  << record.fine << endl;
+        cout << left << setw(8) << record.userID
+             << setw(30) << record.resource->getTitle()
+             << setw(25) << borrowed
+             << setw(25) << due
+             << setw(15) << returned
+             << setw(8) << record.fine << endl;
     }
 }
 
@@ -85,8 +87,7 @@ void Admin::addResource(Library &lib)
     cin >> choice;
 
     // auto generate ID from last resource in vector
-    int ID = lib.getResources().empty() ? 1 : lib.getResources().back()->getResourceID() + 1;
-
+    int ID = generateNewResourceID("database ( CSV )/resources.csv");
     int totalCopies;
     string title, author, category;
 
@@ -252,10 +253,10 @@ void Admin::updateResource(Library &lib)
 void Admin::printIssuedResources(Library &lib)
 {
     cout << "\n--- Issued Resources ---" << endl;
-    cout << left << setw(6)  << "ID"
-                 << setw(35) << "Title"
-                 << setw(15) << "Type"
-                 << setw(15) << "Issued Copies" << endl;
+    cout << left << setw(6) << "ID"
+         << setw(35) << "Title"
+         << setw(15) << "Type"
+         << setw(15) << "Issued Copies" << endl;
     cout << string(71, '-') << endl;
 
     bool found = false;
@@ -263,10 +264,10 @@ void Admin::printIssuedResources(Library &lib)
     {
         if (r->getAvailableCopies() < r->getTotalCopies())
         {
-            cout << left << setw(6)  << r->getResourceID()
-                         << setw(35) << r->getTitle()
-                         << setw(15) << r->getType()
-                         << setw(15) << (r->getTotalCopies() - r->getAvailableCopies()) << endl;
+            cout << left << setw(6) << r->getResourceID()
+                 << setw(35) << r->getTitle()
+                 << setw(15) << r->getType()
+                 << setw(15) << (r->getTotalCopies() - r->getAvailableCopies()) << endl;
             found = true;
         }
     }
@@ -279,8 +280,8 @@ void Admin::printOverdueResources(Library &lib)
 {
     cout << "\n--- Overdue Resources ---" << endl;
     cout << left << setw(10) << "User ID"
-                 << setw(35) << "Resource"
-                 << setw(15) << "Days Overdue" << endl;
+         << setw(35) << "Resource"
+         << setw(15) << "Days Overdue" << endl;
     cout << string(60, '-') << endl;
 
     time_t now = time(0);
@@ -291,8 +292,8 @@ void Admin::printOverdueResources(Library &lib)
         if (record.returnDate == 0 && difftime(now, record.dueDate) > 0)
         {
             cout << left << setw(10) << record.userID
-                         << setw(35) << record.resource->getTitle()
-                         << setw(15) << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24)) << endl;
+                 << setw(35) << record.resource->getTitle()
+                 << setw(15) << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24)) << endl;
             found = true;
         }
     }
@@ -304,9 +305,9 @@ void Admin::printOverdueResources(Library &lib)
 void Admin::generateStats(Library &lib)
 {
     cout << "\n--- Library Statistics ---" << endl;
-    cout << left << setw(25) << "Total Users"     << lib.getUsers().size()         << endl;
-    cout << left << setw(25) << "Total Resources"  << lib.getResources().size()     << endl;
-    cout << left << setw(25) << "Total Borrows"    << lib.getBorrowHistory().size() << endl;
+    cout << left << setw(25) << "Total Users" << lib.getUsers().size() << endl;
+    cout << left << setw(25) << "Total Resources" << lib.getResources().size() << endl;
+    cout << left << setw(25) << "Total Borrows" << lib.getBorrowHistory().size() << endl;
 
     // find most borrowed resource
     int maxCount = 0;
@@ -354,7 +355,8 @@ void Admin::exportReports(Library &lib, const string &filename)
         }
     }
 
-    out << endl << "--- Overdue Resources ---" << endl;
+    out << endl
+        << "--- Overdue Resources ---" << endl;
     time_t now = time(0);
     for (const auto &record : lib.getBorrowHistory())
     {
@@ -374,16 +376,16 @@ void Admin::exportReports(Library &lib, const string &filename)
 void Admin::fineManagement(Library &lib)
 {
     cout << "\n--- Fine Management ---" << endl;
-    cout << left << setw(6)  << "ID"
-                 << setw(25) << "Name"
-                 << setw(10) << "Balance" << endl;
+    cout << left << setw(6) << "ID"
+         << setw(25) << "Name"
+         << setw(10) << "Balance" << endl;
     cout << string(41, '-') << endl;
 
     for (auto u : lib.getUsers())
     {
-        cout << left << setw(6)  << u->getUserID()
-                     << setw(25) << u->getName()
-                     << setw(10) << u->getBalance() << endl;
+        cout << left << setw(6) << u->getUserID()
+             << setw(25) << u->getName()
+             << setw(10) << u->getBalance() << endl;
     }
 }
 

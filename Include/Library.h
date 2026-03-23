@@ -46,7 +46,6 @@ public:
 
     // ---------- User Management ----------
     void addUser(User *user);
-    void showUsers() const;
 
     // ---------- Borrowing Logic ----------
     bool borrowResource(User *user, LibraryResource *res); // duration comes from user type
