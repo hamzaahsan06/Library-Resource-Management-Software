@@ -56,19 +56,20 @@ void Library::addUser(User *user)
 
 void Library::showResources() const
 {
-    cout << "\n" << "Resources in " << libraryName << endl;
-    cout << left << setw(6)  << "ID"
-                 << setw(35) << "Title"
-                 << setw(15) << "Type"
-                 << setw(15) << "Available" << endl;
+    cout << "\n"
+         << "Resources in " << libraryName << endl;
+    cout << left << setw(6) << "ID"
+         << setw(35) << "Title"
+         << setw(15) << "Type"
+         << setw(15) << "Available" << endl;
     cout << string(71, '-') << endl;
 
     for (auto res : resources)
     {
-        cout << left << setw(6)  << res->getResourceID()
-                     << setw(35) << res->getTitle()
-                     << setw(15) << res->getType()
-                     << setw(15) << res->getAvailableCopies() << endl;
+        cout << left << setw(6) << res->getResourceID()
+             << setw(35) << res->getTitle()
+             << setw(15) << res->getType()
+             << setw(15) << res->getAvailableCopies() << endl;
     }
 }
 
@@ -82,9 +83,9 @@ bool Library::borrowResource(User *user, LibraryResource *res)
     // loop through each borrow record by reference so changes reflect in original
     for (auto &record : borrowHistory)
     {
-        if (record.userID == user->getUserID() &&                   // same user
-            record.returnDate == 0 &&                               // not yet returned
-            difftime(now, record.borrowDate) <= 24 * 60 * 60)      // borrowed within last 24 hours
+        if (record.userID == user->getUserID() &&             // same user
+            record.returnDate == 0 &&                         // not yet returned
+            difftime(now, record.borrowDate) <= 24 * 60 * 60) // borrowed within last 24 hours
         {
             countToday++;
         }
@@ -150,7 +151,8 @@ bool Library::returnResource(User *user, LibraryResource *res)
 // ---------- Borrow History ----------
 void Library::showBorrowHistory() const
 {
-    cout << "\n" << "Borrow History" << endl;
+    cout << "\n"
+         << "Borrow History" << endl;
     for (auto &record : borrowHistory)
     {
         cout << "Resource : " << record.resource->getTitle() << endl;

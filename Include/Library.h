@@ -13,7 +13,6 @@ using namespace std;
 class Library
 {
 private:
-
     // tracks a single borrowing transaction
     struct BorrowRecord
     {
@@ -21,8 +20,9 @@ private:
         LibraryResource *resource; // what was borrowed
         time_t borrowDate;
         time_t dueDate;
-        time_t returnDate;         // 0 if not yet returned
+        time_t returnDate; // 0 if not yet returned
         double fine;
+        int durationDays;
 
         // calculates due date from user's borrow duration
         BorrowRecord(int uid, LibraryResource *res, int durationDays);
@@ -63,16 +63,16 @@ public:
     void showBorrowHistory() const;
 
     // ---------- search resources ----------
-    vector<LibraryResource *> searchResources(const string &keyword) const;
+    void searchResources() const;
 
     // ---------- Getters ----------
     string getLibraryName() const;
-    vector<User *> &getUsers();                    // by reference — FileHandler fills directly
-    vector<LibraryResource *> &getResources();     // by reference — FileHandler fills directly
-    vector<BorrowRecord> &getBorrowHistory();      // by reference — FileHandler fills directly
+    vector<User *> &getUsers();                // by reference — FileHandler fills directly
+    vector<LibraryResource *> &getResources(); // by reference — FileHandler fills directly
+    vector<BorrowRecord> &getBorrowHistory();  // by reference — FileHandler fills directly
 
     // ---------- Destructor ----------
     ~Library(); // frees all heap memory
 };
 
-#endif
+#endif 
