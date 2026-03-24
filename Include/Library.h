@@ -63,7 +63,7 @@ public:
     void showBorrowHistory() const;
 
     // ---------- search resources ----------
-    vector<LibraryResource *> searchResources(const string &keyword) const;
+    void searchResources() const;
 
     // ---------- Getters ----------
     string getLibraryName() const;
