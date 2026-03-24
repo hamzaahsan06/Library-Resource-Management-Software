@@ -22,16 +22,26 @@ public:
     double getFineRate() const override; // no fines for admin
     int getBorrowDays() const override;  // admin does not borrow
 
-    // ---------- Admin Operations ----------
-    void printAllCustomersReport(Library &lib);               // report of all users and borrow history
-    void addResource(Library &lib);                           // add new resource to library
-    void removeResource(Library &lib);                        // remove existing resource
-    void updateResource(Library &lib);                        // update resource details
-    void printIssuedResources(Library &lib);                  // currently issued resources
-    void printOverdueResources(Library &lib);                 // overdue resources
+    // ---------- User Management ----------
+    void printAllCustomersReport(Library &lib); // report of all users and borrow history
+    void searchUser(Library &lib);              // search user by ID
+    void fineManagement(Library &lib);          // view all user balances and fines
+
+    // ---------- Resource Management ----------
+    void addResource(Library &lib);    // add new resource to library
+    void removeResource(Library &lib); // remove existing resource
+    void updateResource(Library &lib); // update resource details
+
+    // ---------- Circulation / Borrowing Management ----------
+    void printIssuedResources(Library &lib);  // currently issued resources
+    void printOverdueResources(Library &lib); // overdue resources
+
+    // ---------- Reports & Analytics ----------
     void generateStats(Library &lib);                         // library statistics
     void exportReports(Library &lib, const string &filename); // export report to file
-    void fineManagement(Library &lib);                        // view all user balances and fines
+
+    // ---------- Special / Additional Features ----------
+    void collectDonationFromUser(User *u, Library &lib); // adds donated resource and rewards user balance
 
     // ---------- Display ----------
     void displayInfo() const override;
