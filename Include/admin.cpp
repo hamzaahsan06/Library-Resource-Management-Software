@@ -1,7 +1,7 @@
 #include "admin.h"
 #include "Resources.h"
 #include "Library.h"
-#include "FileHandler.h"
+#include "../FileHandling/FileHandler.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
@@ -87,7 +87,7 @@ void Admin::addResource(Library &lib)
     cin >> choice;
 
     // auto generate ID from last resource in vector
-    int ID = generateNewResourceID("database ( CSV )/resources.csv");
+    int ID = generateNewResourceID("../database/resources.csv");
     int totalCopies;
     string title, author, category;
 
