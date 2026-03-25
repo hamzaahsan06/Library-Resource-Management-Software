@@ -49,11 +49,12 @@ public:
 
     // ---------- User Management ----------
     void addUser(User *user);
+
+    // remaining
     void registerUser(); // collects user info from input and adds to users vector
     void changePassword(User *u); // asks for new password and updates user account
-
-    // ---------- create user account from input ----------
-    void registerUser();
+    void showUserProfile(User *u) const; // shows user's own details and borrow history
+    User* loginUser(); // searches users vector by username and password, returns matched user
 
     // ---------- Borrowing Logic ----------
     bool borrowResource(User *user, LibraryResource *res); // duration comes from user type
