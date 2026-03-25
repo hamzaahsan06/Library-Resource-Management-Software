@@ -1,38 +1,47 @@
-CSV Columns of users.csv
+For Library.h
+-------------------------------------------
+Method 1: ( Haseeb )
+void registerUser(); // exixts in library and when user clicks on sign up then in main this function will executes 
+def : Copy paste add resource from main with user attributes
 
-userID
-type
-username
-password
-name
-address
-balance
-department
-rollNo
-designation
-position
-membershipLevel
+method 2: ( Moosa )
+void changePassword(user *u) 
+exist in library
+def : asks password and set 
 
-CSV Columns of resources.h
 
-resourceID
-type
-title
-authorCreator
-category
-totalCopies
-availableCopies
-availabilityStatus
-ISBN
-publisher
-yearPublished
-director
-durationMinutes
-genre
-narrator
-format
-volumeNumber
-issueNumber
-publicationDate
-editionDate
-region
+method 3:( Haseeb )
+void searchResources() const;
+search resources. ( already discussed with brother haseeb )
+
+method 4: ( Moosa )
+User* loginUser(); // searches users vector by username and password, returns matched user
+exist in library
+calls login function of user
+return matched user 
+save this user in a pointer and pass it in required functions in main. 
+
+method 5: ( Moosa )
+void showUserProfile(User *u) const; // shows logged in user's own details
+exist in library.h
+and outputs ( prints ) all details of user i tabular format
+we have to print fine and all things of users thats why esist in library and not in users.cpp.
+
+method 6: ( Haseeb )
+void showAvailableResources() const;
+exist in library.h
+
+For Admin.h
+-------------------------------------------
+Method 1: ( Moosa )
+void collectDonationFromUser(User *u); ( 
+exist in admin and calls when user wants to donate resource ( noted that here admin is using portal not user { it seems to be bad but in basic LMS I guess its ok )
+calls add resource function of admin
+calls update balance of user
+
+method 2:( Moosa )
+searchUser(Library &lib)
+exist in admin
+def : asks id 
+execute loop like other admin function has and compare id and display in tabular format.
+
