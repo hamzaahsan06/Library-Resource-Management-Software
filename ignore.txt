@@ -34,8 +34,8 @@ exist in library.h
 For Admin.h
 -------------------------------------------
 Method 1: ( Moosa )
-void collectDonationFromUser(User *u); ( 
-exist in admin and calls when user wants to donate resource ( noted that here admin is using portal not user { it seems to be bad but in basic LMS I guess its ok )
+void collectDonationFromUser(User *u);  
+exist in admin and calls when user wants to donate resource ( noted that here admin is using portal not user )
 calls add resource function of admin
 calls update balance of user
 
