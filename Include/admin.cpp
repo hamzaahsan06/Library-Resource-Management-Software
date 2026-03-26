@@ -38,11 +38,14 @@ void Admin::printAllCustomersReport(Library &lib)
 
     for (auto u : lib.getUsers())
     {
-        cout << left << setw(6) << u->getUserID()
-             << setw(25) << u->getName()
-             << setw(12) << u->getType()
-             << setw(20) << u->getUsername()
-             << setw(10) << u->getBalance() << endl;
+        if (!u->getIsDeleted()) // skip deleted users
+        {
+            cout << left << setw(6) << u->getUserID()
+                 << setw(25) << u->getName()
+                 << setw(12) << u->getType()
+                 << setw(20) << u->getUsername()
+                 << setw(10) << u->getBalance() << endl;
+        }
     }
 
     cout << "\n--- Borrowing History ---" << endl;
@@ -73,6 +76,29 @@ void Admin::printAllCustomersReport(Library &lib)
              << setw(15) << returned
              << setw(8) << record.fine << endl;
     }
+}
+
+void Admin::deleteUser(Library &lib)
+{
+    int id;
+    cout << "Enter user ID to delete: ";
+    cin >> id;
+
+    for (auto u : lib.getUsers())
+    {
+        if (u->getUserID() == id)
+        {
+            if (u->getIsDeleted())
+            {
+                cout << "User already deleted." << endl;
+                return;
+            }
+            u->markDeleted();
+            cout << "User \"" << u->getName() << "\" marked as deleted." << endl;
+            return;
+        }
+    }
+    cout << "User with ID " << id << " not found." << endl;
 }
 
 void Admin::addResource(Library &lib)
@@ -182,26 +208,26 @@ void Admin::addResource(Library &lib)
     cout << "Resource added successfully." << endl;
 }
 
-void Admin::removeResource(Library &lib)
+void Admin::deleteResource(Library &lib)
 {
     int id;
-    cout << "Enter resource ID to remove: ";
+    cout << "Enter resource ID to delete: ";
     cin >> id;
 
-    auto &resources = lib.getResources(); // reference to library's resources vector
-
-    for (auto it = resources.begin(); it != resources.end(); ++it)
+    for (auto r : lib.getResources())
     {
-        if ((*it)->getResourceID() == id)
+        if (r->getResourceID() == id)
         {
-            cout << "Removing: " << (*it)->getTitle() << endl;
-            delete *it;          // free heap memory
-            resources.erase(it); // remove pointer from vector
-            cout << "Resource removed successfully." << endl;
+            if (r->getIsDeleted())
+            {
+                cout << "Resource already deleted." << endl;
+                return;
+            }
+            r->markDeleted();
+            cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
             return;
         }
     }
-
     cout << "Resource with ID " << id << " not found." << endl;
 }
 

@@ -13,7 +13,7 @@ using namespace std;
 class Library
 {
 private:
-    // tracks a single borrowgit pulling transaction
+    // tracks a single borrowing transaction
     struct BorrowRecord
     {
         int userID;                // who borrowed

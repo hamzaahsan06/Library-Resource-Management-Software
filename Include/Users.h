@@ -10,12 +10,13 @@ class User
 {
 protected:
     int userID;
-    string type;      // "student", "teacher", "staff", "premium"
+    string type; // "student", "teacher", "staff", "premium"
     string username;
     string password;
     string name;
     string address;
     double balance;
+    bool isDeleted; // marks user as deleted without removing from vector
 
 public:
     // ---------- Constructors ----------
@@ -41,12 +42,16 @@ public:
     bool login(string user, string pass);
 
     // ---------- Role-based Rules ----------
-    virtual int getDailyLimit() const = 0;   // max resources per day — differs by type
-    virtual double getFineRate() const = 0;  // fine per overdue day — differs by type
-    virtual int getBorrowDays() const = 0;   // max days to keep resource — differs by type
+    virtual int getDailyLimit() const = 0;  // max resources per day — differs by type
+    virtual double getFineRate() const = 0; // fine per overdue day — differs by type
+    virtual int getBorrowDays() const = 0;  // max days to keep resource — differs by type
 
     // ---------- Display ----------
     virtual void displayInfo() const = 0;
+
+    // For marking user as deleted
+    void markDeleted();        // marks user as deleted
+    bool getIsDeleted() const; // returns deleted status
 
     virtual ~User() {}
 };
@@ -69,9 +74,9 @@ public:
     int getRollNo() const;
 
     // ---------- Role Rules ----------
-    int getDailyLimit() const override;   // max 2 resources/day
-    double getFineRate() const override;  // 10 per overdue day
-    int getBorrowDays() const override;   // 7 days to return
+    int getDailyLimit() const override;  // max 2 resources/day
+    double getFineRate() const override; // 10 per overdue day
+    int getBorrowDays() const override;  // 7 days to return
 
     // ---------- Display ----------
     void displayInfo() const override;
@@ -95,9 +100,9 @@ public:
     string getDesignation() const;
 
     // ---------- Role Rules ----------
-    int getDailyLimit() const override;   // max 3 resources/day
-    double getFineRate() const override;  // 20 per overdue day
-    int getBorrowDays() const override;   // 14 days to return
+    int getDailyLimit() const override;  // max 3 resources/day
+    double getFineRate() const override; // 20 per overdue day
+    int getBorrowDays() const override;  // 14 days to return
 
     // ---------- Display ----------
     void displayInfo() const override;
@@ -119,9 +124,9 @@ public:
     string getPosition() const;
 
     // ---------- Role Rules ----------
-    int getDailyLimit() const override;   // max 4 resources/day
-    double getFineRate() const override;  // 5 per overdue day
-    int getBorrowDays() const override;   // 14 days to return
+    int getDailyLimit() const override;  // max 4 resources/day
+    double getFineRate() const override; // 5 per overdue day
+    int getBorrowDays() const override;  // 14 days to return
 
     // ---------- Display ----------
     void displayInfo() const override;
@@ -143,9 +148,9 @@ public:
     string getMembershipLevel() const;
 
     // ---------- Role Rules ----------
-    int getDailyLimit() const override;   // max 5 resources/day
-    double getFineRate() const override;  // 3 per overdue day
-    int getBorrowDays() const override;   // 30 days to return
+    int getDailyLimit() const override;  // max 5 resources/day
+    double getFineRate() const override; // 3 per overdue day
+    int getBorrowDays() const override;  // 30 days to return
 
     // ---------- Display ----------
     void displayInfo() const override;

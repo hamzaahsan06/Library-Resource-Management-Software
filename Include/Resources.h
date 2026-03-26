@@ -10,13 +10,14 @@ class LibraryResource
 {
 protected:
     int resourceID;
-    string type;               // "book", "dvd", "audiobook", "magazine", "newspaper"
+    string type; // "book", "dvd", "audiobook", "magazine", "newspaper"
     string title;
     string authorCreator;
     string category;
     string availabilityStatus; // "Available", "Partially Available", "Borrowed"
     int totalCopies;
     int availableCopies;
+    bool isDeleted; // marks resource as deleted without removing from vector
 
 public:
     // default constructor
@@ -56,6 +57,10 @@ public:
 
     // each derived class must define its own display
     virtual void displayInfo() = 0;
+
+    // For marking resource as deleted
+    void markDeleted();        // marks resource as deleted
+    bool getIsDeleted() const; // returns deleted status
 
     virtual ~LibraryResource() {}
 };

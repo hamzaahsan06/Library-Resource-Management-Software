@@ -14,6 +14,7 @@ User::User()
     name = "Unknown";
     address = "Unknown";
     balance = 0.0;
+    isDeleted = false;
 }
 
 User::User(int ID, string type, string username, string password,
@@ -26,6 +27,7 @@ User::User(int ID, string type, string username, string password,
     this->name = name;
     this->address = address;
     this->balance = balance;
+    isDeleted = false;
 }
 
 // ---------- Getters ----------
@@ -47,6 +49,10 @@ bool User::login(string user, string pass)
 {
     return (username == user && password == pass);
 }
+
+// For marking user as deleted
+void User::markDeleted() { isDeleted = true; }
+bool User::getIsDeleted() const { return isDeleted; }
 
 // ===================== Student =====================
 
@@ -72,9 +78,9 @@ string Student::getDepartment() const { return department; }
 int Student::getRollNo() const { return rollNo; }
 
 // ---------- Role Rules ----------
-int Student::getDailyLimit() const { return 2; }    // max 2 resources/day
-double Student::getFineRate() const { return 10.0; }// 10 per overdue day
-int Student::getBorrowDays() const { return 7; }    // must return in 7 days
+int Student::getDailyLimit() const { return 2; }     // max 2 resources/day
+double Student::getFineRate() const { return 10.0; } // 10 per overdue day
+int Student::getBorrowDays() const { return 7; }     // must return in 7 days
 
 // ---------- Display ----------
 void Student::displayInfo() const
@@ -171,8 +177,8 @@ PremiumMember::PremiumMember() : User()
 }
 
 PremiumMember::PremiumMember(int ID, string username, string password,
-                              string name, string address, double balance,
-                              string level)
+                             string name, string address, double balance,
+                             string level)
     : User(ID, "premium", username, password, name, address, balance)
 {
     membershipLevel = level;

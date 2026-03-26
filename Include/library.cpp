@@ -66,10 +66,13 @@ void Library::showResources() const
 
     for (auto res : resources)
     {
+        if (!res->getIsDeleted()) // skip deleted resources
+        {
         cout << left << setw(6) << res->getResourceID()
              << setw(35) << res->getTitle()
              << setw(15) << res->getType()
              << setw(15) << res->getAvailableCopies() << endl;
+        }
     }
 }
 

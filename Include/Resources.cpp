@@ -15,11 +15,12 @@ LibraryResource::LibraryResource()
     totalCopies = 1;
     availableCopies = 1;
     availabilityStatus = "Available";
+    isDeleted = false;
 }
 
 // parameterized constructor
 LibraryResource::LibraryResource(int ID, string type, string title,
-                                  string authorCreator, string category, int totalCopies)
+                                 string authorCreator, string category, int totalCopies)
 {
     resourceID = ID;
     this->type = type;
@@ -29,6 +30,7 @@ LibraryResource::LibraryResource(int ID, string type, string title,
     this->totalCopies = totalCopies;
     this->availableCopies = totalCopies; // initially all copies available
     availabilityStatus = "Available";
+    isDeleted = false;
 }
 
 // getters
@@ -85,6 +87,10 @@ void LibraryResource::returnResource()
         updateStatus();
     }
 }
+
+// For marking resource as deleted
+void LibraryResource::markDeleted() { isDeleted = true; }
+bool LibraryResource::getIsDeleted() const { return isDeleted; }
 
 // ===================== Book =====================
 
