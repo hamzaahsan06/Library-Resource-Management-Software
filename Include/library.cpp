@@ -71,11 +71,15 @@ void Library::showResources() const
     }
 }
 
+// ===================== HASEEB PART =====================
+
 // ---------- Register User ----------
 void Library::registerUser()
 {
     int id;
-    string name, username, password;
+    string username, password, name, address;
+    double balance;
+    int choice;
 
     cout << "\n===== Register User =====\n";
 
@@ -92,9 +96,70 @@ void Library::registerUser()
     cout << "Enter Password: ";
     cin >> password;
 
-    User* newUser = new User(id, name, username, password);
-    users.push_back(newUser);
+    cin.ignore();
+    cout << "Enter Address: ";
+    getline(cin, address);
 
+    cout << "Enter Balance: ";
+    cin >> balance;
+
+    cout << "\nSelect User Type:\n";
+    cout << "1. Student\n2. Teacher\n3. Staff\n4. Premium Member\n";
+    cout << "Choice: ";
+    cin >> choice;
+
+    User* newUser = nullptr;
+
+    if (choice == 1)
+    {
+        string dept;
+        int roll;
+
+        cout << "Enter Department: ";
+        cin >> dept;
+
+        cout << "Enter Roll No: ";
+        cin >> roll;
+
+        newUser = new Student(id, username, password, name, address, balance, dept, roll);
+    }
+    else if (choice == 2)
+    {
+        string dept, designation;
+
+        cout << "Enter Department: ";
+        cin >> dept;
+
+        cout << "Enter Designation: ";
+        cin >> designation;
+
+        newUser = new Teacher(id, username, password, name, address, balance, dept, designation);
+    }
+    else if (choice == 3)
+    {
+        string position;
+
+        cout << "Enter Position: ";
+        cin >> position;
+
+        newUser = new Staff(id, username, password, name, address, balance, position);
+    }
+    else if (choice == 4)
+    {
+        string level;
+
+        cout << "Enter Membership Level: ";
+        cin >> level;
+
+        newUser = new PremiumMember(id, username, password, name, address, balance, level);
+    }
+    else
+    {
+        cout << "Invalid choice.\n";
+        return;
+    }
+
+    users.push_back(newUser);
     cout << "User registered successfully!\n";
 }
 
@@ -160,7 +225,32 @@ void Library::showAvailableResources() const
 }
 
 
-// ---------- Borrowing Logic ----------
+// ---------- Login User ----------
+User* Library::loginUser()
+{
+    string username, password;
+
+    cout << "Enter username: ";
+    cin >> username;
+
+    cout << "Enter password: ";
+    cin >> password;
+
+    for (auto &u : users)
+    {
+        if (!u->getIsDeleted() && u->login(username, password))
+        {
+            cout << "Login successful!\n";
+            return u;
+        }
+    }
+
+    cout << "Invalid credentials.\n";
+    return nullptr;
+}
+
+// ===================== Borrowing Logic =====================
+
 bool Library::borrowResource(User *user, LibraryResource *res)
 {
     int countToday = 0;
@@ -178,14 +268,13 @@ bool Library::borrowResource(User *user, LibraryResource *res)
 
     if (countToday >= user->getDailyLimit())
     {
-        cout << user->getName() << " has reached the daily borrow limit of "
-             << user->getDailyLimit() << " resources." << endl;
+        cout << user->getName() << " has reached the daily borrow limit.\n";
         return false;
     }
 
     if (!res->isAvailable())
     {
-        cout << "Resource \"" << res->getTitle() << "\" is not available." << endl;
+        cout << "Resource not available.\n";
         return false;
     }
 
@@ -193,7 +282,7 @@ bool Library::borrowResource(User *user, LibraryResource *res)
 
     borrowHistory.push_back(BorrowRecord(user->getUserID(), res, user->getBorrowDays()));
 
-    cout << user->getName() << " successfully borrowed \"" << res->getTitle() << "\"." << endl;
+    cout << "Borrow successful.\n";
     return true;
 }
 
@@ -209,40 +298,40 @@ bool Library::returnResource(User *user, LibraryResource *res)
             record.markReturned(user);
             res->returnResource();
 
-            cout << user->getName() << " returned \"" << res->getTitle() << "\"." << endl;
+            cout << "Returned successfully.\n";
 
             if (record.fine > 0)
-                cout << "Overdue! Fine of " << record.fine << " applied." << endl;
+                cout << "Fine applied: " << record.fine << endl;
 
             return true;
         }
     }
 
-    cout << user->getName() << " has not borrowed \"" << res->getTitle() << "\"." << endl;
+    cout << "No record found.\n";
     return false;
 }
 
 // ---------- Borrow History ----------
 void Library::showBorrowHistory() const
 {
-    cout << "\nBorrow History" << endl;
+    cout << "\nBorrow History\n";
 
     for (auto &record : borrowHistory)
     {
-        cout << "Resource : " << record.resource->getTitle() << endl;
-        cout << "Borrowed : " << ctime(&record.borrowDate);
+        cout << "Resource: " << record.resource->getTitle() << endl;
+        cout << "Borrowed: " << ctime(&record.borrowDate);
 
         if (record.returnDate != 0)
         {
-            cout << "Returned : " << ctime(&record.returnDate);
-            cout << "Fine     : " << record.fine << endl;
+            cout << "Returned: " << ctime(&record.returnDate);
+            cout << "Fine: " << record.fine << endl;
         }
         else
         {
-            cout << "Status   : Not Returned Yet" << endl;
+            cout << "Not returned yet\n";
         }
 
-        cout << "-----------------------" << endl;
+        cout << "----------------\n";
     }
 }
 
