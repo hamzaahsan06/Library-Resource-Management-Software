@@ -302,6 +302,56 @@ void Admin::printIssuedResources(Library &lib)
         cout << "No resources are currently issued." << endl;
 }
 
+void Admin::collectDonationFromUser(User *u, Library &lib)
+{
+    cout << "\n--- Resource Donation ---" << endl;
+    cout << "User: " << u->getName() << endl;
+
+    // collect donated resource details
+    addResource(lib); // reuse existing addResource logic
+
+    // reward user balance based on donation
+    double reward = 100.0; // fixed reward per donation
+    u->updateBalance(reward);
+
+    cout << "Balance rewarded: " << reward << endl;
+    cout << "New balance: " << u->getBalance() << endl;
+}
+
+void Admin::searchUser(Library &lib)
+{
+    int id;
+    cout << "Enter user ID to search: ";
+    cin >> id;
+
+    cout << left << setw(6)  << "ID"
+                 << setw(25) << "Name"
+                 << setw(12) << "Type"
+                 << setw(20) << "Username"
+                 << setw(10) << "Balance"
+                 << setw(10) << "Status" << endl;
+    cout << string(83, '-') << endl;
+
+    bool found = false;
+    for (auto u : lib.getUsers())
+    {
+        if (u->getUserID() == id)
+        {
+            cout << left << setw(6)  << u->getUserID()
+                         << setw(25) << u->getName()
+                         << setw(12) << u->getType()
+                         << setw(20) << u->getUsername()
+                         << setw(10) << u->getBalance()
+                         << setw(10) << (u->getIsDeleted() ? "Deleted" : "Active") << endl;
+            found = true;
+            break;
+        }
+    }
+
+    if (!found)
+        cout << "User with ID " << id << " not found." << endl;
+}
+
 void Admin::printOverdueResources(Library &lib)
 {
     cout << "\n--- Overdue Resources ---" << endl;
