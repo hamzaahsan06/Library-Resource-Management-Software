@@ -16,13 +16,15 @@ protected:
     string name;
     string address;
     double balance;
-    bool isDeleted;
+    bool isDeleted; // marks user as deleted without removing from vector
 
 public:
+    // ---------- Constructors ----------
     User();
     User(int ID, string type, string username, string password,
          string name, string address, double balance);
 
+    // ---------- Getters ----------
     int getUserID() const;
     string getType() const;
     string getUsername() const;
@@ -31,21 +33,25 @@ public:
     string getAddress() const;
     string getPassword() const;
 
+    // ---------- Setters ----------
     void setAddress(const string &addr);
     void setPassword(const string &pass);
-    void updateBalance(double amount);
+    void updateBalance(double amount); // positive to add, negative to deduct
 
-    // ✅ FIXED (const correctness)
-    bool login(const string &user, const string &pass);
+    // ---------- Authentication ----------
+    bool login(string user, string pass);
 
-    virtual int getDailyLimit() const = 0;
-    virtual double getFineRate() const = 0;
-    virtual int getBorrowDays() const = 0;
+    // ---------- Role-based Rules ----------
+    virtual int getDailyLimit() const = 0;  // max resources per day — differs by type
+    virtual double getFineRate() const = 0; // fine per overdue day — differs by type
+    virtual int getBorrowDays() const = 0;  // max days to keep resource — differs by type
 
+    // ---------- Display ----------
     virtual void displayInfo() const = 0;
 
-    void markDeleted();
-    bool getIsDeleted() const;
+    // For marking user as deleted
+    void markDeleted();        // marks user as deleted
+    bool getIsDeleted() const; // returns deleted status
 
     virtual ~User() {}
 };
@@ -57,18 +63,22 @@ class Student : public User
     int rollNo;
 
 public:
+    // ---------- Constructors ----------
     Student();
     Student(int ID, string username, string password,
             string name, string address, double balance,
             string department, int rollNo);
 
+    // ---------- Getters ----------
     string getDepartment() const;
     int getRollNo() const;
 
-    int getDailyLimit() const override;
-    double getFineRate() const override;
-    int getBorrowDays() const override;
+    // ---------- Role Rules ----------
+    int getDailyLimit() const override;  // max 2 resources/day
+    double getFineRate() const override; // 10 per overdue day
+    int getBorrowDays() const override;  // 7 days to return
 
+    // ---------- Display ----------
     void displayInfo() const override;
 };
 
@@ -79,18 +89,22 @@ class Teacher : public User
     string designation;
 
 public:
+    // ---------- Constructors ----------
     Teacher();
     Teacher(int ID, string username, string password,
             string name, string address, double balance,
             string department, string designation);
 
+    // ---------- Getters ----------
     string getDepartment() const;
     string getDesignation() const;
 
-    int getDailyLimit() const override;
-    double getFineRate() const override;
-    int getBorrowDays() const override;
+    // ---------- Role Rules ----------
+    int getDailyLimit() const override;  // max 3 resources/day
+    double getFineRate() const override; // 20 per overdue day
+    int getBorrowDays() const override;  // 14 days to return
 
+    // ---------- Display ----------
     void displayInfo() const override;
 };
 
@@ -100,17 +114,21 @@ class Staff : public User
     string position;
 
 public:
+    // ---------- Constructors ----------
     Staff();
     Staff(int ID, string username, string password,
           string name, string address, double balance,
           string position);
 
+    // ---------- Getters ----------
     string getPosition() const;
 
-    int getDailyLimit() const override;
-    double getFineRate() const override;
-    int getBorrowDays() const override;
+    // ---------- Role Rules ----------
+    int getDailyLimit() const override;  // max 4 resources/day
+    double getFineRate() const override; // 5 per overdue day
+    int getBorrowDays() const override;  // 14 days to return
 
+    // ---------- Display ----------
     void displayInfo() const override;
 };
 
@@ -120,17 +138,21 @@ class PremiumMember : public User
     string membershipLevel;
 
 public:
+    // ---------- Constructors ----------
     PremiumMember();
     PremiumMember(int ID, string username, string password,
                   string name, string address, double balance,
                   string level);
 
+    // ---------- Getters ----------
     string getMembershipLevel() const;
 
-    int getDailyLimit() const override;
-    double getFineRate() const override;
-    int getBorrowDays() const override;
+    // ---------- Role Rules ----------
+    int getDailyLimit() const override;  // max 5 resources/day
+    double getFineRate() const override; // 3 per overdue day
+    int getBorrowDays() const override;  // 30 days to return
 
+    // ---------- Display ----------
     void displayInfo() const override;
 };
 
