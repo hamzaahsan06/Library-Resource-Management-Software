@@ -163,7 +163,7 @@ void Admin::addResource(Library &lib)
     cin >> choice;
 
     // auto generate ID from last resource in vector
-    int ID = generateNewResourceID("database/resources.csv");
+    int ID = generateNewResourceID("../database/resources.csv");
     int totalCopies;
     string title, author, category;
 

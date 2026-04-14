@@ -9,8 +9,8 @@ int main()
     Library lib("My Library");
 
     // ---------- Load Data from CSV ----------
-    ReadUsersFromFile("../database/users.csv", lib.getUsers());
-    ReadResourcesFromFile("../database/resources.csv", lib.getResources());
+    ReadUsersFromFile("database/users.csv", lib.getUsers());
+    ReadResourcesFromFile("database/resources.csv", lib.getResources());
 
     int choice;
 
@@ -198,8 +198,8 @@ int main()
     } while (choice != 0);
 
     // ---------- Save Data Back to CSV ----------
-    SaveUsersToFile("../database/users.csv", lib.getUsers());
-    SaveResourcesToFile("../database/resources.csv", lib.getResources());
+    SaveUsersToFile("database/users.csv", lib.getUsers());
+    SaveResourcesToFile("database/resources.csv", lib.getResources());
 
     return 0;
 }

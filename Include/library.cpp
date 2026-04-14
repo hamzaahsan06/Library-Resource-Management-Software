@@ -114,7 +114,7 @@ void Library::registerUser()
     cout << "4. Premium Member" << endl;
     cin >> choice;
 
-    int id = generateNewUserID("database/users.csv");
+    int id = generateNewUserID("../database/users.csv");
 
     string username, password, name, address;
     double balance;
