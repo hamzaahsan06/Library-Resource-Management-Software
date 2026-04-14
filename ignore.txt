@@ -45,3 +45,7 @@ exist in admin
 def : asks id 
 execute loop like other admin function has and compare id and display in tabular format.
 
+
+To run : 
+Step 1 : g++ main.cpp include/*.cpp filehandling/*.cpp -Iinclude -Ifilehandling -o app
+Step 2 : app

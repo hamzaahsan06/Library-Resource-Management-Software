@@ -51,10 +51,11 @@ public:
     void addUser(User *user);
 
     // remaining
-    void registerUser(); // collects user info from input and adds to users vector
-    void changePassword(User *u); // asks for new password and updates user account
+    void registerUser();                 // collects user info from input and adds to users vector
+    void changePassword(User *u);        // asks for new password and updates user account
     void showUserProfile(User *u) const; // shows user's own details and borrow history
-    User* loginUser(); // searches users vector by username and password, returns matched user
+    User *loginUser();                   // searches users vector by username and password, returns matched user
+    void searchResources() const; // Allows user to search for a specific resource
 
     // ---------- Borrowing Logic ----------
     bool borrowResource(User *user, LibraryResource *res); // duration comes from user type
@@ -64,9 +65,6 @@ public:
 
     // ---------- Borrow History ----------
     void showBorrowHistory() const;
-
-    // ---------- search resources ----------
-    void searchResources() const;
 
     // ---------- Getters ----------
     string getLibraryName() const;
@@ -78,4 +76,4 @@ public:
     ~Library(); // frees all heap memory
 };
 
-#endif 
+#endif
