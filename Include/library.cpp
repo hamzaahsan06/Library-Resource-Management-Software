@@ -1,4 +1,5 @@
 #include "Library.h"
+#include "../FileHandling/FileHandler.h"
 #include <iostream>
 #include <iomanip>
 using namespace std;
@@ -177,7 +178,7 @@ void Library::registerUser()
     users.push_back(u);
     cout << "User registered successfully. ID: " << id << endl;
 }
-
+// ---------- Search ----------
 void Library::searchResources() const
 {
     // Display search options to the user
