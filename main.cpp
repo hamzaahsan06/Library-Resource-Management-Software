@@ -32,7 +32,6 @@ int main()
 
                 if (loggedUser == nullptr)
                 {
-                    cout << "Invalid login!\n";
                     continue;
                 }
 
