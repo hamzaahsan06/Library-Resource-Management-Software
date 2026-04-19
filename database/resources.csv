@@ -500,55 +500,55 @@ resourceID,type,title,authorCreator,category,totalCopies,availableCopies,availab
 499,book,Digital Logic Vol 8,Donald Knuth,AI,3,3,Available,0,978-1-892469435,Pearson,2022,,,,,,,,,,
 500,book,Machine Learning Vol 5,Stuart Russell,AI,4,4,Available,0,978-1-136304071,McGraw Hill,1998,,,,,,,,,,
 501,dvd,The Dark Knight,James Cameron,Movie,3,3,Available,0,,,,James Cameron,173,Adventure,,,,,,,
-502,dvd,Avatar,Christopher Nolan,Movie,5,5,Available,0,,,,Ridley Scott,105,Action,,,,,,,
-503,dvd,Interstellar,Ridley Scott,Movie,5,5,Available,0,,,,James Cameron,155,Action,,,,,,,
-504,dvd,The Dark Knight,Ridley Scott,Movie,1,1,Available,0,,,,Steven Spielberg,152,Drama,,,,,,,
-505,dvd,Gladiator,James Cameron,Movie,5,5,Available,0,,,,Steven Spielberg,149,Drama,,,,,,,
-506,dvd,Interstellar,James Cameron,Movie,4,4,Available,0,,,,Ridley Scott,149,Action,,,,,,,
-507,dvd,The Dark Knight,Christopher Nolan,Movie,2,2,Available,0,,,,James Cameron,131,Sci-Fi,,,,,,,
+502,dvd,Avatar,Ridley Scott,Movie,5,5,Available,0,,,,Ridley Scott,105,Action,,,,,,,
+503,dvd,Interstellar,James Cameron,Movie,5,5,Available,0,,,,James Cameron,155,Action,,,,,,,
+504,dvd,The Dark Knight,Steven Spielberg,Movie,1,1,Available,0,,,,Steven Spielberg,152,Drama,,,,,,,
+505,dvd,Gladiator,Steven Spielberg,Movie,5,5,Available,0,,,,Steven Spielberg,149,Drama,,,,,,,
+506,dvd,Interstellar,Ridley Scott,Movie,4,4,Available,0,,,,Ridley Scott,149,Action,,,,,,,
+507,dvd,The Dark Knight,James Cameron,Movie,2,2,Available,0,,,,James Cameron,131,Sci-Fi,,,,,,,
 508,dvd,The Matrix,Steven Spielberg,Movie,2,2,Available,0,,,,Steven Spielberg,93,Sci-Fi,,,,,,,
-509,dvd,Gladiator,Steven Spielberg,Movie,5,5,Available,0,,,,Ridley Scott,136,Action,,,,,,,
+509,dvd,Gladiator,Ridley Scott,Movie,5,5,Available,0,,,,Ridley Scott,136,Action,,,,,,,
 510,dvd,The Dark Knight,Ridley Scott,Movie,5,5,Available,0,,,,Ridley Scott,126,Action,,,,,,,
 511,dvd,Titanic,Christopher Nolan,Movie,3,3,Available,0,,,,Christopher Nolan,103,Sci-Fi,,,,,,,
-512,dvd,Interstellar,Christopher Nolan,Movie,3,3,Available,0,,,,Steven Spielberg,101,Adventure,,,,,,,
-513,dvd,The Dark Knight,Steven Spielberg,Movie,2,2,Available,0,,,,James Cameron,102,Adventure,,,,,,,
-514,dvd,The Matrix,Steven Spielberg,Movie,2,2,Available,0,,,,Christopher Nolan,127,Adventure,,,,,,,
-515,dvd,Interstellar,Steven Spielberg,Movie,5,5,Available,0,,,,James Cameron,106,Adventure,,,,,,,
+512,dvd,Interstellar,Steven Spielberg,Movie,3,3,Available,0,,,,Steven Spielberg,101,Adventure,,,,,,,
+513,dvd,The Dark Knight,James Cameron,Movie,2,2,Available,0,,,,James Cameron,102,Adventure,,,,,,,
+514,dvd,The Matrix,Christopher Nolan,Movie,2,2,Available,0,,,,Christopher Nolan,127,Adventure,,,,,,,
+515,dvd,Interstellar,James Cameron,Movie,5,5,Available,0,,,,James Cameron,106,Adventure,,,,,,,
 516,dvd,Inception,Steven Spielberg,Movie,2,2,Available,0,,,,Steven Spielberg,133,Adventure,,,,,,,
-517,dvd,Gladiator,Steven Spielberg,Movie,1,1,Available,0,,,,James Cameron,175,Action,,,,,,,
-518,dvd,The Matrix,James Cameron,Movie,4,4,Available,0,,,,Ridley Scott,156,Sci-Fi,,,,,,,
+517,dvd,Gladiator,James Cameron,Movie,1,1,Available,0,,,,James Cameron,175,Action,,,,,,,
+518,dvd,The Matrix,Ridley Scott,Movie,4,4,Available,0,,,,Ridley Scott,156,Sci-Fi,,,,,,,
 519,dvd,Interstellar,Steven Spielberg,Movie,5,5,Available,0,,,,Steven Spielberg,99,Action,,,,,,,
-520,dvd,Avatar,Ridley Scott,Movie,2,2,Available,0,,,,Christopher Nolan,160,Sci-Fi,,,,,,,
+520,dvd,Avatar,Christopher Nolan,Movie,2,2,Available,0,,,,Christopher Nolan,160,Sci-Fi,,,,,,,
 521,dvd,Gladiator,Christopher Nolan,Movie,2,2,Available,0,,,,Christopher Nolan,103,Drama,,,,,,,
 522,dvd,The Dark Knight,Steven Spielberg,Movie,4,4,Available,0,,,,Steven Spielberg,130,Drama,,,,,,,
-523,dvd,Titanic,Steven Spielberg,Movie,5,5,Available,0,,,,James Cameron,139,Sci-Fi,,,,,,,
-524,dvd,Interstellar,Christopher Nolan,Movie,5,5,Available,0,,,,Ridley Scott,120,Sci-Fi,,,,,,,
-525,dvd,Interstellar,Steven Spielberg,Movie,1,1,Available,0,,,,Ridley Scott,140,Action,,,,,,,
-526,dvd,The Dark Knight,Steven Spielberg,Movie,1,1,Available,0,,,,James Cameron,92,Action,,,,,,,
+523,dvd,Titanic,James Cameron,Movie,5,5,Available,0,,,,James Cameron,139,Sci-Fi,,,,,,,
+524,dvd,Interstellar,Ridley Scott,Movie,5,5,Available,0,,,,Ridley Scott,120,Sci-Fi,,,,,,,
+525,dvd,Interstellar,Ridley Scott,Movie,1,1,Available,0,,,,Ridley Scott,140,Action,,,,,,,
+526,dvd,The Dark Knight,James Cameron,Movie,1,1,Available,0,,,,James Cameron,92,Action,,,,,,,
 527,dvd,Titanic,Ridley Scott,Movie,3,3,Available,0,,,,Ridley Scott,175,Action,,,,,,,
-528,dvd,Interstellar,Christopher Nolan,Movie,1,1,Available,0,,,,James Cameron,97,Drama,,,,,,,
-529,dvd,The Matrix,Steven Spielberg,Movie,4,4,Available,0,,,,James Cameron,161,Drama,,,,,,,
-530,dvd,Avatar,James Cameron,Movie,5,5,Available,0,,,,Steven Spielberg,112,Sci-Fi,,,,,,,
+528,dvd,Interstellar,James Cameron,Movie,1,1,Available,0,,,,James Cameron,97,Drama,,,,,,,
+529,dvd,The Matrix,James Cameron,Movie,4,4,Available,0,,,,James Cameron,161,Drama,,,,,,,
+530,dvd,Avatar,Steven Spielberg,Movie,5,5,Available,0,,,,Steven Spielberg,112,Sci-Fi,,,,,,,
 531,dvd,The Matrix,Ridley Scott,Movie,5,5,Available,0,,,,Ridley Scott,100,Action,,,,,,,
 532,dvd,Gladiator,James Cameron,Movie,2,2,Available,0,,,,James Cameron,162,Action,,,,,,,
-533,dvd,Gladiator,James Cameron,Movie,1,1,Available,0,,,,Ridley Scott,142,Drama,,,,,,,
-534,dvd,The Matrix,Ridley Scott,Movie,4,4,Available,0,,,,Steven Spielberg,94,Action,,,,,,,
+533,dvd,Gladiator,Ridley Scott,Movie,1,1,Available,0,,,,Ridley Scott,142,Drama,,,,,,,
+534,dvd,The Matrix,Steven Spielberg,Movie,4,4,Available,0,,,,Steven Spielberg,94,Action,,,,,,,
 535,dvd,Titanic,Ridley Scott,Movie,4,4,Available,0,,,,Ridley Scott,141,Action,,,,,,,
-536,dvd,Titanic,Christopher Nolan,Movie,5,5,Available,0,,,,Steven Spielberg,111,Sci-Fi,,,,,,,
+536,dvd,Titanic,Steven Spielberg,Movie,5,5,Available,0,,,,Steven Spielberg,111,Sci-Fi,,,,,,,
 537,dvd,Gladiator,Steven Spielberg,Movie,3,3,Available,0,,,,Steven Spielberg,90,Sci-Fi,,,,,,,
-538,dvd,Interstellar,Christopher Nolan,Movie,4,4,Available,0,,,,James Cameron,119,Sci-Fi,,,,,,,
-539,dvd,The Dark Knight,Christopher Nolan,Movie,2,2,Available,0,,,,Steven Spielberg,137,Action,,,,,,,
-540,dvd,Interstellar,Christopher Nolan,Movie,4,4,Available,0,,,,Steven Spielberg,146,Sci-Fi,,,,,,,
-541,dvd,Avatar,James Cameron,Movie,3,3,Available,0,,,,Steven Spielberg,92,Adventure,,,,,,,
-542,dvd,Gladiator,Ridley Scott,Movie,1,1,Available,0,,,,Christopher Nolan,109,Adventure,,,,,,,
-543,dvd,The Dark Knight,James Cameron,Movie,4,4,Available,0,,,,Steven Spielberg,99,Sci-Fi,,,,,,,
-544,dvd,Inception,Steven Spielberg,Movie,2,2,Available,0,,,,Ridley Scott,172,Action,,,,,,,
+538,dvd,Interstellar,James Cameron,Movie,4,4,Available,0,,,,James Cameron,119,Sci-Fi,,,,,,,
+539,dvd,The Dark Knight,Steven Spielberg,Movie,2,2,Available,0,,,,Steven Spielberg,137,Action,,,,,,,
+540,dvd,Interstellar,Steven Spielberg,Movie,4,4,Available,0,,,,Steven Spielberg,146,Sci-Fi,,,,,,,
+541,dvd,Avatar,Steven Spielberg,Movie,3,3,Available,0,,,,Steven Spielberg,92,Adventure,,,,,,,
+542,dvd,Gladiator,Christopher Nolan,Movie,1,1,Available,0,,,,Christopher Nolan,109,Adventure,,,,,,,
+543,dvd,The Dark Knight,Steven Spielberg,Movie,4,4,Available,0,,,,Steven Spielberg,99,Sci-Fi,,,,,,,
+544,dvd,Inception,Ridley Scott,Movie,2,2,Available,0,,,,Ridley Scott,172,Action,,,,,,,
 545,dvd,Interstellar,Christopher Nolan,Movie,5,5,Available,0,,,,Christopher Nolan,102,Sci-Fi,,,,,,,
-546,dvd,Inception,Ridley Scott,Movie,2,2,Available,0,,,,Christopher Nolan,154,Drama,,,,,,,
-547,dvd,Inception,Ridley Scott,Movie,1,1,Available,0,,,,James Cameron,160,Drama,,,,,,,
-548,dvd,Interstellar,James Cameron,Movie,2,2,Available,0,,,,Steven Spielberg,155,Action,,,,,,,
+546,dvd,Inception,Christopher Nolan,Movie,2,2,Available,0,,,,Christopher Nolan,154,Drama,,,,,,,
+547,dvd,Inception,James Cameron,Movie,1,1,Available,0,,,,James Cameron,160,Drama,,,,,,,
+548,dvd,Interstellar,Steven Spielberg,Movie,2,2,Available,0,,,,Steven Spielberg,155,Action,,,,,,,
 549,dvd,Avatar,Christopher Nolan,Movie,2,2,Available,0,,,,Christopher Nolan,124,Adventure,,,,,,,
-550,dvd,The Dark Knight,Christopher Nolan,Movie,4,4,Available,0,,,,James Cameron,143,Drama,,,,,,,
+550,dvd,The Dark Knight,James Cameron,Movie,4,4,Available,0,,,,James Cameron,143,Drama,,,,,,,
 551,audiobook,Operating Systems,Stuart Russell,Education,1,1,Available,0,,,,,400,,Morgan Freeman,MP3,,,,,
 552,audiobook,Machine Learning,Thomas Cormen,Education,3,3,Available,0,,,,,882,,Morgan Freeman,CD,,,,,
 553,audiobook,Operating Systems,Donald Knuth,Education,3,3,Available,0,,,,,727,,Stephen Fry,CD,,,,,
@@ -599,203 +599,203 @@ resourceID,type,title,authorCreator,category,totalCopies,availableCopies,availab
 598,audiobook,Artificial Intelligence,Donald Knuth,Education,3,3,Available,0,,,,,730,,Jim Dale,CD,,,,,
 599,audiobook,Discrete Mathematics,Thomas Cormen,Education,1,1,Available,0,,,,,763,,Simon Vance,MP3,,,,,
 600,audiobook,Operating Systems,Ian Sommerville,Education,2,2,Available,0,,,,,471,,Morgan Freeman,CD,,,,,
-601,magazine,Forbes,Springer,Periodical,7,7,Available,0,,McGraw Hill,,,,,,,8,10,Feb 2025,,
-602,magazine,Tech Today,MIT Press,Periodical,8,8,Available,0,,Oxford Press,,,,,,,19,10,Jan 2018,,
+601,magazine,Forbes,McGraw Hill,Periodical,7,7,Available,0,,McGraw Hill,,,,,,,8,10,Feb 2025,,
+602,magazine,Tech Today,Oxford Press,Periodical,8,8,Available,0,,Oxford Press,,,,,,,19,10,Jan 2018,,
 603,magazine,Time,MIT Press,Periodical,8,8,Available,0,,MIT Press,,,,,,,17,5,Aug 2023,,
 604,magazine,Tech Today,MIT Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,14,8,Apr 2025,,
-605,magazine,Scientific American,McGraw Hill,Periodical,9,9,Available,0,,Cambridge,,,,,,,14,9,Jul 2021,,
-606,magazine,Forbes,Oxford Press,Periodical,9,9,Available,0,,Springer,,,,,,,19,1,Nov 2018,,
-607,magazine,Forbes,Springer,Periodical,8,8,Available,0,,MIT Press,,,,,,,18,4,Aug 2023,,
-608,magazine,Time,MIT Press,Periodical,9,9,Available,0,,Springer,,,,,,,19,6,Jan 2024,,
+605,magazine,Scientific American,Cambridge,Periodical,9,9,Available,0,,Cambridge,,,,,,,14,9,Jul 2021,,
+606,magazine,Forbes,Springer,Periodical,9,9,Available,0,,Springer,,,,,,,19,1,Nov 2018,,
+607,magazine,Forbes,MIT Press,Periodical,8,8,Available,0,,MIT Press,,,,,,,18,4,Aug 2023,,
+608,magazine,Time,Springer,Periodical,9,9,Available,0,,Springer,,,,,,,19,6,Jan 2024,,
 609,magazine,Tech Today,MIT Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,16,8,Jan 2018,,
-610,magazine,Scientific American,Pearson,Periodical,9,9,Available,0,,Springer,,,,,,,18,10,Jan 2022,,
+610,magazine,Scientific American,Springer,Periodical,9,9,Available,0,,Springer,,,,,,,18,10,Jan 2022,,
 611,magazine,Tech Today,MIT Press,Periodical,10,10,Available,0,,MIT Press,,,,,,,3,8,Feb 2021,,
 612,magazine,Forbes,Cambridge,Periodical,6,6,Available,0,,Cambridge,,,,,,,19,9,Jun 2023,,
-613,magazine,Tech Today,MIT Press,Periodical,7,7,Available,0,,Pearson,,,,,,,1,3,Sep 2024,,
-614,magazine,Time,MIT Press,Periodical,6,6,Available,0,,Pearson,,,,,,,18,10,May 2025,,
-615,magazine,Scientific American,McGraw Hill,Periodical,5,5,Available,0,,Pearson,,,,,,,19,5,Jun 2023,,
-616,magazine,Time,MIT Press,Periodical,4,4,Available,0,,Springer,,,,,,,7,6,Oct 2021,,
-617,magazine,National Geographic,Pearson,Periodical,10,10,Available,0,,Cambridge,,,,,,,20,6,Jan 2022,,
-618,magazine,Tech Today,Oxford Press,Periodical,5,5,Available,0,,Pearson,,,,,,,16,3,Apr 2022,,
-619,magazine,Tech Today,Springer,Periodical,9,9,Available,0,,Oxford Press,,,,,,,19,9,Oct 2022,,
+613,magazine,Tech Today,Pearson,Periodical,7,7,Available,0,,Pearson,,,,,,,1,3,Sep 2024,,
+614,magazine,Time,Pearson,Periodical,6,6,Available,0,,Pearson,,,,,,,18,10,May 2025,,
+615,magazine,Scientific American,Pearson,Periodical,5,5,Available,0,,Pearson,,,,,,,19,5,Jun 2023,,
+616,magazine,Time,Springer,Periodical,4,4,Available,0,,Springer,,,,,,,7,6,Oct 2021,,
+617,magazine,National Geographic,Cambridge,Periodical,10,10,Available,0,,Cambridge,,,,,,,20,6,Jan 2022,,
+618,magazine,Tech Today,Pearson,Periodical,5,5,Available,0,,Pearson,,,,,,,16,3,Apr 2022,,
+619,magazine,Tech Today,Oxford Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,19,9,Oct 2022,,
 620,magazine,Scientific American,Pearson,Periodical,4,4,Available,0,,Pearson,,,,,,,14,1,Jan 2020,,
-621,magazine,Tech Today,Oxford Press,Periodical,4,4,Available,0,,Pearson,,,,,,,9,3,Feb 2025,,
-622,magazine,Time,Cambridge,Periodical,5,5,Available,0,,McGraw Hill,,,,,,,5,4,Jan 2019,,
-623,magazine,National Geographic,Oxford Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,15,11,May 2025,,
-624,magazine,Time,Oxford Press,Periodical,8,8,Available,0,,Pearson,,,,,,,20,5,Nov 2018,,
+621,magazine,Tech Today,Pearson,Periodical,4,4,Available,0,,Pearson,,,,,,,9,3,Feb 2025,,
+622,magazine,Time,McGraw Hill,Periodical,5,5,Available,0,,McGraw Hill,,,,,,,5,4,Jan 2019,,
+623,magazine,National Geographic,MIT Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,15,11,May 2025,,
+624,magazine,Time,Pearson,Periodical,8,8,Available,0,,Pearson,,,,,,,20,5,Nov 2018,,
 625,magazine,Scientific American,Pearson,Periodical,6,6,Available,0,,Pearson,,,,,,,5,10,Sep 2025,,
 626,magazine,Time,Springer,Periodical,6,6,Available,0,,Springer,,,,,,,1,12,Sep 2023,,
-627,magazine,Tech Today,Pearson,Periodical,7,7,Available,0,,MIT Press,,,,,,,10,12,Sep 2022,,
-628,magazine,Tech Today,Oxford Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,18,10,Feb 2021,,
-629,magazine,Tech Today,Oxford Press,Periodical,3,3,Available,0,,McGraw Hill,,,,,,,5,6,Sep 2025,,
-630,magazine,Forbes,MIT Press,Periodical,3,3,Available,0,,Pearson,,,,,,,15,3,Jul 2019,,
-631,magazine,Tech Today,Cambridge,Periodical,7,7,Available,0,,MIT Press,,,,,,,5,7,Apr 2024,,
-632,magazine,Time,MIT Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,16,11,Dec 2025,,
-633,magazine,Tech Today,Cambridge,Periodical,5,5,Available,0,,Oxford Press,,,,,,,20,5,Jun 2018,,
-634,magazine,Scientific American,McGraw Hill,Periodical,8,8,Available,0,,Pearson,,,,,,,2,10,Jun 2020,,
-635,magazine,National Geographic,McGraw Hill,Periodical,3,3,Available,0,,Cambridge,,,,,,,3,6,May 2025,,
-636,magazine,Forbes,McGraw Hill,Periodical,3,3,Available,0,,Springer,,,,,,,2,2,Aug 2022,,
-637,magazine,Tech Today,Cambridge,Periodical,10,10,Available,0,,MIT Press,,,,,,,19,6,Oct 2025,,
-638,magazine,National Geographic,Oxford Press,Periodical,7,7,Available,0,,Cambridge,,,,,,,5,9,Oct 2020,,
-639,magazine,Tech Today,MIT Press,Periodical,4,4,Available,0,,Springer,,,,,,,3,11,Aug 2021,,
+627,magazine,Tech Today,MIT Press,Periodical,7,7,Available,0,,MIT Press,,,,,,,10,12,Sep 2022,,
+628,magazine,Tech Today,MIT Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,18,10,Feb 2021,,
+629,magazine,Tech Today,McGraw Hill,Periodical,3,3,Available,0,,McGraw Hill,,,,,,,5,6,Sep 2025,,
+630,magazine,Forbes,Pearson,Periodical,3,3,Available,0,,Pearson,,,,,,,15,3,Jul 2019,,
+631,magazine,Tech Today,MIT Press,Periodical,7,7,Available,0,,MIT Press,,,,,,,5,7,Apr 2024,,
+632,magazine,Time,Oxford Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,16,11,Dec 2025,,
+633,magazine,Tech Today,Oxford Press,Periodical,5,5,Available,0,,Oxford Press,,,,,,,20,5,Jun 2018,,
+634,magazine,Scientific American,Pearson,Periodical,8,8,Available,0,,Pearson,,,,,,,2,10,Jun 2020,,
+635,magazine,National Geographic,Cambridge,Periodical,3,3,Available,0,,Cambridge,,,,,,,3,6,May 2025,,
+636,magazine,Forbes,Springer,Periodical,3,3,Available,0,,Springer,,,,,,,2,2,Aug 2022,,
+637,magazine,Tech Today,MIT Press,Periodical,10,10,Available,0,,MIT Press,,,,,,,19,6,Oct 2025,,
+638,magazine,National Geographic,Cambridge,Periodical,7,7,Available,0,,Cambridge,,,,,,,5,9,Oct 2020,,
+639,magazine,Tech Today,Springer,Periodical,4,4,Available,0,,Springer,,,,,,,3,11,Aug 2021,,
 640,magazine,Forbes,Oxford Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,11,6,Nov 2019,,
-641,magazine,Forbes,MIT Press,Periodical,3,3,Available,0,,Oxford Press,,,,,,,2,5,Aug 2024,,
-642,magazine,Time,Oxford Press,Periodical,6,6,Available,0,,MIT Press,,,,,,,1,3,Feb 2020,,
+641,magazine,Forbes,Oxford Press,Periodical,3,3,Available,0,,Oxford Press,,,,,,,2,5,Aug 2024,,
+642,magazine,Time,MIT Press,Periodical,6,6,Available,0,,MIT Press,,,,,,,1,3,Feb 2020,,
 643,magazine,Forbes,Springer,Periodical,6,6,Available,0,,Springer,,,,,,,9,1,Dec 2023,,
-644,magazine,Scientific American,Pearson,Periodical,8,8,Available,0,,Cambridge,,,,,,,7,2,Dec 2018,,
+644,magazine,Scientific American,Cambridge,Periodical,8,8,Available,0,,Cambridge,,,,,,,7,2,Dec 2018,,
 645,magazine,Tech Today,Cambridge,Periodical,6,6,Available,0,,Cambridge,,,,,,,19,1,Jul 2023,,
 646,magazine,Tech Today,MIT Press,Periodical,6,6,Available,0,,MIT Press,,,,,,,3,11,Jun 2021,,
-647,magazine,Forbes,MIT Press,Periodical,10,10,Available,0,,Springer,,,,,,,18,1,Aug 2025,,
-648,magazine,Time,MIT Press,Periodical,7,7,Available,0,,Oxford Press,,,,,,,9,7,May 2019,,
-649,magazine,Time,Springer,Periodical,3,3,Available,0,,McGraw Hill,,,,,,,18,12,Jan 2025,,
-650,magazine,Tech Today,Pearson,Periodical,4,4,Available,0,,Springer,,,,,,,11,12,Aug 2022,,
-651,magazine,National Geographic,Oxford Press,Periodical,3,3,Available,0,,MIT Press,,,,,,,2,7,Oct 2023,,
-652,magazine,National Geographic,Springer,Periodical,3,3,Available,0,,Pearson,,,,,,,17,7,Oct 2022,,
-653,magazine,National Geographic,MIT Press,Periodical,10,10,Available,0,,Pearson,,,,,,,3,3,Jan 2023,,
-654,magazine,Time,MIT Press,Periodical,5,5,Available,0,,Oxford Press,,,,,,,8,12,Jan 2019,,
-655,magazine,National Geographic,Pearson,Periodical,10,10,Available,0,,McGraw Hill,,,,,,,6,8,Mar 2024,,
-656,magazine,Tech Today,MIT Press,Periodical,4,4,Available,0,,Springer,,,,,,,12,4,Aug 2019,,
-657,magazine,Tech Today,McGraw Hill,Periodical,7,7,Available,0,,Springer,,,,,,,13,2,Oct 2019,,
-658,magazine,Scientific American,Cambridge,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,5,3,Aug 2024,,
-659,magazine,Scientific American,Pearson,Periodical,7,7,Available,0,,Cambridge,,,,,,,6,7,Oct 2020,,
-660,magazine,Forbes,Pearson,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,4,11,Feb 2021,,
-661,magazine,Forbes,Cambridge,Periodical,7,7,Available,0,,Springer,,,,,,,11,3,Sep 2019,,
-662,magazine,National Geographic,Oxford Press,Periodical,5,5,Available,0,,Pearson,,,,,,,8,8,Jun 2025,,
-663,magazine,National Geographic,MIT Press,Periodical,7,7,Available,0,,McGraw Hill,,,,,,,4,10,Aug 2020,,
+647,magazine,Forbes,Springer,Periodical,10,10,Available,0,,Springer,,,,,,,18,1,Aug 2025,,
+648,magazine,Time,Oxford Press,Periodical,7,7,Available,0,,Oxford Press,,,,,,,9,7,May 2019,,
+649,magazine,Time,McGraw Hill,Periodical,3,3,Available,0,,McGraw Hill,,,,,,,18,12,Jan 2025,,
+650,magazine,Tech Today,Springer,Periodical,4,4,Available,0,,Springer,,,,,,,11,12,Aug 2022,,
+651,magazine,National Geographic,MIT Press,Periodical,3,3,Available,0,,MIT Press,,,,,,,2,7,Oct 2023,,
+652,magazine,National Geographic,Pearson,Periodical,3,3,Available,0,,Pearson,,,,,,,17,7,Oct 2022,,
+653,magazine,National Geographic,Pearson,Periodical,10,10,Available,0,,Pearson,,,,,,,3,3,Jan 2023,,
+654,magazine,Time,Oxford Press,Periodical,5,5,Available,0,,Oxford Press,,,,,,,8,12,Jan 2019,,
+655,magazine,National Geographic,McGraw Hill,Periodical,10,10,Available,0,,McGraw Hill,,,,,,,6,8,Mar 2024,,
+656,magazine,Tech Today,Springer,Periodical,4,4,Available,0,,Springer,,,,,,,12,4,Aug 2019,,
+657,magazine,Tech Today,Springer,Periodical,7,7,Available,0,,Springer,,,,,,,13,2,Oct 2019,,
+658,magazine,Scientific American,McGraw Hill,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,5,3,Aug 2024,,
+659,magazine,Scientific American,Cambridge,Periodical,7,7,Available,0,,Cambridge,,,,,,,6,7,Oct 2020,,
+660,magazine,Forbes,McGraw Hill,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,4,11,Feb 2021,,
+661,magazine,Forbes,Springer,Periodical,7,7,Available,0,,Springer,,,,,,,11,3,Sep 2019,,
+662,magazine,National Geographic,Pearson,Periodical,5,5,Available,0,,Pearson,,,,,,,8,8,Jun 2025,,
+663,magazine,National Geographic,McGraw Hill,Periodical,7,7,Available,0,,McGraw Hill,,,,,,,4,10,Aug 2020,,
 664,magazine,Tech Today,Springer,Periodical,7,7,Available,0,,Springer,,,,,,,5,11,Feb 2021,,
 665,magazine,Time,MIT Press,Periodical,4,4,Available,0,,MIT Press,,,,,,,11,8,Oct 2025,,
-666,magazine,Time,Oxford Press,Periodical,4,4,Available,0,,Springer,,,,,,,16,8,Jan 2019,,
-667,magazine,National Geographic,McGraw Hill,Periodical,3,3,Available,0,,Oxford Press,,,,,,,13,2,Jun 2025,,
-668,magazine,Time,Pearson,Periodical,7,7,Available,0,,Oxford Press,,,,,,,7,8,Jul 2025,,
-669,magazine,Forbes,McGraw Hill,Periodical,5,5,Available,0,,Springer,,,,,,,4,3,Oct 2023,,
+666,magazine,Time,Springer,Periodical,4,4,Available,0,,Springer,,,,,,,16,8,Jan 2019,,
+667,magazine,National Geographic,Oxford Press,Periodical,3,3,Available,0,,Oxford Press,,,,,,,13,2,Jun 2025,,
+668,magazine,Time,Oxford Press,Periodical,7,7,Available,0,,Oxford Press,,,,,,,7,8,Jul 2025,,
+669,magazine,Forbes,Springer,Periodical,5,5,Available,0,,Springer,,,,,,,4,3,Oct 2023,,
 670,magazine,Scientific American,Pearson,Periodical,9,9,Available,0,,Pearson,,,,,,,19,2,May 2024,,
 671,magazine,Forbes,Cambridge,Periodical,8,8,Available,0,,Cambridge,,,,,,,19,11,Mar 2018,,
-672,magazine,Scientific American,Oxford Press,Periodical,3,3,Available,0,,MIT Press,,,,,,,18,11,Apr 2021,,
-673,magazine,Tech Today,Cambridge,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,13,8,Apr 2024,,
+672,magazine,Scientific American,MIT Press,Periodical,3,3,Available,0,,MIT Press,,,,,,,18,11,Apr 2021,,
+673,magazine,Tech Today,McGraw Hill,Periodical,9,9,Available,0,,McGraw Hill,,,,,,,13,8,Apr 2024,,
 674,magazine,Tech Today,MIT Press,Periodical,8,8,Available,0,,MIT Press,,,,,,,2,2,Apr 2022,,
-675,magazine,Time,Pearson,Periodical,10,10,Available,0,,Springer,,,,,,,4,10,Jan 2021,,
-676,magazine,Forbes,McGraw Hill,Periodical,10,10,Available,0,,Pearson,,,,,,,7,11,Aug 2021,,
-677,magazine,Forbes,McGraw Hill,Periodical,10,10,Available,0,,Cambridge,,,,,,,11,11,Feb 2025,,
-678,magazine,Tech Today,Pearson,Periodical,3,3,Available,0,,Springer,,,,,,,17,9,Oct 2021,,
-679,magazine,Time,Pearson,Periodical,4,4,Available,0,,MIT Press,,,,,,,9,4,Mar 2020,,
-680,magazine,Time,Springer,Periodical,5,5,Available,0,,Cambridge,,,,,,,18,6,Jun 2025,,
-681,magazine,National Geographic,Oxford Press,Periodical,7,7,Available,0,,Springer,,,,,,,10,9,Feb 2018,,
-682,magazine,Scientific American,McGraw Hill,Periodical,10,10,Available,0,,Pearson,,,,,,,8,4,Oct 2021,,
-683,magazine,National Geographic,Springer,Periodical,9,9,Available,0,,Pearson,,,,,,,18,5,Nov 2023,,
-684,magazine,Scientific American,Springer,Periodical,7,7,Available,0,,Oxford Press,,,,,,,8,4,Nov 2023,,
+675,magazine,Time,Springer,Periodical,10,10,Available,0,,Springer,,,,,,,4,10,Jan 2021,,
+676,magazine,Forbes,Pearson,Periodical,10,10,Available,0,,Pearson,,,,,,,7,11,Aug 2021,,
+677,magazine,Forbes,Cambridge,Periodical,10,10,Available,0,,Cambridge,,,,,,,11,11,Feb 2025,,
+678,magazine,Tech Today,Springer,Periodical,3,3,Available,0,,Springer,,,,,,,17,9,Oct 2021,,
+679,magazine,Time,MIT Press,Periodical,4,4,Available,0,,MIT Press,,,,,,,9,4,Mar 2020,,
+680,magazine,Time,Cambridge,Periodical,5,5,Available,0,,Cambridge,,,,,,,18,6,Jun 2025,,
+681,magazine,National Geographic,Springer,Periodical,7,7,Available,0,,Springer,,,,,,,10,9,Feb 2018,,
+682,magazine,Scientific American,Pearson,Periodical,10,10,Available,0,,Pearson,,,,,,,8,4,Oct 2021,,
+683,magazine,National Geographic,Pearson,Periodical,9,9,Available,0,,Pearson,,,,,,,18,5,Nov 2023,,
+684,magazine,Scientific American,Oxford Press,Periodical,7,7,Available,0,,Oxford Press,,,,,,,8,4,Nov 2023,,
 685,magazine,National Geographic,McGraw Hill,Periodical,3,3,Available,0,,McGraw Hill,,,,,,,3,12,Apr 2024,,
-686,magazine,Scientific American,McGraw Hill,Periodical,3,3,Available,0,,Oxford Press,,,,,,,2,1,Apr 2024,,
-687,magazine,Tech Today,Springer,Periodical,8,8,Available,0,,Pearson,,,,,,,3,9,Sep 2023,,
-688,magazine,Tech Today,McGraw Hill,Periodical,3,3,Available,0,,MIT Press,,,,,,,5,6,Feb 2018,,
-689,magazine,Time,Oxford Press,Periodical,7,7,Available,0,,MIT Press,,,,,,,10,4,Dec 2025,,
-690,magazine,Tech Today,Oxford Press,Periodical,5,5,Available,0,,Cambridge,,,,,,,14,6,Oct 2022,,
-691,magazine,Time,McGraw Hill,Periodical,6,6,Available,0,,Cambridge,,,,,,,13,3,Oct 2022,,
-692,magazine,Tech Today,MIT Press,Periodical,8,8,Available,0,,Oxford Press,,,,,,,6,4,Nov 2021,,
-693,magazine,Time,Pearson,Periodical,10,10,Available,0,,McGraw Hill,,,,,,,11,6,Aug 2024,,
-694,magazine,Tech Today,Pearson,Periodical,6,6,Available,0,,Oxford Press,,,,,,,9,3,Apr 2024,,
-695,magazine,National Geographic,Pearson,Periodical,9,9,Available,0,,Oxford Press,,,,,,,13,3,Jan 2021,,
-696,magazine,National Geographic,Cambridge,Periodical,7,7,Available,0,,MIT Press,,,,,,,7,7,Oct 2025,,
-697,magazine,Time,Springer,Periodical,9,9,Available,0,,Oxford Press,,,,,,,9,8,Jul 2023,,
+686,magazine,Scientific American,Oxford Press,Periodical,3,3,Available,0,,Oxford Press,,,,,,,2,1,Apr 2024,,
+687,magazine,Tech Today,Pearson,Periodical,8,8,Available,0,,Pearson,,,,,,,3,9,Sep 2023,,
+688,magazine,Tech Today,MIT Press,Periodical,3,3,Available,0,,MIT Press,,,,,,,5,6,Feb 2018,,
+689,magazine,Time,MIT Press,Periodical,7,7,Available,0,,MIT Press,,,,,,,10,4,Dec 2025,,
+690,magazine,Tech Today,Cambridge,Periodical,5,5,Available,0,,Cambridge,,,,,,,14,6,Oct 2022,,
+691,magazine,Time,Cambridge,Periodical,6,6,Available,0,,Cambridge,,,,,,,13,3,Oct 2022,,
+692,magazine,Tech Today,Oxford Press,Periodical,8,8,Available,0,,Oxford Press,,,,,,,6,4,Nov 2021,,
+693,magazine,Time,McGraw Hill,Periodical,10,10,Available,0,,McGraw Hill,,,,,,,11,6,Aug 2024,,
+694,magazine,Tech Today,Oxford Press,Periodical,6,6,Available,0,,Oxford Press,,,,,,,9,3,Apr 2024,,
+695,magazine,National Geographic,Oxford Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,13,3,Jan 2021,,
+696,magazine,National Geographic,MIT Press,Periodical,7,7,Available,0,,MIT Press,,,,,,,7,7,Oct 2025,,
+697,magazine,Time,Oxford Press,Periodical,9,9,Available,0,,Oxford Press,,,,,,,9,8,Jul 2023,,
 698,magazine,National Geographic,MIT Press,Periodical,5,5,Available,0,,MIT Press,,,,,,,14,4,Oct 2018,,
-699,magazine,Time,Cambridge,Periodical,10,10,Available,0,,Springer,,,,,,,12,6,Dec 2020,,
-700,magazine,Scientific American,Pearson,Periodical,10,10,Available,0,,MIT Press,,,,,,,18,3,May 2023,,
-701,newspaper,Express Tribune,MIT Press,News,6,6,Available,0,,Pearson,,,,,,,,,,9-4-2025,Karachi
+699,magazine,Time,Springer,Periodical,10,10,Available,0,,Springer,,,,,,,12,6,Dec 2020,,
+700,magazine,Scientific American,MIT Press,Periodical,10,10,Available,0,,MIT Press,,,,,,,18,3,May 2023,,
+701,newspaper,Express Tribune,Pearson,News,6,6,Available,0,,Pearson,,,,,,,,,,9-4-2025,Karachi
 702,newspaper,Pakistan Today,Cambridge,News,10,10,Available,0,,Cambridge,,,,,,,,,,7-11-2025,Islamabad
-703,newspaper,The News,Pearson,News,10,10,Available,0,,MIT Press,,,,,,,,,,10-1-2025,National
-704,newspaper,The News,Springer,News,7,7,Available,0,,Cambridge,,,,,,,,,,5-8-2025,Islamabad
-705,newspaper,Express Tribune,McGraw Hill,News,14,14,Available,0,,Oxford Press,,,,,,,,,,17-2-2025,Islamabad
-706,newspaper,Dawn,Pearson,News,10,10,Available,0,,McGraw Hill,,,,,,,,,,12-5-2025,Karachi
-707,newspaper,The News,Oxford Press,News,8,8,Available,0,,MIT Press,,,,,,,,,,1-9-2025,National
-708,newspaper,Dawn,Oxford Press,News,11,11,Available,0,,Cambridge,,,,,,,,,,19-5-2025,Lahore
-709,newspaper,Daily Jang,Pearson,News,6,6,Available,0,,Springer,,,,,,,,,,19-8-2025,Lahore
-710,newspaper,Daily Jang,MIT Press,News,6,6,Available,0,,Oxford Press,,,,,,,,,,11-11-2025,Islamabad
-711,newspaper,The News,Pearson,News,6,6,Available,0,,MIT Press,,,,,,,,,,11-5-2025,Islamabad
-712,newspaper,Express Tribune,McGraw Hill,News,6,6,Available,0,,MIT Press,,,,,,,,,,27-7-2025,Karachi
-713,newspaper,The News,MIT Press,News,8,8,Available,0,,Pearson,,,,,,,,,,3-7-2025,Islamabad
+703,newspaper,The News,MIT Press,News,10,10,Available,0,,MIT Press,,,,,,,,,,10-1-2025,National
+704,newspaper,The News,Cambridge,News,7,7,Available,0,,Cambridge,,,,,,,,,,5-8-2025,Islamabad
+705,newspaper,Express Tribune,Oxford Press,News,14,14,Available,0,,Oxford Press,,,,,,,,,,17-2-2025,Islamabad
+706,newspaper,Dawn,McGraw Hill,News,10,10,Available,0,,McGraw Hill,,,,,,,,,,12-5-2025,Karachi
+707,newspaper,The News,MIT Press,News,8,8,Available,0,,MIT Press,,,,,,,,,,1-9-2025,National
+708,newspaper,Dawn,Cambridge,News,11,11,Available,0,,Cambridge,,,,,,,,,,19-5-2025,Lahore
+709,newspaper,Daily Jang,Springer,News,6,6,Available,0,,Springer,,,,,,,,,,19-8-2025,Lahore
+710,newspaper,Daily Jang,Oxford Press,News,6,6,Available,0,,Oxford Press,,,,,,,,,,11-11-2025,Islamabad
+711,newspaper,The News,MIT Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,11-5-2025,Islamabad
+712,newspaper,Express Tribune,MIT Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,27-7-2025,Karachi
+713,newspaper,The News,Pearson,News,8,8,Available,0,,Pearson,,,,,,,,,,3-7-2025,Islamabad
 714,newspaper,Daily Jang,McGraw Hill,News,12,12,Available,0,,McGraw Hill,,,,,,,,,,11-2-2025,Islamabad
-715,newspaper,Pakistan Today,Cambridge,News,8,8,Available,0,,Pearson,,,,,,,,,,1-9-2025,Karachi
-716,newspaper,Dawn,McGraw Hill,News,7,7,Available,0,,Oxford Press,,,,,,,,,,12-5-2025,Lahore
-717,newspaper,Daily Jang,Cambridge,News,5,5,Available,0,,MIT Press,,,,,,,,,,7-6-2025,Lahore
-718,newspaper,The News,Cambridge,News,7,7,Available,0,,McGraw Hill,,,,,,,,,,21-7-2025,Lahore
-719,newspaper,Daily Jang,McGraw Hill,News,5,5,Available,0,,Oxford Press,,,,,,,,,,1-12-2025,Lahore
-720,newspaper,Dawn,Cambridge,News,10,10,Available,0,,Oxford Press,,,,,,,,,,28-9-2025,Islamabad
+715,newspaper,Pakistan Today,Pearson,News,8,8,Available,0,,Pearson,,,,,,,,,,1-9-2025,Karachi
+716,newspaper,Dawn,Oxford Press,News,7,7,Available,0,,Oxford Press,,,,,,,,,,12-5-2025,Lahore
+717,newspaper,Daily Jang,MIT Press,News,5,5,Available,0,,MIT Press,,,,,,,,,,7-6-2025,Lahore
+718,newspaper,The News,McGraw Hill,News,7,7,Available,0,,McGraw Hill,,,,,,,,,,21-7-2025,Lahore
+719,newspaper,Daily Jang,Oxford Press,News,5,5,Available,0,,Oxford Press,,,,,,,,,,1-12-2025,Lahore
+720,newspaper,Dawn,Oxford Press,News,10,10,Available,0,,Oxford Press,,,,,,,,,,28-9-2025,Islamabad
 721,newspaper,Pakistan Today,McGraw Hill,News,12,12,Available,0,,McGraw Hill,,,,,,,,,,10-8-2025,National
-722,newspaper,Pakistan Today,Springer,News,9,9,Available,0,,Cambridge,,,,,,,,,,1-6-2025,Karachi
-723,newspaper,Pakistan Today,Oxford Press,News,8,8,Available,0,,Cambridge,,,,,,,,,,17-4-2025,Karachi
+722,newspaper,Pakistan Today,Cambridge,News,9,9,Available,0,,Cambridge,,,,,,,,,,1-6-2025,Karachi
+723,newspaper,Pakistan Today,Cambridge,News,8,8,Available,0,,Cambridge,,,,,,,,,,17-4-2025,Karachi
 724,newspaper,The News,Pearson,News,5,5,Available,0,,Pearson,,,,,,,,,,21-1-2025,National
-725,newspaper,Express Tribune,MIT Press,News,12,12,Available,0,,Oxford Press,,,,,,,,,,23-8-2025,Islamabad
-726,newspaper,Dawn,Pearson,News,13,13,Available,0,,McGraw Hill,,,,,,,,,,21-12-2025,Islamabad
-727,newspaper,Express Tribune,Cambridge,News,14,14,Available,0,,Oxford Press,,,,,,,,,,20-10-2025,Lahore
-728,newspaper,Daily Jang,Cambridge,News,11,11,Available,0,,Springer,,,,,,,,,,17-2-2025,Karachi
-729,newspaper,The News,McGraw Hill,News,12,12,Available,0,,Springer,,,,,,,,,,21-2-2025,Karachi
-730,newspaper,Daily Jang,Oxford Press,News,11,11,Available,0,,MIT Press,,,,,,,,,,26-4-2025,Lahore
-731,newspaper,Daily Jang,McGraw Hill,News,15,15,Available,0,,MIT Press,,,,,,,,,,22-6-2025,Lahore
-732,newspaper,Express Tribune,Springer,News,14,14,Available,0,,Cambridge,,,,,,,,,,6-2-2025,Islamabad
-733,newspaper,Pakistan Today,Pearson,News,14,14,Available,0,,Cambridge,,,,,,,,,,19-9-2025,Lahore
-734,newspaper,Dawn,Cambridge,News,5,5,Available,0,,McGraw Hill,,,,,,,,,,25-9-2025,National
-735,newspaper,Express Tribune,Cambridge,News,12,12,Available,0,,MIT Press,,,,,,,,,,26-10-2025,National
-736,newspaper,Express Tribune,Oxford Press,News,7,7,Available,0,,Springer,,,,,,,,,,5-11-2025,Lahore
-737,newspaper,Express Tribune,MIT Press,News,10,10,Available,0,,Pearson,,,,,,,,,,19-5-2025,Karachi
+725,newspaper,Express Tribune,Oxford Press,News,12,12,Available,0,,Oxford Press,,,,,,,,,,23-8-2025,Islamabad
+726,newspaper,Dawn,McGraw Hill,News,13,13,Available,0,,McGraw Hill,,,,,,,,,,21-12-2025,Islamabad
+727,newspaper,Express Tribune,Oxford Press,News,14,14,Available,0,,Oxford Press,,,,,,,,,,20-10-2025,Lahore
+728,newspaper,Daily Jang,Springer,News,11,11,Available,0,,Springer,,,,,,,,,,17-2-2025,Karachi
+729,newspaper,The News,Springer,News,12,12,Available,0,,Springer,,,,,,,,,,21-2-2025,Karachi
+730,newspaper,Daily Jang,MIT Press,News,11,11,Available,0,,MIT Press,,,,,,,,,,26-4-2025,Lahore
+731,newspaper,Daily Jang,MIT Press,News,15,15,Available,0,,MIT Press,,,,,,,,,,22-6-2025,Lahore
+732,newspaper,Express Tribune,Cambridge,News,14,14,Available,0,,Cambridge,,,,,,,,,,6-2-2025,Islamabad
+733,newspaper,Pakistan Today,Cambridge,News,14,14,Available,0,,Cambridge,,,,,,,,,,19-9-2025,Lahore
+734,newspaper,Dawn,McGraw Hill,News,5,5,Available,0,,McGraw Hill,,,,,,,,,,25-9-2025,National
+735,newspaper,Express Tribune,MIT Press,News,12,12,Available,0,,MIT Press,,,,,,,,,,26-10-2025,National
+736,newspaper,Express Tribune,Springer,News,7,7,Available,0,,Springer,,,,,,,,,,5-11-2025,Lahore
+737,newspaper,Express Tribune,Pearson,News,10,10,Available,0,,Pearson,,,,,,,,,,19-5-2025,Karachi
 738,newspaper,Dawn,McGraw Hill,News,14,14,Available,0,,McGraw Hill,,,,,,,,,,21-4-2025,Karachi
 739,newspaper,Dawn,McGraw Hill,News,7,7,Available,0,,McGraw Hill,,,,,,,,,,17-12-2025,Islamabad
-740,newspaper,Express Tribune,Springer,News,8,8,Available,0,,Pearson,,,,,,,,,,20-5-2025,National
-741,newspaper,Dawn,Oxford Press,News,5,5,Available,0,,Cambridge,,,,,,,,,,16-5-2025,Lahore
-742,newspaper,Express Tribune,Springer,News,13,13,Available,0,,Cambridge,,,,,,,,,,15-1-2025,National
-743,newspaper,Daily Jang,Springer,News,13,13,Available,0,,McGraw Hill,,,,,,,,,,9-6-2025,Lahore
+740,newspaper,Express Tribune,Pearson,News,8,8,Available,0,,Pearson,,,,,,,,,,20-5-2025,National
+741,newspaper,Dawn,Cambridge,News,5,5,Available,0,,Cambridge,,,,,,,,,,16-5-2025,Lahore
+742,newspaper,Express Tribune,Cambridge,News,13,13,Available,0,,Cambridge,,,,,,,,,,15-1-2025,National
+743,newspaper,Daily Jang,McGraw Hill,News,13,13,Available,0,,McGraw Hill,,,,,,,,,,9-6-2025,Lahore
 744,newspaper,Pakistan Today,Pearson,News,7,7,Available,0,,Pearson,,,,,,,,,,8-12-2025,Lahore
-745,newspaper,Daily Jang,Cambridge,News,10,10,Available,0,,Springer,,,,,,,,,,11-1-2025,Karachi
-746,newspaper,Pakistan Today,Oxford Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,6-4-2025,Islamabad
-747,newspaper,Pakistan Today,McGraw Hill,News,11,11,Available,0,,Cambridge,,,,,,,,,,28-1-2025,Lahore
-748,newspaper,Dawn,Cambridge,News,15,15,Available,0,,Pearson,,,,,,,,,,8-4-2025,Lahore
-749,newspaper,The News,MIT Press,News,9,9,Available,0,,Springer,,,,,,,,,,10-7-2025,Lahore
+745,newspaper,Daily Jang,Springer,News,10,10,Available,0,,Springer,,,,,,,,,,11-1-2025,Karachi
+746,newspaper,Pakistan Today,MIT Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,6-4-2025,Islamabad
+747,newspaper,Pakistan Today,Cambridge,News,11,11,Available,0,,Cambridge,,,,,,,,,,28-1-2025,Lahore
+748,newspaper,Dawn,Pearson,News,15,15,Available,0,,Pearson,,,,,,,,,,8-4-2025,Lahore
+749,newspaper,The News,Springer,News,9,9,Available,0,,Springer,,,,,,,,,,10-7-2025,Lahore
 750,newspaper,Daily Jang,Oxford Press,News,15,15,Available,0,,Oxford Press,,,,,,,,,,21-12-2025,National
 751,newspaper,Dawn,Cambridge,News,12,12,Available,0,,Cambridge,,,,,,,,,,16-8-2025,Islamabad
-752,newspaper,The News,MIT Press,News,10,10,Available,0,,Pearson,,,,,,,,,,13-8-2025,Karachi
-753,newspaper,Daily Jang,Springer,News,12,12,Available,0,,Pearson,,,,,,,,,,12-1-2025,Lahore
-754,newspaper,Pakistan Today,Oxford Press,News,10,10,Available,0,,Springer,,,,,,,,,,15-7-2025,Islamabad
-755,newspaper,Dawn,Oxford Press,News,9,9,Available,0,,Springer,,,,,,,,,,4-6-2025,National
-756,newspaper,Dawn,MIT Press,News,11,11,Available,0,,McGraw Hill,,,,,,,,,,5-5-2025,National
-757,newspaper,Pakistan Today,McGraw Hill,News,12,12,Available,0,,Oxford Press,,,,,,,,,,28-12-2025,National
-758,newspaper,The News,Cambridge,News,11,11,Available,0,,Springer,,,,,,,,,,24-2-2025,National
-759,newspaper,Express Tribune,McGraw Hill,News,10,10,Available,0,,Cambridge,,,,,,,,,,6-7-2025,National
-760,newspaper,Dawn,Springer,News,11,11,Available,0,,Cambridge,,,,,,,,,,9-5-2025,Karachi
+752,newspaper,The News,Pearson,News,10,10,Available,0,,Pearson,,,,,,,,,,13-8-2025,Karachi
+753,newspaper,Daily Jang,Pearson,News,12,12,Available,0,,Pearson,,,,,,,,,,12-1-2025,Lahore
+754,newspaper,Pakistan Today,Springer,News,10,10,Available,0,,Springer,,,,,,,,,,15-7-2025,Islamabad
+755,newspaper,Dawn,Springer,News,9,9,Available,0,,Springer,,,,,,,,,,4-6-2025,National
+756,newspaper,Dawn,McGraw Hill,News,11,11,Available,0,,McGraw Hill,,,,,,,,,,5-5-2025,National
+757,newspaper,Pakistan Today,Oxford Press,News,12,12,Available,0,,Oxford Press,,,,,,,,,,28-12-2025,National
+758,newspaper,The News,Springer,News,11,11,Available,0,,Springer,,,,,,,,,,24-2-2025,National
+759,newspaper,Express Tribune,Cambridge,News,10,10,Available,0,,Cambridge,,,,,,,,,,6-7-2025,National
+760,newspaper,Dawn,Cambridge,News,11,11,Available,0,,Cambridge,,,,,,,,,,9-5-2025,Karachi
 761,newspaper,Pakistan Today,Springer,News,6,6,Available,0,,Springer,,,,,,,,,,14-12-2025,National
-762,newspaper,Dawn,Springer,News,10,10,Available,0,,Pearson,,,,,,,,,,7-9-2025,Lahore
+762,newspaper,Dawn,Pearson,News,10,10,Available,0,,Pearson,,,,,,,,,,7-9-2025,Lahore
 763,newspaper,Daily Jang,Pearson,News,7,7,Available,0,,Pearson,,,,,,,,,,25-7-2025,National
-764,newspaper,Daily Jang,Springer,News,12,12,Available,0,,McGraw Hill,,,,,,,,,,5-4-2025,Lahore
-765,newspaper,Express Tribune,Pearson,News,13,13,Available,0,,Oxford Press,,,,,,,,,,6-6-2025,Karachi
-766,newspaper,The News,Pearson,News,6,6,Available,0,,Oxford Press,,,,,,,,,,23-12-2025,Lahore
-767,newspaper,The News,Oxford Press,News,8,8,Available,0,,Springer,,,,,,,,,,24-2-2025,National
-768,newspaper,Pakistan Today,Cambridge,News,11,11,Available,0,,Springer,,,,,,,,,,4-11-2025,National
-769,newspaper,Express Tribune,Cambridge,News,6,6,Available,0,,McGraw Hill,,,,,,,,,,7-6-2025,National
-770,newspaper,Daily Jang,McGraw Hill,News,14,14,Available,0,,Pearson,,,,,,,,,,8-9-2025,Karachi
+764,newspaper,Daily Jang,McGraw Hill,News,12,12,Available,0,,McGraw Hill,,,,,,,,,,5-4-2025,Lahore
+765,newspaper,Express Tribune,Oxford Press,News,13,13,Available,0,,Oxford Press,,,,,,,,,,6-6-2025,Karachi
+766,newspaper,The News,Oxford Press,News,6,6,Available,0,,Oxford Press,,,,,,,,,,23-12-2025,Lahore
+767,newspaper,The News,Springer,News,8,8,Available,0,,Springer,,,,,,,,,,24-2-2025,National
+768,newspaper,Pakistan Today,Springer,News,11,11,Available,0,,Springer,,,,,,,,,,4-11-2025,National
+769,newspaper,Express Tribune,McGraw Hill,News,6,6,Available,0,,McGraw Hill,,,,,,,,,,7-6-2025,National
+770,newspaper,Daily Jang,Pearson,News,14,14,Available,0,,Pearson,,,,,,,,,,8-9-2025,Karachi
 771,newspaper,Dawn,MIT Press,News,10,10,Available,0,,MIT Press,,,,,,,,,,24-10-2025,Karachi
-772,newspaper,The News,Pearson,News,14,14,Available,0,,Springer,,,,,,,,,,14-7-2025,Lahore
-773,newspaper,Express Tribune,Oxford Press,News,8,8,Available,0,,MIT Press,,,,,,,,,,1-4-2025,Karachi
-774,newspaper,Dawn,Springer,News,8,8,Available,0,,McGraw Hill,,,,,,,,,,21-8-2025,Lahore
-775,newspaper,Pakistan Today,MIT Press,News,12,12,Available,0,,Springer,,,,,,,,,,4-11-2025,National
-776,newspaper,The News,MIT Press,News,8,8,Available,0,,Springer,,,,,,,,,,17-4-2025,Islamabad
-777,newspaper,Daily Jang,MIT Press,News,14,14,Available,0,,McGraw Hill,,,,,,,,,,20-11-2025,Karachi
+772,newspaper,The News,Springer,News,14,14,Available,0,,Springer,,,,,,,,,,14-7-2025,Lahore
+773,newspaper,Express Tribune,MIT Press,News,8,8,Available,0,,MIT Press,,,,,,,,,,1-4-2025,Karachi
+774,newspaper,Dawn,McGraw Hill,News,8,8,Available,0,,McGraw Hill,,,,,,,,,,21-8-2025,Lahore
+775,newspaper,Pakistan Today,Springer,News,12,12,Available,0,,Springer,,,,,,,,,,4-11-2025,National
+776,newspaper,The News,Springer,News,8,8,Available,0,,Springer,,,,,,,,,,17-4-2025,Islamabad
+777,newspaper,Daily Jang,McGraw Hill,News,14,14,Available,0,,McGraw Hill,,,,,,,,,,20-11-2025,Karachi
 778,newspaper,The News,MIT Press,News,10,10,Available,0,,MIT Press,,,,,,,,,,28-2-2025,Islamabad
-779,newspaper,Daily Jang,Springer,News,5,5,Available,0,,Pearson,,,,,,,,,,12-5-2025,National
-780,newspaper,Pakistan Today,Oxford Press,News,11,11,Available,0,,MIT Press,,,,,,,,,,5-9-2025,National
-781,newspaper,Express Tribune,Oxford Press,News,8,8,Available,0,,Springer,,,,,,,,,,19-2-2025,Islamabad
-782,newspaper,The News,Springer,News,10,10,Available,0,,Cambridge,,,,,,,,,,11-9-2025,Karachi
-783,newspaper,Pakistan Today,Pearson,News,13,13,Available,0,,Oxford Press,,,,,,,,,,5-1-2025,Islamabad
-784,newspaper,Express Tribune,Cambridge,News,13,13,Available,0,,Springer,,,,,,,,,,19-3-2025,National
-785,newspaper,Daily Jang,Pearson,News,13,13,Available,0,,Cambridge,,,,,,,,,,13-10-2025,Karachi
+779,newspaper,Daily Jang,Pearson,News,5,5,Available,0,,Pearson,,,,,,,,,,12-5-2025,National
+780,newspaper,Pakistan Today,MIT Press,News,11,11,Available,0,,MIT Press,,,,,,,,,,5-9-2025,National
+781,newspaper,Express Tribune,Springer,News,8,8,Available,0,,Springer,,,,,,,,,,19-2-2025,Islamabad
+782,newspaper,The News,Cambridge,News,10,10,Available,0,,Cambridge,,,,,,,,,,11-9-2025,Karachi
+783,newspaper,Pakistan Today,Oxford Press,News,13,13,Available,0,,Oxford Press,,,,,,,,,,5-1-2025,Islamabad
+784,newspaper,Express Tribune,Springer,News,13,13,Available,0,,Springer,,,,,,,,,,19-3-2025,National
+785,newspaper,Daily Jang,Cambridge,News,13,13,Available,0,,Cambridge,,,,,,,,,,13-10-2025,Karachi
 786,newspaper,Daily Jang,Springer,News,9,9,Available,0,,Springer,,,,,,,,,,17-11-2025,National
-787,newspaper,The News,Springer,News,10,10,Available,0,,Cambridge,,,,,,,,,,18-9-2025,Karachi
+787,newspaper,The News,Cambridge,News,10,10,Available,0,,Cambridge,,,,,,,,,,18-9-2025,Karachi
 788,newspaper,Pakistan Today,McGraw Hill,News,10,10,Available,0,,McGraw Hill,,,,,,,,,,17-1-2025,Karachi
-789,newspaper,Pakistan Today,Pearson,News,11,11,Available,0,,MIT Press,,,,,,,,,,9-8-2025,National
-790,newspaper,Pakistan Today,Pearson,News,5,5,Available,0,,Cambridge,,,,,,,,,,25-4-2025,Islamabad
-791,newspaper,Dawn,Oxford Press,News,15,15,Available,0,,Springer,,,,,,,,,,9-7-2025,National
-792,newspaper,Dawn,Cambridge,News,13,13,Available,0,,MIT Press,,,,,,,,,,4-8-2025,Lahore
-793,newspaper,Daily Jang,Cambridge,News,6,6,Available,0,,MIT Press,,,,,,,,,,24-3-2025,Lahore
-794,newspaper,Dawn,MIT Press,News,12,12,Available,0,,Springer,,,,,,,,,,3-7-2025,Lahore
-795,newspaper,Pakistan Today,McGraw Hill,News,15,15,Available,0,,MIT Press,,,,,,,,,,10-3-2025,National
-796,newspaper,Pakistan Today,MIT Press,News,15,15,Available,0,,Oxford Press,,,,,,,,,,14-7-2025,Lahore
-797,newspaper,Pakistan Today,McGraw Hill,News,11,11,Available,0,,Pearson,,,,,,,,,,13-12-2025,Karachi
-798,newspaper,Express Tribune,Pearson,News,9,9,Available,0,,McGraw Hill,,,,,,,,,,21-4-2025,Islamabad
-799,newspaper,Express Tribune,McGraw Hill,News,6,6,Available,0,,Oxford Press,,,,,,,,,,4-8-2025,Lahore
-800,newspaper,Express Tribune,Cambridge,News,6,6,Available,0,,MIT Press,,,,,,,,,,21-5-2025,National
+789,newspaper,Pakistan Today,MIT Press,News,11,11,Available,0,,MIT Press,,,,,,,,,,9-8-2025,National
+790,newspaper,Pakistan Today,Cambridge,News,5,5,Available,0,,Cambridge,,,,,,,,,,25-4-2025,Islamabad
+791,newspaper,Dawn,Springer,News,15,15,Available,0,,Springer,,,,,,,,,,9-7-2025,National
+792,newspaper,Dawn,MIT Press,News,13,13,Available,0,,MIT Press,,,,,,,,,,4-8-2025,Lahore
+793,newspaper,Daily Jang,MIT Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,24-3-2025,Lahore
+794,newspaper,Dawn,Springer,News,12,12,Available,0,,Springer,,,,,,,,,,3-7-2025,Lahore
+795,newspaper,Pakistan Today,MIT Press,News,15,15,Available,0,,MIT Press,,,,,,,,,,10-3-2025,National
+796,newspaper,Pakistan Today,Oxford Press,News,15,15,Available,0,,Oxford Press,,,,,,,,,,14-7-2025,Lahore
+797,newspaper,Pakistan Today,Pearson,News,11,11,Available,0,,Pearson,,,,,,,,,,13-12-2025,Karachi
+798,newspaper,Express Tribune,McGraw Hill,News,9,9,Available,0,,McGraw Hill,,,,,,,,,,21-4-2025,Islamabad
+799,newspaper,Express Tribune,Oxford Press,News,6,6,Available,0,,Oxford Press,,,,,,,,,,4-8-2025,Lahore
+800,newspaper,Express Tribune,MIT Press,News,6,6,Available,0,,MIT Press,,,,,,,,,,21-5-2025,National
