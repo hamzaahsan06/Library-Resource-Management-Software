@@ -107,182 +107,242 @@ void Library::addUser(User *user)
 void Library::registerUser()
 {
     int choice;
-    cout << "Select user type:" << endl;
-    cout << "1. Student" << endl;
-    cout << "2. Teacher" << endl;
-    cout << "3. Staff" << endl;
-    cout << "4. Premium Member" << endl;
-    cin >> choice;
-
-    if(cin.fail())
-        throw runtime_error("Invalid input.Expected an integer!");
-
-    int id = generateNewUserID("../database/users.csv");
-
-    string username, password, name, address;
-    double balance;
-
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-    cout << "Enter full name: ";
-    cin.ignore();
-    getline(cin, name);
-    cout << "Enter address: ";
-    getline(cin, address);
-    cout << "Enter initial balance: ";
-    cin >> balance;
-
-    if(cin.fail())
-        throw runtime_error("Expected an integer!");
-
     User *u = nullptr;
+    
+    try {
+        cout << "Select user type:" << endl;
+        cout << "1. Student" << endl;
+        cout << "2. Teacher" << endl;
+        cout << "3. Staff" << endl;
+        cout << "4. Premium Member" << endl;
+        cin >> choice;
 
-    if (choice == 1)
-    {
-        string department;
-        int rollNo;
-        cout << "Enter department: ";
-        cin.ignore();
-        getline(cin, department);
-        cout << "Enter roll number: ";
-        cin >> rollNo;
         if(cin.fail())
-            throw runtime_error("Expected an integer! at roll number input");
-        u = new Student(id, username, password, name, address, balance, department, rollNo);
-    }
-    else if (choice == 2)
-    {
-        string department, designation;
-        cout << "Enter department: ";
-        cin.ignore();
-        getline(cin, department);
-        cout << "Enter designation: ";
-        getline(cin, designation);
-        u = new Teacher(id, username, password, name, address, balance, department, designation);
-    }
-    else if (choice == 3)
-    {
-        string position;
-        cout << "Enter position: ";
-        cin.ignore();
-        getline(cin, position);
-        u = new Staff(id, username, password, name, address, balance, position);
-    }
-    else if (choice == 4)
-    {
-        string level;
-        cout << "Enter membership level (Gold/Silver/Bronze): ";
-        cin >> level;
-        if(level!="Gold" ||level!="Silver" ||level!="Bronze")
-            throw runtime_error("Invalid input,Only enter (Gold/Silver/Bronze)");
-        u = new PremiumMember(id, username, password, name, address, balance, level);
-    }
-    else
-    {
-        cout << "Invalid choice." << endl;
-        return;
-    }
+            throw runtime_error("Invalid input. Expected an integer!");
 
-    users.push_back(u);
-    cout << "User registered successfully. ID: " << id << endl;
+        int id = generateNewUserID("../database/users.csv");
+
+        string username, password, name, address;
+        double balance;
+
+        cout << "Enter username: ";
+        cin >> username;
+        if(username.empty())
+            throw runtime_error("Username cannot be empty!");
+
+        cout << "Enter password: ";
+        cin >> password;
+        if(password.empty())
+            throw runtime_error("Password cannot be empty!");
+
+        cout << "Enter full name: ";
+        cin.ignore();
+        getline(cin, name);
+        if(name.empty())
+            throw runtime_error("Name cannot be empty!");
+
+        cout << "Enter address: ";
+        getline(cin, address);
+        if(address.empty())
+            throw runtime_error("Address cannot be empty!");
+
+        cout << "Enter initial balance: ";
+        cin >> balance;
+        if(cin.fail())
+            throw runtime_error("Invalid input. Expected a number for balance!");
+
+        if (choice == 1)
+        {
+            string department;
+            int rollNo;
+            
+            cout << "Enter department: ";
+            cin.ignore();
+            getline(cin, department);
+            if(department.empty())
+                throw runtime_error("Department cannot be empty!");
+            
+            cout << "Enter roll number: ";
+            cin >> rollNo;
+            if(cin.fail())
+                throw runtime_error("Invalid input. Expected an integer for roll number!");
+            
+            u = new Student(id, username, password, name, address, balance, department, rollNo);
+        }
+        else if (choice == 2)
+        {
+            string department, designation;
+            
+            cout << "Enter department: ";
+            cin.ignore();
+            getline(cin, department);
+            if(department.empty())
+                throw runtime_error("Department cannot be empty!");
+            
+            cout << "Enter designation: ";
+            getline(cin, designation);
+            if(designation.empty())
+                throw runtime_error("Designation cannot be empty!");
+            
+            u = new Teacher(id, username, password, name, address, balance, department, designation);
+        }
+        else if (choice == 3)
+        {
+            string position;
+            
+            cout << "Enter position: ";
+            cin.ignore();
+            getline(cin, position);
+            if(position.empty())
+                throw runtime_error("Position cannot be empty!");
+            
+            u = new Staff(id, username, password, name, address, balance, position);
+        }
+        else if (choice == 4)
+        {
+            string level;
+            
+            cout << "Enter membership level (Gold/Silver/Bronze): ";
+            cin >> level;
+            if(level.empty())
+                throw runtime_error("Membership level cannot be empty!");
+            
+            if(level != "Gold" && level != "Silver" && level != "Bronze")
+                throw runtime_error("Invalid input. Only enter (Gold/Silver/Bronze)");
+            
+            u = new PremiumMember(id, username, password, name, address, balance, level);
+        }
+        else
+        {
+            throw runtime_error("Invalid choice. Please select 1-4!");
+        }
+
+        users.push_back(u);
+        cout << "User registered successfully. ID: " << id << endl;
+    }
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        delete u;
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
+
 // ---------- Search ----------
 void Library::searchResources() const
 {
-    // Display search options to the user
-    cout << "\n===== Search Resources =====\n";
-    cout << "Search by:\n";
-    cout << "1. Title\n";
-    cout << "2. Author\n";
-    cout << "3. Category\n";
-    cout << "4. Type\n";
+    try {
+        // Display search options to the user
+        cout << "\n===== Search Resources =====\n";
+        cout << "Search by:\n";
+        cout << "1. Title\n";
+        cout << "2. Author\n";
+        cout << "3. Category\n";
+        cout << "4. Type\n";
 
-    int choice;
-    cin >> choice;
+        int choice;
+        cin >> choice;
+        if(cin.fail())
+            throw runtime_error("Invalid input. Expected an integer!");
 
-    // Take search keyword input
-    string keyword;
-    cout << "Enter search keyword: ";
-    cin.ignore();              // Clear leftover newline from input buffer
-    getline(cin, keyword);     // Allows multi-word input
+        // Take search keyword input
+        string keyword;
+        cout << "Enter search keyword: ";
+        cin.ignore();              // Clear leftover newline from input buffer
+        getline(cin, keyword);     // Allows multi-word input
+        if(keyword.empty())
+            throw runtime_error("Search keyword cannot be empty!");
 
-    // Convert keyword to lowercase for case-insensitive comparison
-    for (auto &c : keyword)
-        c = tolower(c);
-
-    // Print table header in formatted style
-    cout << left << setw(6)  << "ID"
-         << setw(35) << "Title"
-         << setw(15) << "Type"
-         << setw(20) << "Author"
-         << setw(15) << "Available" << endl;
-
-    cout << string(91, '-') << endl;
-
-    bool found = false; // Tracks if any match is found
-
-    // Iterate through all resources in the library
-    for (auto res : resources)
-    {
-        // Skip resources that are marked as deleted
-        if (res->getIsDeleted())
-            continue;
-
-        string field;
-
-        // Select the appropriate field based on user choice
-        if      (choice == 1) field = res->getTitle();
-        else if (choice == 2) field = res->getAuthorCreator();
-        else if (choice == 3) field = res->getCategory();
-        else if (choice == 4) field = res->getType();
-        else
-        {
-            cout << "Invalid choice.\n";
-            return;
-        }
-
-        // Convert selected field to lowercase for fair comparison
-        for (auto &c : field)
+        // Convert keyword to lowercase for case-insensitive comparison
+        for (auto &c : keyword)
             c = tolower(c);
 
-        // Check if keyword exists inside the selected field
-        // string::npos means "not found", so we check for inequality
-        if (field.find(keyword) != string::npos)
+        // Print table header in formatted style
+        cout << left << setw(6)  << "ID"
+             << setw(35) << "Title"
+             << setw(15) << "Type"
+             << setw(20) << "Author"
+             << setw(15) << "Available" << endl;
+
+        cout << string(91, '-') << endl;
+
+        bool found = false; // Tracks if any match is found
+
+        // Iterate through all resources in the library
+        for (auto res : resources)
         {
-            // Display matching resource in formatted output
-            cout << left << setw(6)  << res->getResourceID()
-                 << setw(35) << res->getTitle()
-                 << setw(15) << res->getType()
-                 << setw(20) << res->getAuthorCreator()
-                 << setw(15) << res->getAvailableCopies() << endl;
+            // Skip resources that are marked as deleted
+            if (res->getIsDeleted())
+                continue;
 
-            found = true;
+            string field;
+
+            // Select the appropriate field based on user choice
+            if      (choice == 1) field = res->getTitle();
+            else if (choice == 2) field = res->getAuthorCreator();
+            else if (choice == 3) field = res->getCategory();
+            else if (choice == 4) field = res->getType();
+            else
+                throw runtime_error("Invalid choice. Please select 1-4!");
+
+            // Convert selected field to lowercase for fair comparison
+            for (auto &c : field)
+                c = tolower(c);
+
+            // Check if keyword exists inside the selected field
+            if (field.find(keyword) != string::npos)
+            {
+                // Display matching resource in formatted output
+                cout << left << setw(6)  << res->getResourceID()
+                     << setw(35) << res->getTitle()
+                     << setw(15) << res->getType()
+                     << setw(20) << res->getAuthorCreator()
+                     << setw(15) << res->getAvailableCopies() << endl;
+
+                found = true;
+            }
         }
-    }
 
-    // If no matches found, inform the user
-    if (!found)
-        cout << "No resources found matching: " << keyword << endl;
+        // If no matches found, inform the user
+        if (!found)
+            cout << "No resources found matching: " << keyword << endl;
+    }
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
 
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
-    cout << "Enter current password: ";
-    cin >> oldPass;
+    
+    try {
+        cout << "Enter current password: ";
+        cin >> oldPass;
+        if(oldPass.empty())
+            throw runtime_error("Password cannot be empty!");
 
-    if (!u->login(u->getUsername(), oldPass))
-    {
-        cout << "Incorrect current password." << endl;
-        return;
+        if (!u->login(u->getUsername(), oldPass))
+        {
+            cout << "Incorrect current password." << endl;
+            return;
+        }
+
+        cout << "Enter new password: ";
+        cin >> newPass;
+        if(newPass.empty())
+            throw runtime_error("New password cannot be empty!");
+        
+        u->setPassword(newPass);
+        cout << "Password changed successfully." << endl;
     }
-
-    cout << "Enter new password: ";
-    cin >> newPass;
-    u->setPassword(newPass);
-    cout << "Password changed successfully." << endl;
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
 
 void Library::showUserProfile(User *u) const
@@ -363,19 +423,33 @@ void Library::showUserProfile(User *u) const
 User *Library::loginUser()
 {
     string username, password;
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
+    
+    try {
+        cout << "Enter username: ";
+        cin >> username;
+        if(username.empty())
+            throw runtime_error("Username cannot be empty!");
+        
+        cout << "Enter password: ";
+        cin >> password;
+        if(password.empty())
+            throw runtime_error("Password cannot be empty!");
 
-    for (auto user : users)
-    {
-        if (!user->getIsDeleted() && user->login(username, password))
-            return user; // returns pointer to actual object in vector
+        for (auto user : users)
+        {
+            if (!user->getIsDeleted() && user->login(username, password))
+                return user; // returns pointer to actual object in vector
+        }
+
+        cout << "Invalid username or password." << endl;
+        return nullptr;
     }
-
-    cout << "Invalid username or password." << endl;
-    return nullptr;
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+        return nullptr;
+    }
 }
 
 // ---------- Borrowing Logic ----------
