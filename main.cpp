@@ -28,6 +28,7 @@ int main()
         {
             if (choice == 1)
             {
+                choice=0;
                 User *loggedUser = lib.loginUser();
 
                 if (loggedUser == nullptr)
@@ -41,8 +42,12 @@ int main()
                     Admin *admin = dynamic_cast<Admin *>(loggedUser);
                     int adminChoice;
 
-                    do
+                    
+                        try
+                        {
+                            do
                     {
+                            
                         cout << "\n===== ADMIN MENU =====\n";
                         cout << "1. Add Resource\n";
                         cout << "2. Delete Resource\n";
@@ -57,6 +62,11 @@ int main()
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
                         cin >> adminChoice;
+
+                        if(cin.fail()){
+                            throw runtime_error("Invalid input: expected an integer!");
+                        }
+                        cout<<"You entered: "<< adminChoice<<endl;
 
                         switch (adminChoice)
                         {
@@ -90,16 +100,26 @@ int main()
                         case 10:
                             admin->exportReports(lib, "report.txt");
                             break;
+                            
                         }
+                        } while (adminChoice != 0);
 
-                    } while (adminChoice != 0);
+                        }
+                        catch(const exception& e)
+                        {
+                            cout <<"Error: "<< e.what() << '\n';
+                        }
+                        
+                    
                 }
                 else
                 {
                     // ---------- NORMAL USER ----------
                     int userChoice;
 
-                    do
+                    try
+                    {
+                        do
                     {
                         cout << "\n===== USER MENU =====\n";
                         cout << "1. View Profile\n";
@@ -111,6 +131,10 @@ int main()
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
                         cin >> userChoice;
+
+                    if(cin.fail()){
+                        throw runtime_error("Invalid input: expected an integer!");
+                    }
 
                         switch (userChoice)
                         {
@@ -166,12 +190,29 @@ int main()
                         }
 
                     } while (userChoice != 0);
+                    }
+                    catch(const exception& e)
+                    {
+                        cout << e.what() << '\n';
+                    }
+                    
                 }
             }
 
             else if (choice == 2)
             {
-                lib.registerUser();
+                try
+                {
+                    choice=0;
+                    lib.registerUser();
+                }
+                catch(const exception& e)
+                {
+                    SaveUsersToFile("database/users.csv", lib.getUsers());
+    SaveResourcesToFile("database/resources.csv", lib.getResources());
+                    cout<< e.what() << '\n';
+                }
+                
             }
 
             else if (choice == 3)

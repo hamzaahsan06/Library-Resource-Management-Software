@@ -82,6 +82,8 @@ void Admin::searchUser(Library &lib)
     int id;
     cout << "Enter user ID to search: ";
     cin >> id;
+    if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
 
     cout << left << setw(6)  << "ID"
                  << setw(25) << "Name"
@@ -132,6 +134,8 @@ void Admin::deleteUser(Library &lib)
     int id;
     cout << "Enter user ID to delete: ";
     cin >> id;
+    if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
 
     for (auto u : lib.getUsers())
     {
@@ -161,6 +165,10 @@ void Admin::addResource(Library &lib)
     cout << "4. Magazine" << endl;
     cout << "5. Newspaper" << endl;
     cin >> choice;
+    if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
+    if(cin.fail())
+        throw runtime_error("Invalid input.Expected an integer!");
 
     // auto generate ID from last resource in vector
     int ID = generateNewResourceID("../database/resources.csv");
@@ -176,6 +184,8 @@ void Admin::addResource(Library &lib)
     getline(cin, category);
     cout << "Enter total copies: ";
     cin >> totalCopies;
+    if(cin.fail())
+        throw runtime_error("Invalid input.Expected an integer!");
 
     LibraryResource *newRes = nullptr;
 
@@ -190,6 +200,8 @@ void Admin::addResource(Library &lib)
         getline(cin, publisher);
         cout << "Enter year published: ";
         cin >> year;
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
         newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
     }
     else if (choice == 2)
@@ -201,6 +213,8 @@ void Admin::addResource(Library &lib)
         getline(cin, director);
         cout << "Enter duration (minutes): ";
         cin >> duration;
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
         cout << "Enter genre: ";
         cin.ignore();
         getline(cin, genre);
@@ -215,6 +229,8 @@ void Admin::addResource(Library &lib)
         getline(cin, narrator);
         cout << "Enter duration (minutes): ";
         cin >> duration;
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
         cout << "Enter format (MP3/CD): ";
         cin.ignore();
         getline(cin, format);
@@ -229,8 +245,12 @@ void Admin::addResource(Library &lib)
         getline(cin, publisher);
         cout << "Enter volume number: ";
         cin >> volume;
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
         cout << "Enter issue number: ";
         cin >> issue;
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
         cout << "Enter publication date (e.g. May 2025): ";
         cin.ignore();
         getline(cin, pubDate);
@@ -251,7 +271,7 @@ void Admin::addResource(Library &lib)
     else
     {
         cout << "Invalid choice. Resource not added." << endl;
-        return;
+            throw runtime_error("Invalid resource type choice!");
     }
 
     lib.addResource(newRes); // push into library's resources vector
@@ -263,6 +283,8 @@ void Admin::deleteResource(Library &lib)
     int id;
     cout << "Enter resource ID to delete: ";
     cin >> id;
+    if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
 
     for (auto r : lib.getResources())
     {
@@ -286,6 +308,8 @@ void Admin::updateResource(Library &lib)
     int id;
     cout << "Enter resource ID to update: ";
     cin >> id;
+    if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
 
     for (auto r : lib.getResources())
     {
@@ -314,6 +338,8 @@ void Admin::updateResource(Library &lib)
 
             cout << "Enter new total copies (0 to keep current): ";
             cin >> newCopies;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
             if (newCopies > 0)
                 r->setTotalCopies(newCopies);
 

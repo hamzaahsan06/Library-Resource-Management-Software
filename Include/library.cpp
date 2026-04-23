@@ -114,6 +114,9 @@ void Library::registerUser()
     cout << "4. Premium Member" << endl;
     cin >> choice;
 
+    if(cin.fail())
+        throw runtime_error("Invalid input.Expected an integer!");
+
     int id = generateNewUserID("../database/users.csv");
 
     string username, password, name, address;
@@ -131,6 +134,9 @@ void Library::registerUser()
     cout << "Enter initial balance: ";
     cin >> balance;
 
+    if(cin.fail())
+        throw runtime_error("Expected an integer!");
+
     User *u = nullptr;
 
     if (choice == 1)
@@ -142,6 +148,8 @@ void Library::registerUser()
         getline(cin, department);
         cout << "Enter roll number: ";
         cin >> rollNo;
+        if(cin.fail())
+            throw runtime_error("Expected an integer! at roll number input");
         u = new Student(id, username, password, name, address, balance, department, rollNo);
     }
     else if (choice == 2)
@@ -167,6 +175,8 @@ void Library::registerUser()
         string level;
         cout << "Enter membership level (Gold/Silver/Bronze): ";
         cin >> level;
+        if(level!="Gold" ||level!="Silver" ||level!="Bronze")
+            throw runtime_error("Invalid input,Only enter (Gold/Silver/Bronze)");
         u = new PremiumMember(id, username, password, name, address, balance, level);
     }
     else
