@@ -9,8 +9,14 @@ int main()
     Library lib("My Library");
 
     // ---------- Load Data from CSV ----------
-    ReadUsersFromFile("database/users.csv", lib.getUsers());
-    ReadResourcesFromFile("database/resources.csv", lib.getResources());
+    try {
+        ReadUsersFromFile("database/users.csv", lib.getUsers());
+        ReadResourcesFromFile("database/resources.csv", lib.getResources());
+    }
+    catch(const exception& e) {
+        cout << "Error loading data: " << e.what() << endl;
+        cout << "Starting with empty database..." << endl;
+    }
 
     int choice;
 
@@ -22,13 +28,18 @@ int main()
         cout << "3. View Available Resources (Guest)\n";
         cout << "0. Exit\n";
         cout << "Enter choice: ";
-        cin >> choice;
+        
+        if (!(cin >> choice)) {
+            cout << "Error: Invalid input! Please enter a number." << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
+            continue;
+        }
 
         try
         {
             if (choice == 1)
             {
-                choice=0;
                 User *loggedUser = lib.loginUser();
 
                 if (loggedUser == nullptr)
@@ -41,13 +52,9 @@ int main()
                 {
                     Admin *admin = dynamic_cast<Admin *>(loggedUser);
                     int adminChoice;
-
                     
-                        try
-                        {
-                            do
+                    do
                     {
-                            
                         cout << "\n===== ADMIN MENU =====\n";
                         cout << "1. Add Resource\n";
                         cout << "2. Delete Resource\n";
@@ -61,13 +68,14 @@ int main()
                         cout << "10. Export Report\n";
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
-                        cin >> adminChoice;
-
-                        if(cin.fail()){
-                            throw runtime_error("Invalid input: expected an integer!");
+                        
+                        if (!(cin >> adminChoice)) {
+                            cout << "Error: Invalid input! Please enter a number." << endl;
+                            cin.clear();
+                            cin.ignore(1000, '\n');
+                            continue;
                         }
-                        cout<<"You entered: "<< adminChoice<<endl;
-
+                        
                         switch (adminChoice)
                         {
                         case 1:
@@ -100,26 +108,21 @@ int main()
                         case 10:
                             admin->exportReports(lib, "report.txt");
                             break;
-                            
+                        case 0:
+                            cout << "Logging out..." << endl;
+                            break;
+                        default:
+                            cout << "Invalid choice! Please select 0-10." << endl;
+                            break;
                         }
-                        } while (adminChoice != 0);
-
-                        }
-                        catch(const exception& e)
-                        {
-                            cout <<"Error: "<< e.what() << '\n';
-                        }
-                        
-                    
+                    } while (adminChoice != 0);
                 }
                 else
                 {
                     // ---------- NORMAL USER ----------
                     int userChoice;
-
-                    try
-                    {
-                        do
+                    
+                    do
                     {
                         cout << "\n===== USER MENU =====\n";
                         cout << "1. View Profile\n";
@@ -130,11 +133,13 @@ int main()
                         cout << "6. Return Resource\n";
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
-                        cin >> userChoice;
-
-                    if(cin.fail()){
-                        throw runtime_error("Invalid input: expected an integer!");
-                    }
+                        
+                        if (!(cin >> userChoice)) {
+                            cout << "Error: Invalid input! Please enter a number." << endl;
+                            cin.clear();
+                            cin.ignore(1000, '\n');
+                            continue;
+                        }
 
                         switch (userChoice)
                         {
@@ -158,15 +163,24 @@ int main()
                         {
                             int id;
                             cout << "Enter Resource ID: ";
-                            cin >> id;
-
-                            for (auto r : lib.getResources())
-                            {
-                                if (r->getResourceID() == id && !r->getIsDeleted())
+                            if (cin >> id) {
+                                bool found = false;
+                                for (auto r : lib.getResources())
                                 {
-                                    lib.borrowResource(loggedUser, r);
-                                    break;
+                                    if (r->getResourceID() == id && !r->getIsDeleted())
+                                    {
+                                        lib.borrowResource(loggedUser, r);
+                                        found = true;
+                                        break;
+                                    }
                                 }
+                                if (!found) {
+                                    cout << "Resource with ID " << id << " not found or is deleted." << endl;
+                                }
+                            } else {
+                                cout << "Error: Invalid resource ID!" << endl;
+                                cin.clear();
+                                cin.ignore(1000, '\n');
                             }
                             break;
                         }
@@ -175,44 +189,43 @@ int main()
                         {
                             int id;
                             cout << "Enter Resource ID: ";
-                            cin >> id;
-
-                            for (auto r : lib.getResources())
-                            {
-                                if (r->getResourceID() == id)
+                            if (cin >> id) {
+                                bool found = false;
+                                for (auto r : lib.getResources())
                                 {
-                                    lib.returnResource(loggedUser, r);
-                                    break;
+                                    if (r->getResourceID() == id)
+                                    {
+                                        lib.returnResource(loggedUser, r);
+                                        found = true;
+                                        break;
+                                    }
                                 }
+                                if (!found) {
+                                    cout << "Resource with ID " << id << " not found." << endl;
+                                }
+                            } else {
+                                cout << "Error: Invalid resource ID!" << endl;
+                                cin.clear();
+                                cin.ignore(1000, '\n');
                             }
                             break;
                         }
+                        
+                        case 0:
+                            cout << "Logging out..." << endl;
+                            break;
+                            
+                        default:
+                            cout << "Invalid choice! Please select 0-6." << endl;
+                            break;
                         }
-
                     } while (userChoice != 0);
-                    }
-                    catch(const exception& e)
-                    {
-                        cout << e.what() << '\n';
-                    }
-                    
                 }
             }
 
             else if (choice == 2)
             {
-                try
-                {
-                    choice=0;
-                    lib.registerUser();
-                }
-                catch(const exception& e)
-                {
-                    SaveUsersToFile("database/users.csv", lib.getUsers());
-    SaveResourcesToFile("database/resources.csv", lib.getResources());
-                    cout<< e.what() << '\n';
-                }
-                
+                lib.registerUser();
             }
 
             else if (choice == 3)
@@ -227,19 +240,27 @@ int main()
 
             else
             {
-                throw runtime_error("Invalid menu choice!");
+                cout << "Invalid menu choice! Please select 0-3." << endl;
             }
         }
-        catch (exception &e)
+        catch (const exception &e)
         {
             cout << "Error: " << e.what() << endl;
+            cin.clear();
+            cin.ignore(1000, '\n');
         }
 
     } while (choice != 0);
 
     // ---------- Save Data Back to CSV ----------
-    SaveUsersToFile("database/users.csv", lib.getUsers());
-    SaveResourcesToFile("database/resources.csv", lib.getResources());
+    try {
+        SaveUsersToFile("database/users.csv", lib.getUsers());
+        SaveResourcesToFile("database/resources.csv", lib.getResources());
+        cout << "Data saved successfully." << endl;
+    }
+    catch(const exception& e) {
+        cout << "Error saving data: " << e.what() << endl;
+    }
 
     return 0;
 }
