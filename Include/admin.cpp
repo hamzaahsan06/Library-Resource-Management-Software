@@ -80,17 +80,28 @@ void Admin::printAllCustomersReport(Library &lib)
 void Admin::searchUser(Library &lib)
 {
     int id;
-    cout << "Enter user ID to search: ";
-    cin >> id;
-    if(cin.fail())
+
+    try {
+        cout << "Enter user ID to search: ";
+        cin >> id;
+
+        if(cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
+    }
+    catch(const runtime_error& e) {
+        cout << e.what() << endl;
+        cin.clear(); // reset error state
+        cin.ignore(1000, '\n'); // discard bad input
+        return; // stop function safely
+    }
 
     cout << left << setw(6)  << "ID"
-                 << setw(25) << "Name"
-                 << setw(12) << "Type"
-                 << setw(20) << "Username"
-                 << setw(10) << "Balance"
-                 << setw(10) << "Status" << endl;
+         << setw(25) << "Name"
+         << setw(12) << "Type"
+         << setw(20) << "Username"
+         << setw(10) << "Balance"
+         << setw(10) << "Status" << endl;
+
     cout << string(83, '-') << endl;
 
     bool found = false;
@@ -99,11 +110,11 @@ void Admin::searchUser(Library &lib)
         if (u->getUserID() == id)
         {
             cout << left << setw(6)  << u->getUserID()
-                         << setw(25) << u->getName()
-                         << setw(12) << u->getType()
-                         << setw(20) << u->getUsername()
-                         << setw(10) << u->getBalance()
-                         << setw(10) << (u->getIsDeleted() ? "Deleted" : "Active") << endl;
+                 << setw(25) << u->getName()
+                 << setw(12) << u->getType()
+                 << setw(20) << u->getUsername()
+                 << setw(10) << u->getBalance()
+                 << setw(10) << (u->getIsDeleted() ? "Deleted" : "Active") << endl;
             found = true;
             break;
         }
@@ -112,6 +123,7 @@ void Admin::searchUser(Library &lib)
     if (!found)
         cout << "User with ID " << id << " not found." << endl;
 }
+
 
 void Admin::fineManagement(Library &lib)
 {
@@ -132,10 +144,20 @@ void Admin::fineManagement(Library &lib)
 void Admin::deleteUser(Library &lib)
 {
     int id;
-    cout << "Enter user ID to delete: ";
-    cin >> id;
-    if(cin.fail())
+
+    try {
+        cout << "Enter user ID to delete: ";
+        cin >> id;
+
+        if(cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
+    }
+    catch(const runtime_error& e) {
+        cout << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+        return;
+    }
 
     for (auto u : lib.getUsers())
     {
@@ -151,203 +173,240 @@ void Admin::deleteUser(Library &lib)
             return;
         }
     }
+
     cout << "User with ID " << id << " not found." << endl;
 }
+
 
 // ---------- Resource Management ----------
 void Admin::addResource(Library &lib)
 {
     int choice;
-    cout << "Select resource type to add:" << endl;
-    cout << "1. Book" << endl;
-    cout << "2. DVD" << endl;
-    cout << "3. AudioBook" << endl;
-    cout << "4. Magazine" << endl;
-    cout << "5. Newspaper" << endl;
-    cin >> choice;
-    if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-
-    // auto generate ID from last resource in vector
-    int ID = generateNewResourceID("../database/resources.csv");
-    int totalCopies;
-    string title, author, category;
-
-    cout << "Enter title: ";
-    cin.ignore();
-    getline(cin, title);
-    cout << "Enter author/creator: ";
-    getline(cin, author);
-    cout << "Enter category: ";
-    getline(cin, category);
-    cout << "Enter total copies: ";
-    cin >> totalCopies;
-    if(cin.fail())
-        throw runtime_error("Invalid input.Expected an integer!");
-
     LibraryResource *newRes = nullptr;
 
-    if (choice == 1)
-    {
-        string ISBN, publisher;
-        int year;
-        cout << "Enter ISBN: ";
-        cin >> ISBN;
-        cout << "Enter publisher: ";
-        cin.ignore();
-        getline(cin, publisher);
-        cout << "Enter year published: ";
-        cin >> year;
-        if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-        newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
-    }
-    else if (choice == 2)
-    {
-        string director, genre;
-        int duration;
-        cout << "Enter director: ";
-        cin.ignore();
-        getline(cin, director);
-        cout << "Enter duration (minutes): ";
-        cin >> duration;
-        if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-        cout << "Enter genre: ";
-        cin.ignore();
-        getline(cin, genre);
-        newRes = new DVD(ID, title, director, category, totalCopies, duration, genre);
-    }
-    else if (choice == 3)
-    {
-        string narrator, format;
-        int duration;
-        cout << "Enter narrator: ";
-        cin.ignore();
-        getline(cin, narrator);
-        cout << "Enter duration (minutes): ";
-        cin >> duration;
-        if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-        cout << "Enter format (MP3/CD): ";
-        cin.ignore();
-        getline(cin, format);
-        newRes = new AudioBook(ID, title, author, category, totalCopies, narrator, duration, format);
-    }
-    else if (choice == 4)
-    {
-        string publisher, pubDate;
-        int volume, issue;
-        cout << "Enter publisher: ";
-        cin.ignore();
-        getline(cin, publisher);
-        cout << "Enter volume number: ";
-        cin >> volume;
-        if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-        cout << "Enter issue number: ";
-        cin >> issue;
-        if(cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-        cout << "Enter publication date (e.g. May 2025): ";
-        cin.ignore();
-        getline(cin, pubDate);
-        newRes = new Magazine(ID, title, publisher, category, totalCopies, volume, issue, pubDate);
-    }
-    else if (choice == 5)
-    {
-        string publisher, editionDate, region;
-        cout << "Enter publisher: ";
-        cin.ignore();
-        getline(cin, publisher);
-        cout << "Enter edition date (DD-MM-YYYY): ";
-        getline(cin, editionDate);
-        cout << "Enter region: ";
-        getline(cin, region);
-        newRes = new Newspaper(ID, title, publisher, category, totalCopies, editionDate, region);
-    }
-    else
-    {
-        cout << "Invalid choice. Resource not added." << endl;
-            throw runtime_error("Invalid resource type choice!");
-    }
+    try {
+        cout << "Select resource type to add:" << endl;
+        cout << "1. Book" << endl;
+        cout << "2. DVD" << endl;
+        cout << "3. AudioBook" << endl;
+        cout << "4. Magazine" << endl;
+        cout << "5. Newspaper" << endl;
 
-    lib.addResource(newRes); // push into library's resources vector
-    cout << "Resource added successfully." << endl;
+        cin >> choice;
+
+        if(cin.fail())
+            throw runtime_error("Invalid input.Expected an integer!");
+
+        int ID = generateNewResourceID("../database/resources.csv");
+        int totalCopies;
+        string title, author, category;
+
+        cout << "Enter title: ";
+        cin.ignore();
+        getline(cin, title);
+        if(title.empty())
+            throw runtime_error("Title cannot be empty!");
+
+        cout << "Enter author/creator: ";
+        getline(cin, author);
+        if(author.empty())
+            throw runtime_error("Author cannot be empty!");
+
+        cout << "Enter category: ";
+        getline(cin, category);
+        if(category.empty())
+            throw runtime_error("Category cannot be empty!");
+
+        cout << "Enter total copies: ";
+        cin >> totalCopies;
+
+        if(cin.fail())
+            throw runtime_error("Invalid input. Expected an integer!");
+
+        if (choice == 1)
+        {
+            string ISBN, publisher;
+            int year;
+            cout << "Enter ISBN: ";
+            cin >> ISBN;
+            cout << "Enter publisher: ";
+            cin.ignore();
+            getline(cin, publisher);
+            cout << "Enter year published: ";
+            cin >> year;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
+            newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
+        }
+        else if (choice == 2)
+        {
+            string director, genre;
+            int duration;
+            cout << "Enter director: ";
+            cin.ignore();
+            getline(cin, director);
+            cout << "Enter duration (minutes): ";
+            cin >> duration;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
+            cout << "Enter genre: ";
+            cin.ignore();
+            getline(cin, genre);
+            newRes = new DVD(ID, title, director, category, totalCopies, duration, genre);
+        }
+        else if (choice == 3)
+        {
+            string narrator, format;
+            int duration;
+            cout << "Enter narrator: ";
+            cin.ignore();
+            getline(cin, narrator);
+            cout << "Enter duration (minutes): ";
+            cin >> duration;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
+            cout << "Enter format (MP3/CD): ";
+            cin.ignore();
+            getline(cin, format);
+            newRes = new AudioBook(ID, title, author, category, totalCopies, narrator, duration, format);
+        }
+        else if (choice == 4)
+        {
+            string publisher, pubDate;
+            int volume, issue;
+            cout << "Enter publisher: ";
+            cin.ignore();
+            getline(cin, publisher);
+            cout << "Enter volume number: ";
+            cin >> volume;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
+            cout << "Enter issue number: ";
+            cin >> issue;
+            if(cin.fail())
+                throw runtime_error("Invalid input.Expected an integer!");
+            cout << "Enter publication date (e.g. May 2025): ";
+            cin.ignore();
+            getline(cin, pubDate);
+            newRes = new Magazine(ID, title, publisher, category, totalCopies, volume, issue, pubDate);
+        }
+        else if (choice == 5)
+        {
+            string publisher, editionDate, region;
+            cout << "Enter publisher: ";
+            cin.ignore();
+            getline(cin, publisher);
+            cout << "Enter edition date (DD-MM-YYYY): ";
+            getline(cin, editionDate);
+            cout << "Enter region: ";
+            getline(cin, region);
+            newRes = new Newspaper(ID, title, publisher, category, totalCopies, editionDate, region);
+        }
+        else
+        {
+            cout << "Invalid choice. Resource not added." << endl;
+            throw runtime_error("Invalid resource type choice!");
+        }
+
+        lib.addResource(newRes); // push into library's resources vector
+        cout << "Resource added successfully." << endl;
+    }
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        delete newRes; // Clean up on exception
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
 
 void Admin::deleteResource(Library &lib)
 {
     int id;
-    cout << "Enter resource ID to delete: ";
-    cin >> id;
-    if(cin.fail())
+
+    try {
+        cout << "Enter resource ID to delete: ";
+        cin >> id;
+        if(cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
 
-    for (auto r : lib.getResources())
-    {
-        if (r->getResourceID() == id)
+        for (auto r : lib.getResources())
         {
-            if (r->getIsDeleted())
+            if (r->getResourceID() == id)
             {
-                cout << "Resource already deleted." << endl;
+                if (r->getIsDeleted())
+                {
+                    cout << "Resource already deleted." << endl;
+                    return;
+                }
+                r->markDeleted();
+                cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
                 return;
             }
-            r->markDeleted();
-            cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
-            return;
         }
+        cout << "Resource with ID " << id << " not found." << endl;
     }
-    cout << "Resource with ID " << id << " not found." << endl;
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
 
 void Admin::updateResource(Library &lib)
 {
     int id;
-    cout << "Enter resource ID to update: ";
-    cin >> id;
-    if(cin.fail())
+
+    try {
+        cout << "Enter resource ID to update: ";
+        cin >> id;
+        if(cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
 
-    for (auto r : lib.getResources())
-    {
-        if (r->getResourceID() == id)
+        for (auto r : lib.getResources())
         {
-            cout << "Updating: " << r->getTitle() << endl;
+            if (r->getResourceID() == id)
+            {
+                cout << "Updating: " << r->getTitle() << endl;
 
-            string newTitle, newAuthor, newCategory;
-            int newCopies;
+                string newTitle, newAuthor, newCategory;
+                int newCopies;
 
-            cout << "Enter new title (leave blank to keep current): ";
-            cin.ignore();
-            getline(cin, newTitle);
-            if (!newTitle.empty())
-                r->setTitle(newTitle);
+                cout << "Enter new title (leave blank to keep current): ";
+                cin.ignore();
+                getline(cin, newTitle);
+                if (!newTitle.empty())
+                    r->setTitle(newTitle);
 
-            cout << "Enter new author/creator (leave blank to keep current): ";
-            getline(cin, newAuthor);
-            if (!newAuthor.empty())
-                r->setAuthorCreator(newAuthor);
+                cout << "Enter new author/creator (leave blank to keep current): ";
+                getline(cin, newAuthor);
+                if (!newAuthor.empty())
+                    r->setAuthorCreator(newAuthor);
 
-            cout << "Enter new category (leave blank to keep current): ";
-            getline(cin, newCategory);
-            if (!newCategory.empty())
-                r->setCategory(newCategory);
+                cout << "Enter new category (leave blank to keep current): ";
+                getline(cin, newCategory);
+                if (!newCategory.empty())
+                    r->setCategory(newCategory);
 
-            cout << "Enter new total copies (0 to keep current): ";
-            cin >> newCopies;
-            if(cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
-            if (newCopies > 0)
-                r->setTotalCopies(newCopies);
+                cout << "Enter new total copies (0 to keep current): ";
+                cin >> newCopies;
+                if(cin.fail())
+                    throw runtime_error("Invalid input.Expected an integer!");
+                if (newCopies > 0)
+                    r->setTotalCopies(newCopies);
 
-            r->updateStatus(); // refresh availability status
-            cout << "Resource updated successfully." << endl;
-            return;
+                r->updateStatus(); // refresh availability status
+                cout << "Resource updated successfully." << endl;
+                return;
+            }
         }
-    }
 
-    cout << "Resource with ID " << id << " not found." << endl;
+        cout << "Resource with ID " << id << " not found." << endl;
+    }
+    catch(const runtime_error& e) {
+        cout << "Error: " << e.what() << endl;
+        cin.clear();
+        cin.ignore(1000, '\n');
+    }
 }
 
 // ---------- Circulation / Borrowing Management ----------
