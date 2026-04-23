@@ -167,8 +167,6 @@ void Admin::addResource(Library &lib)
     cin >> choice;
     if(cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
-    if(cin.fail())
-        throw runtime_error("Invalid input.Expected an integer!");
 
     // auto generate ID from last resource in vector
     int ID = generateNewResourceID("../database/resources.csv");
