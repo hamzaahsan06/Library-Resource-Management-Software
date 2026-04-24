@@ -34,8 +34,7 @@ void Admin::printAllCustomersReport(Library &lib)
     cout << "1. Customers Info" << endl;
     cout << "2. Borrowing History" << endl;
     cout << "3. Both" << endl;
-    cout << "Enter your choice: ";
-    cin >> choice;
+    choice = getValidInt("Enter your choice: ");
 
     if (choice == 1 || choice == 3)
     {
@@ -157,7 +156,7 @@ void Admin::addResource(Library &lib)
         cout << "3. AudioBook" << endl;
         cout << "4. Magazine" << endl;
         cout << "5. Newspaper" << endl;
-            choice = getValidInt("Enter choice: ");
+        choice = getValidInt("Enter choice: ");
         int ID = generateNewResourceID("../database/resources.csv");
         int totalCopies;
         string title, author, category;
