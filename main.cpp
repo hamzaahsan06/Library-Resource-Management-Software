@@ -9,11 +9,14 @@ int main()
     Library lib("My Library");
 
     // ---------- Load Data from CSV ----------
-    try {
+    try
+    {
         ReadUsersFromFile("database/users.csv", lib.getUsers());
         ReadResourcesFromFile("database/resources.csv", lib.getResources());
+        ReadBorrowHistoryFromFile("database/borrowHistory.csv", lib);
     }
-    catch(const exception& e) {
+    catch (const exception &e)
+    {
         cout << "Error loading data: " << e.what() << endl;
         cout << "Starting with empty database..." << endl;
     }
@@ -28,8 +31,9 @@ int main()
         cout << "3. View Available Resources (Guest)\n";
         cout << "0. Exit\n";
         cout << "Enter choice: ";
-        
-        if (!(cin >> choice)) {
+
+        if (!(cin >> choice))
+        {
             cout << "Error: Invalid input! Please enter a number." << endl;
             cin.clear();
             cin.ignore(1000, '\n');
@@ -52,7 +56,7 @@ int main()
                 {
                     Admin *admin = dynamic_cast<Admin *>(loggedUser);
                     int adminChoice;
-                    
+
                     do
                     {
                         cout << "\n===== ADMIN MENU =====\n";
@@ -68,14 +72,15 @@ int main()
                         cout << "10. Export Report\n";
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
-                        
-                        if (!(cin >> adminChoice)) {
+
+                        if (!(cin >> adminChoice))
+                        {
                             cout << "Error: Invalid input! Please enter a number." << endl;
                             cin.clear();
                             cin.ignore(1000, '\n');
                             continue;
                         }
-                        
+
                         switch (adminChoice)
                         {
                         case 1:
@@ -121,7 +126,7 @@ int main()
                 {
                     // ---------- NORMAL USER ----------
                     int userChoice;
-                    
+
                     do
                     {
                         cout << "\n===== USER MENU =====\n";
@@ -133,8 +138,9 @@ int main()
                         cout << "6. Return Resource\n";
                         cout << "0. Logout\n";
                         cout << "Enter choice: ";
-                        
-                        if (!(cin >> userChoice)) {
+
+                        if (!(cin >> userChoice))
+                        {
                             cout << "Error: Invalid input! Please enter a number." << endl;
                             cin.clear();
                             cin.ignore(1000, '\n');
@@ -163,7 +169,8 @@ int main()
                         {
                             int id;
                             cout << "Enter Resource ID: ";
-                            if (cin >> id) {
+                            if (cin >> id)
+                            {
                                 bool found = false;
                                 for (auto r : lib.getResources())
                                 {
@@ -174,10 +181,13 @@ int main()
                                         break;
                                     }
                                 }
-                                if (!found) {
+                                if (!found)
+                                {
                                     cout << "Resource with ID " << id << " not found or is deleted." << endl;
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 cout << "Error: Invalid resource ID!" << endl;
                                 cin.clear();
                                 cin.ignore(1000, '\n');
@@ -189,7 +199,8 @@ int main()
                         {
                             int id;
                             cout << "Enter Resource ID: ";
-                            if (cin >> id) {
+                            if (cin >> id)
+                            {
                                 bool found = false;
                                 for (auto r : lib.getResources())
                                 {
@@ -200,21 +211,24 @@ int main()
                                         break;
                                     }
                                 }
-                                if (!found) {
+                                if (!found)
+                                {
                                     cout << "Resource with ID " << id << " not found." << endl;
                                 }
-                            } else {
+                            }
+                            else
+                            {
                                 cout << "Error: Invalid resource ID!" << endl;
                                 cin.clear();
                                 cin.ignore(1000, '\n');
                             }
                             break;
                         }
-                        
+
                         case 0:
                             cout << "Logging out..." << endl;
                             break;
-                            
+
                         default:
                             cout << "Invalid choice! Please select 0-6." << endl;
                             break;
@@ -253,12 +267,15 @@ int main()
     } while (choice != 0);
 
     // ---------- Save Data Back to CSV ----------
-    try {
+    try
+    {
         SaveUsersToFile("database/users.csv", lib.getUsers());
         SaveResourcesToFile("database/resources.csv", lib.getResources());
+        SaveBorrowHistoryToFile("database/borrowHistory.csv", lib);
         cout << "Data saved successfully." << endl;
     }
-    catch(const exception& e) {
+    catch (const exception &e)
+    {
         cout << "Error saving data: " << e.what() << endl;
     }
 

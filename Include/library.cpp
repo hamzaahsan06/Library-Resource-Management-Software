@@ -549,6 +549,16 @@ void Library::showBorrowHistory() const
     }
 }
 
+void Library::addBorrowRecord(int userID, LibraryResource *res, time_t borrowDate,
+                              time_t dueDate, time_t returnDate, double fine, int durationDays)
+{
+    BorrowRecord record(userID, res, durationDays);
+    record.borrowDate  = borrowDate;
+    record.dueDate     = dueDate;
+    record.returnDate  = returnDate;
+    record.fine        = fine;
+    borrowHistory.push_back(record);
+}
 // ---------- Getters ----------
 string Library::getLibraryName() const { return libraryName; }
 vector<User *> &Library::getUsers() { return users; }

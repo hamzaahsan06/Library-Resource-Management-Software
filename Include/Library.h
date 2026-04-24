@@ -55,7 +55,7 @@ public:
     void changePassword(User *u);        // asks for new password and updates user account
     void showUserProfile(User *u) const; // shows user's own details and borrow history
     User *loginUser();                   // searches users vector by username and password, returns matched user
-    void searchResources() const; // Allows user to search for a specific resource
+    void searchResources() const;        // Allows user to search for a specific resource
 
     // ---------- Borrowing Logic ----------
     bool borrowResource(User *user, LibraryResource *res); // duration comes from user type
@@ -65,6 +65,8 @@ public:
 
     // ---------- Borrow History ----------
     void showBorrowHistory() const;
+    void addBorrowRecord(int userID, LibraryResource *res, time_t borrowDate,
+                         time_t dueDate, time_t returnDate, double fine, int durationDays);
 
     // ---------- Getters ----------
     string getLibraryName() const;

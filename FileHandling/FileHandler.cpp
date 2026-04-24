@@ -26,17 +26,17 @@ void ReadUsersFromFile(const string &filename, vector<User *> &users)
         // read common columns — same for all user types
         string idSTR, type, username, password, name, address, balSTR, isDeletedSTR;
 
-        getline(ss, idSTR,        ','); // column 1
-        getline(ss, type,         ','); // column 2
-        getline(ss, username,     ','); // column 3
-        getline(ss, password,     ','); // column 4
-        getline(ss, name,         ','); // column 5
-        getline(ss, address,      ','); // column 6
-        getline(ss, balSTR,       ','); // column 7
+        getline(ss, idSTR, ',');        // column 1
+        getline(ss, type, ',');         // column 2
+        getline(ss, username, ',');     // column 3
+        getline(ss, password, ',');     // column 4
+        getline(ss, name, ',');         // column 5
+        getline(ss, address, ',');      // column 6
+        getline(ss, balSTR, ',');       // column 7
         getline(ss, isDeletedSTR, ','); // column 8 — isDeleted flag (0 = active, 1 = deleted)
 
-        int id       = stoi(idSTR);
-        double bal   = stod(balSTR);
+        int id = stoi(idSTR);
+        double bal = stod(balSTR);
         bool deleted = (isDeletedSTR == "1"); // convert to bool
 
         User *u = nullptr;
@@ -45,15 +45,15 @@ void ReadUsersFromFile(const string &filename, vector<User *> &users)
         {
             string department, rollSTR;
             getline(ss, department, ','); // column 9
-            getline(ss, rollSTR,    ','); // column 10
+            getline(ss, rollSTR, ',');    // column 10
 
             u = new Student(id, username, password, name, address, bal, department, stoi(rollSTR));
         }
         else if (type == "teacher")
         {
             string skip, department, designation;
-            getline(ss, department,  ','); // column 9
-            getline(ss, skip,        ','); // column 10 — blank (rollNo)
+            getline(ss, department, ',');  // column 9
+            getline(ss, skip, ',');        // column 10 — blank (rollNo)
             getline(ss, designation, ','); // column 11
 
             u = new Teacher(id, username, password, name, address, bal, department, designation);
@@ -61,9 +61,9 @@ void ReadUsersFromFile(const string &filename, vector<User *> &users)
         else if (type == "staff")
         {
             string skip, position;
-            getline(ss, skip,     ','); // column 9  — blank (department)
-            getline(ss, skip,     ','); // column 10 — blank (rollNo)
-            getline(ss, skip,     ','); // column 11 — blank (designation)
+            getline(ss, skip, ',');     // column 9  — blank (department)
+            getline(ss, skip, ',');     // column 10 — blank (rollNo)
+            getline(ss, skip, ',');     // column 11 — blank (designation)
             getline(ss, position, ','); // column 12
 
             u = new Staff(id, username, password, name, address, bal, position);
@@ -71,10 +71,10 @@ void ReadUsersFromFile(const string &filename, vector<User *> &users)
         else if (type == "premium")
         {
             string skip, membershipLevel;
-            getline(ss, skip,            ','); // column 9  — blank (department)
-            getline(ss, skip,            ','); // column 10 — blank (rollNo)
-            getline(ss, skip,            ','); // column 11 — blank (designation)
-            getline(ss, skip,            ','); // column 12 — blank (position)
+            getline(ss, skip, ',');            // column 9  — blank (department)
+            getline(ss, skip, ',');            // column 10 — blank (rollNo)
+            getline(ss, skip, ',');            // column 11 — blank (designation)
+            getline(ss, skip, ',');            // column 12 — blank (position)
             getline(ss, membershipLevel, ','); // column 13
 
             u = new PremiumMember(id, username, password, name, address, bal, membershipLevel);
@@ -114,29 +114,29 @@ void SaveUsersToFile(const string &filename, vector<User *> &users)
     for (auto user : users)
     {
         // write common columns
-        writeFile << user->getUserID()    << ","  // column 1
-                  << user->getType()      << ","  // column 2
-                  << user->getUsername()  << ","  // column 3
-                  << user->getPassword()  << ","  // column 4
-                  << user->getName()      << ","  // column 5
-                  << user->getAddress()   << ","  // column 6
-                  << user->getBalance()   << ","  // column 7
+        writeFile << user->getUserID() << ","     // column 1
+                  << user->getType() << ","       // column 2
+                  << user->getUsername() << ","   // column 3
+                  << user->getPassword() << ","   // column 4
+                  << user->getName() << ","       // column 5
+                  << user->getAddress() << ","    // column 6
+                  << user->getBalance() << ","    // column 7
                   << user->getIsDeleted() << ","; // column 8 — write 1 if deleted, 0 if active
 
         if (user->getType() == "student")
         {
             Student *s = dynamic_cast<Student *>(user);
             writeFile << s->getDepartment() << "," // column 9
-                      << s->getRollNo()     << "," // column 10
-                      << ",,"               << "\n"; // columns 11,12,13 blank
+                      << s->getRollNo() << ","     // column 10
+                      << ",," << "\n";             // columns 11,12,13 blank
         }
         else if (user->getType() == "teacher")
         {
             Teacher *t = dynamic_cast<Teacher *>(user);
-            writeFile << t->getDepartment()  << ","  // column 9
-                      << ","                         // column 10 blank
-                      << t->getDesignation() << ","  // column 11
-                      << ","                << "\n"; // columns 12,13 blank
+            writeFile << t->getDepartment() << ","  // column 9
+                      << ","                        // column 10 blank
+                      << t->getDesignation() << "," // column 11
+                      << "," << "\n";               // columns 12,13 blank
         }
         else if (user->getType() == "staff")
         {
@@ -184,19 +184,19 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
         // read common columns — same for all resource types
         string idSTR, type, title, authorCreator, category, totalSTR, availableSTR, availabilityStatus, isDeletedSTR;
 
-        getline(ss, idSTR,              ','); // column 1
-        getline(ss, type,               ','); // column 2
-        getline(ss, title,              ','); // column 3
-        getline(ss, authorCreator,      ','); // column 4
-        getline(ss, category,           ','); // column 5
-        getline(ss, totalSTR,           ','); // column 6
-        getline(ss, availableSTR,       ','); // column 7
+        getline(ss, idSTR, ',');              // column 1
+        getline(ss, type, ',');               // column 2
+        getline(ss, title, ',');              // column 3
+        getline(ss, authorCreator, ',');      // column 4
+        getline(ss, category, ',');           // column 5
+        getline(ss, totalSTR, ',');           // column 6
+        getline(ss, availableSTR, ',');       // column 7
         getline(ss, availabilityStatus, ','); // column 8
-        getline(ss, isDeletedSTR,       ','); // column 9 — isDeleted flag (0 = active, 1 = deleted)
+        getline(ss, isDeletedSTR, ',');       // column 9 — isDeleted flag (0 = active, 1 = deleted)
 
-        int id          = stoi(idSTR);
+        int id = stoi(idSTR);
         int totalCopies = stoi(totalSTR);
-        bool deleted    = (isDeletedSTR == "1"); // convert to bool
+        bool deleted = (isDeletedSTR == "1"); // convert to bool
 
         LibraryResource *r = nullptr;
 
@@ -204,9 +204,9 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
         {
             string ISBN, publisher, yearSTR, skip;
 
-            getline(ss, ISBN,      ','); // column 10
+            getline(ss, ISBN, ',');      // column 10
             getline(ss, publisher, ','); // column 11
-            getline(ss, yearSTR,   ','); // column 12
+            getline(ss, yearSTR, ',');   // column 12
             getline(ss, skip, ',');      // column 13 — blank (director)
             getline(ss, skip, ',');      // column 14 — blank (durationMinutes)
             getline(ss, skip, ',');      // column 15 — blank (genre)
@@ -227,9 +227,9 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, skip, ',');        // column 10 — blank (ISBN)
             getline(ss, skip, ',');        // column 11 — blank (publisher)
             getline(ss, skip, ',');        // column 12 — blank (yearPublished)
-            getline(ss, director,    ','); // column 13
+            getline(ss, director, ',');    // column 13
             getline(ss, durationSTR, ','); // column 14
-            getline(ss, genre,       ','); // column 15
+            getline(ss, genre, ',');       // column 15
 
             r = new DVD(id, title, director, category, totalCopies, stoi(durationSTR), genre);
         }
@@ -243,8 +243,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, skip, ',');        // column 13 — blank (director)
             getline(ss, durationSTR, ','); // column 14
             getline(ss, skip, ',');        // column 15 — blank (genre)
-            getline(ss, narrator,    ','); // column 16
-            getline(ss, format,      ','); // column 17
+            getline(ss, narrator, ',');    // column 16
+            getline(ss, format, ',');      // column 17
 
             r = new AudioBook(id, title, authorCreator, category, totalCopies, narrator, stoi(durationSTR), format);
         }
@@ -253,15 +253,15 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             string skip, publisher, volumeSTR, issueSTR, publicationDate;
 
             getline(ss, skip, ',');            // column 10 — blank (ISBN)
-            getline(ss, publisher,       ','); // column 11
+            getline(ss, publisher, ',');       // column 11
             getline(ss, skip, ',');            // column 12 — blank (yearPublished)
             getline(ss, skip, ',');            // column 13 — blank (director)
             getline(ss, skip, ',');            // column 14 — blank (durationMinutes)
             getline(ss, skip, ',');            // column 15 — blank (genre)
             getline(ss, skip, ',');            // column 16 — blank (narrator)
             getline(ss, skip, ',');            // column 17 — blank (format)
-            getline(ss, volumeSTR,       ','); // column 18
-            getline(ss, issueSTR,        ','); // column 19
+            getline(ss, volumeSTR, ',');       // column 18
+            getline(ss, issueSTR, ',');        // column 19
             getline(ss, publicationDate, ','); // column 20
 
             r = new Magazine(id, title, publisher, category, totalCopies, stoi(volumeSTR), stoi(issueSTR), publicationDate);
@@ -271,7 +271,7 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             string skip, publisher, editionDate, region;
 
             getline(ss, skip, ',');        // column 10 — blank (ISBN)
-            getline(ss, publisher,   ','); // column 11
+            getline(ss, publisher, ',');   // column 11
             getline(ss, skip, ',');        // column 12 — blank (yearPublished)
             getline(ss, skip, ',');        // column 13 — blank (director)
             getline(ss, skip, ',');        // column 14 — blank (durationMinutes)
@@ -282,7 +282,7 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, skip, ',');        // column 19 — blank (issueNumber)
             getline(ss, skip, ',');        // column 20 — blank (publicationDate)
             getline(ss, editionDate, ','); // column 21
-            getline(ss, region,      ','); // column 22
+            getline(ss, region, ',');      // column 22
 
             r = new Newspaper(id, title, publisher, category, totalCopies, editionDate, region);
         }
@@ -318,32 +318,32 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
     for (auto res : resources)
     {
         // write common columns
-        writeFile << res->getResourceID()         << ","  // column 1
-                  << res->getType()               << ","  // column 2
-                  << res->getTitle()              << ","  // column 3
-                  << res->getAuthorCreator()      << ","  // column 4
-                  << res->getCategory()           << ","  // column 5
-                  << res->getTotalCopies()        << ","  // column 6
-                  << res->getAvailableCopies()    << ","  // column 7
-                  << res->getAvailabilityStatus() << ","  // column 8
-                  << res->getIsDeleted()          << ","; // column 9 — write 1 if deleted, 0 if active
+        writeFile << res->getResourceID() << ","         // column 1
+                  << res->getType() << ","               // column 2
+                  << res->getTitle() << ","              // column 3
+                  << res->getAuthorCreator() << ","      // column 4
+                  << res->getCategory() << ","           // column 5
+                  << res->getTotalCopies() << ","        // column 6
+                  << res->getAvailableCopies() << ","    // column 7
+                  << res->getAvailabilityStatus() << "," // column 8
+                  << res->getIsDeleted() << ",";         // column 9 — write 1 if deleted, 0 if active
 
         if (res->getType() == "book")
         {
             Book *b = dynamic_cast<Book *>(res);
-            writeFile << b->getISBN()          << ","  // column 10
-                      << b->getPublisher()     << ","  // column 11
-                      << b->getYearPublished() << ","  // column 12
-                      << ","                           // column 13 blank
-                      << ","                           // column 14 blank
-                      << ","                           // column 15 blank
-                      << ","                           // column 16 blank
-                      << ","                           // column 17 blank
-                      << ","                           // column 18 blank
-                      << ","                           // column 19 blank
-                      << ","                           // column 20 blank
-                      << ","                           // column 21 blank
-                      << "\n";                         // column 22 blank
+            writeFile << b->getISBN() << ","          // column 10
+                      << b->getPublisher() << ","     // column 11
+                      << b->getYearPublished() << "," // column 12
+                      << ","                          // column 13 blank
+                      << ","                          // column 14 blank
+                      << ","                          // column 15 blank
+                      << ","                          // column 16 blank
+                      << ","                          // column 17 blank
+                      << ","                          // column 18 blank
+                      << ","                          // column 19 blank
+                      << ","                          // column 20 blank
+                      << ","                          // column 21 blank
+                      << "\n";                        // column 22 blank
         }
         else if (res->getType() == "dvd")
         {
@@ -353,7 +353,7 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
                       << ","                     // column 12 blank
                       << d->getDirector() << "," // column 13
                       << d->getDuration() << "," // column 14
-                      << d->getGenre()    << "," // column 15
+                      << d->getGenre() << ","    // column 15
                       << ","                     // column 16 blank
                       << ","                     // column 17 blank
                       << ","                     // column 18 blank
@@ -372,7 +372,7 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
                       << a->getDuration() << "," // column 14
                       << ","                     // column 15 blank
                       << a->getNarrator() << "," // column 16
-                      << a->getFormat()   << "," // column 17
+                      << a->getFormat() << ","   // column 17
                       << ","                     // column 18 blank
                       << ","                     // column 19 blank
                       << ","                     // column 20 blank
@@ -383,16 +383,16 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
         {
             Magazine *m = dynamic_cast<Magazine *>(res);
             writeFile << ","                            // column 10 blank
-                      << m->getPublisher()      << ","  // column 11
+                      << m->getPublisher() << ","       // column 11
                       << ","                            // column 12 blank
                       << ","                            // column 13 blank
                       << ","                            // column 14 blank
                       << ","                            // column 15 blank
                       << ","                            // column 16 blank
                       << ","                            // column 17 blank
-                      << m->getVolumeNumber()   << ","  // column 18
-                      << m->getIssueNumber()    << ","  // column 19
-                      << m->getPublicationDate()<< ","  // column 20
+                      << m->getVolumeNumber() << ","    // column 18
+                      << m->getIssueNumber() << ","     // column 19
+                      << m->getPublicationDate() << "," // column 20
                       << ","                            // column 21 blank
                       << "\n";                          // column 22 blank
         }
@@ -400,7 +400,7 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
         {
             Newspaper *n = dynamic_cast<Newspaper *>(res);
             writeFile << ","                        // column 10 blank
-                      << n->getPublisher()  << ","  // column 11
+                      << n->getPublisher() << ","   // column 11
                       << ","                        // column 12 blank
                       << ","                        // column 13 blank
                       << ","                        // column 14 blank
@@ -410,12 +410,99 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
                       << ","                        // column 18 blank
                       << ","                        // column 19 blank
                       << ","                        // column 20 blank
-                      << n->getEditionDate()<< ","  // column 21
-                      << n->getRegion()     << "\n";// column 22
+                      << n->getEditionDate() << "," // column 21
+                      << n->getRegion() << "\n";    // column 22
         }
     }
 
     writeFile.close();
+}
+void SaveBorrowHistoryToFile(const string &filename, Library &lib)
+{
+    ofstream writeFile(filename);
+
+    if (!writeFile.is_open())
+    {
+        cout << "Error: Could not open " << filename << endl;
+        return;
+    }
+
+    writeFile << "userID,resourceID,resourceType,resourceTitle,"
+              << "borrowDate,dueDate,returnDate,fine,durationDays\n";
+
+    for (const auto &record : lib.getBorrowHistory())
+    {
+        writeFile << record.userID << ","
+                  << record.resource->getResourceID() << ","
+                  << record.resource->getType() << ","
+                  << record.resource->getTitle() << ","
+                  << record.borrowDate << ","
+                  << record.dueDate << ","
+                  << record.returnDate << ","
+                  << record.fine << ","
+                  << record.durationDays << "\n";
+    }
+
+    writeFile.close();
+}
+
+void ReadBorrowHistoryFromFile(const string &filename, Library &lib)
+{
+    ifstream readFile(filename);
+
+    if (!readFile.is_open())
+    {
+        cout << "Error: Could not open " << filename << endl;
+        return;
+    }
+
+    string line;
+    getline(readFile, line); // skip header
+
+    while (getline(readFile, line))
+    {
+        stringstream ss(line);
+
+        string userIDStr, resourceIDStr, resourceType, resourceTitle;
+        string borrowDateStr, dueDateStr, returnDateStr, fineStr, durationStr;
+
+        getline(ss, userIDStr, ',');
+        getline(ss, resourceIDStr, ',');
+        getline(ss, resourceType, ',');
+        getline(ss, resourceTitle, ',');
+        getline(ss, borrowDateStr, ',');
+        getline(ss, dueDateStr, ',');
+        getline(ss, returnDateStr, ',');
+        getline(ss, fineStr, ',');
+        getline(ss, durationStr, ',');
+
+        int userID = stoi(userIDStr);
+        int resourceID = stoi(resourceIDStr);
+        time_t borrowDate = (time_t)stol(borrowDateStr);
+        time_t dueDate = (time_t)stol(dueDateStr);
+        time_t returnDate = (time_t)stol(returnDateStr);
+        double fine = stod(fineStr);
+        int durationDays = stoi(durationStr);
+
+        // find matching resource pointer from already loaded resources vector
+        LibraryResource *res = nullptr;
+        for (auto r : lib.getResources())
+        {
+            if (r->getResourceID() == resourceID)
+            {
+                res = r;
+                break;
+            }
+        }
+
+        if (res == nullptr)
+            continue; // skip if resource not found
+
+        // use helper function to construct and push record internally
+        lib.addBorrowRecord(userID, res, borrowDate, dueDate, returnDate, fine, durationDays);
+    }
+
+    readFile.close();
 }
 
 // scans CSV for highest existing ID, returns max + 1 for new registration

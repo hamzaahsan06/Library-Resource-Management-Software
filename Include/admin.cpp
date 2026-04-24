@@ -49,30 +49,35 @@ void Admin::printAllCustomersReport(Library &lib)
 
     cout << "\n--- Borrowing History ---" << endl;
     cout << left << setw(8) << "User ID"
-         << setw(30) << "Resource"
-         << setw(25) << "Borrowed"
-         << setw(25) << "Due"
-         << setw(15) << "Returned"
+         << setw(35) << "Resource"
+         << setw(14) << "Borrowed"
+         << setw(14) << "Due"
+         << setw(14) << "Returned"
          << setw(8) << "Fine" << endl;
-    cout << string(111, '-') << endl;
+    cout << string(93, '-') << endl;
 
     for (const auto &record : lib.getBorrowHistory())
     {
-        // ctime adds newline at end so we strip it for clean output
-        string borrowed = ctime(&record.borrowDate);
-        string due = ctime(&record.dueDate);
-        string returned = record.returnDate == 0 ? "Not yet" : ctime(&record.returnDate);
+        // format date as DD-MM-YYYY instead of full ctime string
+        auto formatDate = [](time_t t) -> string
+        {
+            if (t == 0)
+                return "Not yet";
+            struct tm *tm_info = localtime(&t);
+            char buffer[11];
+            strftime(buffer, sizeof(buffer), "%d-%m-%Y", tm_info);
+            return string(buffer);
+        };
 
-        borrowed.pop_back(); // remove trailing newline from ctime
-        due.pop_back();
-        if (record.returnDate != 0)
-            returned.pop_back();
+        string borrowed = formatDate(record.borrowDate);
+        string due = formatDate(record.dueDate);
+        string returned = formatDate(record.returnDate);
 
         cout << left << setw(8) << record.userID
-             << setw(30) << record.resource->getTitle()
-             << setw(25) << borrowed
-             << setw(25) << due
-             << setw(15) << returned
+             << setw(35) << record.resource->getTitle()
+             << setw(14) << borrowed
+             << setw(14) << due
+             << setw(14) << returned
              << setw(8) << record.fine << endl;
     }
 }
@@ -81,21 +86,23 @@ void Admin::searchUser(Library &lib)
 {
     int id;
 
-    try {
+    try
+    {
         cout << "Enter user ID to search: ";
         cin >> id;
 
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << e.what() << endl;
-        cin.clear(); // reset error state
+        cin.clear();            // reset error state
         cin.ignore(1000, '\n'); // discard bad input
-        return; // stop function safely
+        return;                 // stop function safely
     }
 
-    cout << left << setw(6)  << "ID"
+    cout << left << setw(6) << "ID"
          << setw(25) << "Name"
          << setw(12) << "Type"
          << setw(20) << "Username"
@@ -109,7 +116,7 @@ void Admin::searchUser(Library &lib)
     {
         if (u->getUserID() == id)
         {
-            cout << left << setw(6)  << u->getUserID()
+            cout << left << setw(6) << u->getUserID()
                  << setw(25) << u->getName()
                  << setw(12) << u->getType()
                  << setw(20) << u->getUsername()
@@ -123,7 +130,6 @@ void Admin::searchUser(Library &lib)
     if (!found)
         cout << "User with ID " << id << " not found." << endl;
 }
-
 
 void Admin::fineManagement(Library &lib)
 {
@@ -145,14 +151,16 @@ void Admin::deleteUser(Library &lib)
 {
     int id;
 
-    try {
+    try
+    {
         cout << "Enter user ID to delete: ";
         cin >> id;
 
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
@@ -177,14 +185,14 @@ void Admin::deleteUser(Library &lib)
     cout << "User with ID " << id << " not found." << endl;
 }
 
-
 // ---------- Resource Management ----------
 void Admin::addResource(Library &lib)
 {
     int choice;
     LibraryResource *newRes = nullptr;
 
-    try {
+    try
+    {
         cout << "Select resource type to add:" << endl;
         cout << "1. Book" << endl;
         cout << "2. DVD" << endl;
@@ -194,7 +202,7 @@ void Admin::addResource(Library &lib)
 
         cin >> choice;
 
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
 
         int ID = generateNewResourceID("../database/resources.csv");
@@ -204,23 +212,23 @@ void Admin::addResource(Library &lib)
         cout << "Enter title: ";
         cin.ignore();
         getline(cin, title);
-        if(title.empty())
+        if (title.empty())
             throw runtime_error("Title cannot be empty!");
 
         cout << "Enter author/creator: ";
         getline(cin, author);
-        if(author.empty())
+        if (author.empty())
             throw runtime_error("Author cannot be empty!");
 
         cout << "Enter category: ";
         getline(cin, category);
-        if(category.empty())
+        if (category.empty())
             throw runtime_error("Category cannot be empty!");
 
         cout << "Enter total copies: ";
         cin >> totalCopies;
 
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input. Expected an integer!");
 
         if (choice == 1)
@@ -234,7 +242,7 @@ void Admin::addResource(Library &lib)
             getline(cin, publisher);
             cout << "Enter year published: ";
             cin >> year;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input.Expected an integer!");
             newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
         }
@@ -247,7 +255,7 @@ void Admin::addResource(Library &lib)
             getline(cin, director);
             cout << "Enter duration (minutes): ";
             cin >> duration;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input.Expected an integer!");
             cout << "Enter genre: ";
             cin.ignore();
@@ -263,7 +271,7 @@ void Admin::addResource(Library &lib)
             getline(cin, narrator);
             cout << "Enter duration (minutes): ";
             cin >> duration;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input.Expected an integer!");
             cout << "Enter format (MP3/CD): ";
             cin.ignore();
@@ -279,11 +287,11 @@ void Admin::addResource(Library &lib)
             getline(cin, publisher);
             cout << "Enter volume number: ";
             cin >> volume;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input.Expected an integer!");
             cout << "Enter issue number: ";
             cin >> issue;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input.Expected an integer!");
             cout << "Enter publication date (e.g. May 2025): ";
             cin.ignore();
@@ -311,7 +319,8 @@ void Admin::addResource(Library &lib)
         lib.addResource(newRes); // push into library's resources vector
         cout << "Resource added successfully." << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         delete newRes; // Clean up on exception
         cin.clear();
@@ -323,10 +332,11 @@ void Admin::deleteResource(Library &lib)
 {
     int id;
 
-    try {
+    try
+    {
         cout << "Enter resource ID to delete: ";
         cin >> id;
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
 
         for (auto r : lib.getResources())
@@ -345,7 +355,8 @@ void Admin::deleteResource(Library &lib)
         }
         cout << "Resource with ID " << id << " not found." << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
@@ -356,10 +367,11 @@ void Admin::updateResource(Library &lib)
 {
     int id;
 
-    try {
+    try
+    {
         cout << "Enter resource ID to update: ";
         cin >> id;
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input.Expected an integer!");
 
         for (auto r : lib.getResources())
@@ -389,7 +401,7 @@ void Admin::updateResource(Library &lib)
 
                 cout << "Enter new total copies (0 to keep current): ";
                 cin >> newCopies;
-                if(cin.fail())
+                if (cin.fail())
                     throw runtime_error("Invalid input.Expected an integer!");
                 if (newCopies > 0)
                     r->setTotalCopies(newCopies);
@@ -402,7 +414,8 @@ void Admin::updateResource(Library &lib)
 
         cout << "Resource with ID " << id << " not found." << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
