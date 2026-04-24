@@ -62,10 +62,10 @@ void Library::showResources() const
     {
         if (!res->getIsDeleted()) // skip deleted resources
         {
-        cout << left << setw(6) << res->getResourceID()
-             << setw(35) << res->getTitle()
-             << setw(15) << res->getType()
-             << setw(15) << res->getAvailableCopies() << endl;
+            cout << left << setw(6) << res->getResourceID()
+                 << setw(35) << res->getTitle()
+                 << setw(15) << res->getType()
+                 << setw(15) << res->getAvailableCopies() << endl;
         }
     }
 }
@@ -108,8 +108,9 @@ void Library::registerUser()
 {
     int choice;
     User *u = nullptr;
-    
-    try {
+
+    try
+    {
         cout << "Select user type:" << endl;
         cout << "1. Student" << endl;
         cout << "2. Teacher" << endl;
@@ -117,7 +118,7 @@ void Library::registerUser()
         cout << "4. Premium Member" << endl;
         cin >> choice;
 
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input. Expected an integer!");
 
         int id = generateNewUserID("../database/users.csv");
@@ -127,89 +128,89 @@ void Library::registerUser()
 
         cout << "Enter username: ";
         cin >> username;
-        if(username.empty())
+        if (username.empty())
             throw runtime_error("Username cannot be empty!");
 
         cout << "Enter password: ";
         cin >> password;
-        if(password.empty())
+        if (password.empty())
             throw runtime_error("Password cannot be empty!");
 
         cout << "Enter full name: ";
         cin.ignore();
         getline(cin, name);
-        if(name.empty())
+        if (name.empty())
             throw runtime_error("Name cannot be empty!");
 
         cout << "Enter address: ";
         getline(cin, address);
-        if(address.empty())
+        if (address.empty())
             throw runtime_error("Address cannot be empty!");
 
         cout << "Enter initial balance: ";
         cin >> balance;
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input. Expected a number for balance!");
 
         if (choice == 1)
         {
             string department;
             int rollNo;
-            
+
             cout << "Enter department: ";
             cin.ignore();
             getline(cin, department);
-            if(department.empty())
+            if (department.empty())
                 throw runtime_error("Department cannot be empty!");
-            
+
             cout << "Enter roll number: ";
             cin >> rollNo;
-            if(cin.fail())
+            if (cin.fail())
                 throw runtime_error("Invalid input. Expected an integer for roll number!");
-            
+
             u = new Student(id, username, password, name, address, balance, department, rollNo);
         }
         else if (choice == 2)
         {
             string department, designation;
-            
+
             cout << "Enter department: ";
             cin.ignore();
             getline(cin, department);
-            if(department.empty())
+            if (department.empty())
                 throw runtime_error("Department cannot be empty!");
-            
+
             cout << "Enter designation: ";
             getline(cin, designation);
-            if(designation.empty())
+            if (designation.empty())
                 throw runtime_error("Designation cannot be empty!");
-            
+
             u = new Teacher(id, username, password, name, address, balance, department, designation);
         }
         else if (choice == 3)
         {
             string position;
-            
+
             cout << "Enter position: ";
             cin.ignore();
             getline(cin, position);
-            if(position.empty())
+            if (position.empty())
                 throw runtime_error("Position cannot be empty!");
-            
+
             u = new Staff(id, username, password, name, address, balance, position);
         }
         else if (choice == 4)
         {
             string level;
-            
+
             cout << "Enter membership level (Gold/Silver/Bronze): ";
             cin >> level;
-            if(level.empty())
+            if (level.empty())
                 throw runtime_error("Membership level cannot be empty!");
-            
-            if(level != "Gold" && level != "Silver" && level != "Bronze")
+
+            if (level != "Gold" && level != "Silver" && level != "Bronze")
                 throw runtime_error("Invalid input. Only enter (Gold/Silver/Bronze)");
-            
+
             u = new PremiumMember(id, username, password, name, address, balance, level);
         }
         else
@@ -220,7 +221,8 @@ void Library::registerUser()
         users.push_back(u);
         cout << "User registered successfully. ID: " << id << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         delete u;
         cin.clear();
@@ -231,7 +233,8 @@ void Library::registerUser()
 // ---------- Search ----------
 void Library::searchResources() const
 {
-    try {
+    try
+    {
         // Display search options to the user
         cout << "\n===== Search Resources =====\n";
         cout << "Search by:\n";
@@ -242,15 +245,15 @@ void Library::searchResources() const
 
         int choice;
         cin >> choice;
-        if(cin.fail())
+        if (cin.fail())
             throw runtime_error("Invalid input. Expected an integer!");
 
         // Take search keyword input
         string keyword;
         cout << "Enter search keyword: ";
-        cin.ignore();              // Clear leftover newline from input buffer
-        getline(cin, keyword);     // Allows multi-word input
-        if(keyword.empty())
+        cin.ignore();          // Clear leftover newline from input buffer
+        getline(cin, keyword); // Allows multi-word input
+        if (keyword.empty())
             throw runtime_error("Search keyword cannot be empty!");
 
         // Convert keyword to lowercase for case-insensitive comparison
@@ -258,7 +261,7 @@ void Library::searchResources() const
             c = tolower(c);
 
         // Print table header in formatted style
-        cout << left << setw(6)  << "ID"
+        cout << left << setw(6) << "ID"
              << setw(35) << "Title"
              << setw(15) << "Type"
              << setw(20) << "Author"
@@ -278,10 +281,14 @@ void Library::searchResources() const
             string field;
 
             // Select the appropriate field based on user choice
-            if      (choice == 1) field = res->getTitle();
-            else if (choice == 2) field = res->getAuthorCreator();
-            else if (choice == 3) field = res->getCategory();
-            else if (choice == 4) field = res->getType();
+            if (choice == 1)
+                field = res->getTitle();
+            else if (choice == 2)
+                field = res->getAuthorCreator();
+            else if (choice == 3)
+                field = res->getCategory();
+            else if (choice == 4)
+                field = res->getType();
             else
                 throw runtime_error("Invalid choice. Please select 1-4!");
 
@@ -293,7 +300,7 @@ void Library::searchResources() const
             if (field.find(keyword) != string::npos)
             {
                 // Display matching resource in formatted output
-                cout << left << setw(6)  << res->getResourceID()
+                cout << left << setw(6) << res->getResourceID()
                      << setw(35) << res->getTitle()
                      << setw(15) << res->getType()
                      << setw(20) << res->getAuthorCreator()
@@ -307,7 +314,8 @@ void Library::searchResources() const
         if (!found)
             cout << "No resources found matching: " << keyword << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
@@ -317,11 +325,12 @@ void Library::searchResources() const
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
-    
-    try {
+
+    try
+    {
         cout << "Enter current password: ";
         cin >> oldPass;
-        if(oldPass.empty())
+        if (oldPass.empty())
             throw runtime_error("Password cannot be empty!");
 
         if (!u->login(u->getUsername(), oldPass))
@@ -332,13 +341,14 @@ void Library::changePassword(User *u)
 
         cout << "Enter new password: ";
         cin >> newPass;
-        if(newPass.empty())
+        if (newPass.empty())
             throw runtime_error("New password cannot be empty!");
-        
+
         u->setPassword(newPass);
         cout << "Password changed successfully." << endl;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
@@ -350,7 +360,7 @@ void Library::showUserProfile(User *u) const
     cout << "\n========== " << u->getName() << " Profile ==========\n";
 
     // Table header for user details
-    cout << left << setw(6)  << "ID"
+    cout << left << setw(6) << "ID"
          << setw(25) << "Name"
          << setw(20) << "Username"
          << setw(12) << "Type"
@@ -359,7 +369,7 @@ void Library::showUserProfile(User *u) const
     cout << string(73, '-') << endl;
 
     // User data in tabular format
-    cout << left << setw(6)  << u->getUserID()
+    cout << left << setw(6) << u->getUserID()
          << setw(25) << u->getName()
          << setw(20) << u->getUsername()
          << setw(12) << u->getType()
@@ -368,12 +378,12 @@ void Library::showUserProfile(User *u) const
     // Borrow history section
     cout << "\n========== My Borrow History ==========\n";
 
-    cout << left << setw(8)  << "UserID"
+    cout << left << setw(8) << "UserID"
          << setw(30) << "Resource"
          << setw(25) << "Borrowed"
          << setw(25) << "Due"
          << setw(15) << "Status"
-         << setw(8)  << "Fine" << endl;
+         << setw(8) << "Fine" << endl;
 
     cout << string(111, '-') << endl;
 
@@ -383,7 +393,7 @@ void Library::showUserProfile(User *u) const
     {
         if (record.userID == u->getUserID())
         {
-            // Format dates properly 
+            // Format dates properly
             string borrowed = ctime(&record.borrowDate);
             string due = ctime(&record.dueDate);
 
@@ -402,12 +412,12 @@ void Library::showUserProfile(User *u) const
                 status = "Returned";
             }
 
-            cout << left << setw(8)  << record.userID
+            cout << left << setw(8) << record.userID
                  << setw(30) << record.resource->getTitle()
                  << setw(25) << borrowed
                  << setw(25) << due
                  << setw(15) << status
-                 << setw(8)  << record.fine << endl;
+                 << setw(8) << record.fine << endl;
 
             found = true;
         }
@@ -419,20 +429,20 @@ void Library::showUserProfile(User *u) const
     }
 }
 
-
 User *Library::loginUser()
 {
     string username, password;
-    
-    try {
+
+    try
+    {
         cout << "Enter username: ";
         cin >> username;
-        if(username.empty())
+        if (username.empty())
             throw runtime_error("Username cannot be empty!");
-        
+
         cout << "Enter password: ";
         cin >> password;
-        if(password.empty())
+        if (password.empty())
             throw runtime_error("Password cannot be empty!");
 
         for (auto user : users)
@@ -444,7 +454,8 @@ User *Library::loginUser()
         cout << "Invalid username or password." << endl;
         return nullptr;
     }
-    catch(const runtime_error& e) {
+    catch (const runtime_error &e)
+    {
         cout << "Error: " << e.what() << endl;
         cin.clear();
         cin.ignore(1000, '\n');
@@ -553,10 +564,11 @@ void Library::addBorrowRecord(int userID, LibraryResource *res, time_t borrowDat
                               time_t dueDate, time_t returnDate, double fine, int durationDays)
 {
     BorrowRecord record(userID, res, durationDays);
-    record.borrowDate  = borrowDate;
-    record.dueDate     = dueDate;
-    record.returnDate  = returnDate;
-    record.fine        = fine;
+    record.borrowDate = borrowDate;
+    record.dueDate = dueDate;
+    record.returnDate = returnDate;
+    record.fine = fine;
+    record.durationDays = durationDays;
     borrowHistory.push_back(record);
 }
 // ---------- Getters ----------

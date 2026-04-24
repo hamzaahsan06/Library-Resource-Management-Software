@@ -20,15 +20,14 @@ LibraryResource::LibraryResource()
 
 // parameterized constructor
 LibraryResource::LibraryResource(int ID, string type, string title,
-                                 string authorCreator, string category, int totalCopies)
+                                 string authorCreator, string category, int availableCopies)
 {
     resourceID = ID;
     this->type = type;
     this->title = title;
     this->authorCreator = authorCreator;
     this->category = category;
-    this->totalCopies = totalCopies;
-    this->availableCopies = totalCopies; // initially all copies available
+    this->availableCopies = availableCopies;
     availabilityStatus = "Available";
     isDeleted = false;
 }

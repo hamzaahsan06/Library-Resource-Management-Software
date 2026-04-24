@@ -196,6 +196,7 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
 
         int id = stoi(idSTR);
         int totalCopies = stoi(totalSTR);
+        int availableCopies = stoi(availableSTR);
         bool deleted = (isDeletedSTR == "1"); // convert to bool
 
         LibraryResource *r = nullptr;
@@ -218,7 +219,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, skip, ',');      // column 21 — blank (editionDate)
             getline(ss, skip, ',');      // column 22 — blank (region)
 
-            r = new Book(id, title, authorCreator, category, totalCopies, ISBN, publisher, stoi(yearSTR));
+            r = new Book(id, title, authorCreator, category, availableCopies, ISBN, publisher, stoi(yearSTR));
+            r->setTotalCopies(totalCopies);
         }
         else if (type == "dvd")
         {
@@ -231,7 +233,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, durationSTR, ','); // column 14
             getline(ss, genre, ',');       // column 15
 
-            r = new DVD(id, title, director, category, totalCopies, stoi(durationSTR), genre);
+            r = new DVD(id, title, director, category, availableCopies, stoi(durationSTR), genre);
+            r->setTotalCopies(totalCopies);
         }
         else if (type == "audiobook")
         {
@@ -246,7 +249,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, narrator, ',');    // column 16
             getline(ss, format, ',');      // column 17
 
-            r = new AudioBook(id, title, authorCreator, category, totalCopies, narrator, stoi(durationSTR), format);
+            r = new AudioBook(id, title, authorCreator, category, availableCopies, narrator, stoi(durationSTR), format);
+            r->setTotalCopies(totalCopies);
         }
         else if (type == "magazine")
         {
@@ -264,7 +268,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, issueSTR, ',');        // column 19
             getline(ss, publicationDate, ','); // column 20
 
-            r = new Magazine(id, title, publisher, category, totalCopies, stoi(volumeSTR), stoi(issueSTR), publicationDate);
+            r = new Magazine(id, title, publisher, category, availableCopies, stoi(volumeSTR), stoi(issueSTR), publicationDate);
+            r->setTotalCopies(totalCopies);
         }
         else if (type == "newspaper")
         {
@@ -284,7 +289,8 @@ void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &re
             getline(ss, editionDate, ','); // column 21
             getline(ss, region, ',');      // column 22
 
-            r = new Newspaper(id, title, publisher, category, totalCopies, editionDate, region);
+            r = new Newspaper(id, title, publisher, category, availableCopies, editionDate, region);
+            r->setTotalCopies(totalCopies);
         }
 
         // push into vector and restore deleted status if marked in CSV
