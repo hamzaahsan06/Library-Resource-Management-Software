@@ -2,7 +2,9 @@
 #include "../FileHandling/FileHandler.h"
 #include <iostream>
 #include <iomanip>
+#include<utils.h>
 using namespace std;
+using namespace Utils;
 
 // ===================== BorrowRecord =====================
 
@@ -116,7 +118,7 @@ void Library::registerUser()
         cout << "2. Teacher" << endl;
         cout << "3. Staff" << endl;
         cout << "4. Premium Member" << endl;
-        cin >> choice;
+        choice = getValidInt("Enter choice: ");
 
         if (cin.fail())
             throw runtime_error("Invalid input. Expected an integer!");
@@ -127,7 +129,7 @@ void Library::registerUser()
         double balance;
 
         cout << "Enter username: ";
-        cin >> username;
+        username = getValidString("Enter username: ");
         if (username.empty())
             throw runtime_error("Username cannot be empty!");
 
@@ -138,35 +140,21 @@ void Library::registerUser()
 
         cout << "Enter full name: ";
         cin.ignore();
-        getline(cin, name);
-        if (name.empty())
-            throw runtime_error("Name cannot be empty!");
+        name = getValidString("Enter full name: ");
 
         cout << "Enter address: ";
         getline(cin, address);
         if (address.empty())
             throw runtime_error("Address cannot be empty!");
-
-        cout << "Enter initial balance: ";
-        cin >> balance;
-        if (cin.fail())
-            throw runtime_error("Invalid input. Expected a number for balance!");
+        balance = getValidDouble("Enter initial balance: ");
 
         if (choice == 1)
         {
             string department;
             int rollNo;
 
-            cout << "Enter department: ";
-            cin.ignore();
-            getline(cin, department);
-            if (department.empty())
-                throw runtime_error("Department cannot be empty!");
-
-            cout << "Enter roll number: ";
-            cin >> rollNo;
-            if (cin.fail())
-                throw runtime_error("Invalid input. Expected an integer for roll number!");
+            department = getValidString("Enter department: "); 
+            rollNo = getValidInt("Enter roll number: ");
 
             u = new Student(id, username, password, name, address, balance, department, rollNo);
         }
@@ -174,11 +162,7 @@ void Library::registerUser()
         {
             string department, designation;
 
-            cout << "Enter department: ";
-            cin.ignore();
-            getline(cin, department);
-            if (department.empty())
-                throw runtime_error("Department cannot be empty!");
+            department = getValidString("Enter department: ");
 
             cout << "Enter designation: ";
             getline(cin, designation);
@@ -201,15 +185,31 @@ void Library::registerUser()
         }
         else if (choice == 4)
         {
-            string level;
+            int choice;
+    string level;
 
-            cout << "Enter membership level (Gold/Silver/Bronze): ";
-            cin >> level;
-            if (level.empty())
-                throw runtime_error("Membership level cannot be empty!");
+    while (true) {
+        cout << "Select membership level:\n";
+        cout << "1. Gold\n";
+        cout << "2. Silver\n";
+        cout << "3. Bronze\n";
+        choice = getValidInt("Enter choice: ");
 
-            if (level != "Gold" && level != "Silver" && level != "Bronze")
-                throw runtime_error("Invalid input. Only enter (Gold/Silver/Bronze)");
+        if (choice == 1) {
+            level = "Gold";
+            break;
+        } else if (choice == 2) {
+            level = "Silver";
+            break;
+        } else if (choice == 3) {
+            level = "Bronze";
+            break;
+        } else {
+            cerr << "Invalid choice. Please select 1, 2, or 3.\n";
+        }
+    }
+
+    cout << "You selected membership level: " << level << endl;
 
             u = new PremiumMember(id, username, password, name, address, balance, level);
         }
@@ -244,9 +244,7 @@ void Library::searchResources() const
         cout << "4. Type\n";
 
         int choice;
-        cin >> choice;
-        if (cin.fail())
-            throw runtime_error("Invalid input. Expected an integer!");
+        choice = getValidInt("Enter choice: ");
 
         // Take search keyword input
         string keyword;

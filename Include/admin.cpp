@@ -1,11 +1,13 @@
 #include "admin.h"
 #include "Resources.h"
 #include "Library.h"
+#include "utils.h"
 #include "../FileHandling/FileHandler.h"
 #include <iostream>
 #include <iomanip>
 #include <fstream>
 using namespace std;
+using namespace Utils;
 
 // ---------- Constructors ----------
 Admin::Admin() : User()
@@ -68,21 +70,9 @@ void Admin::searchUser(Library &lib)
 {
     int id;
 
-    try
-    {
-        cout << "Enter user ID to search: ";
-        cin >> id;
+    id = getValidInt("Enter user ID to search: ");
 
-        if (cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-    }
-    catch (const runtime_error &e)
-    {
-        cout << e.what() << endl;
-        cin.clear();            // reset error state
-        cin.ignore(1000, '\n'); // discard bad input
-        return;                 // stop function safely
-    }
+     cout << "\n--- User Search Result ---" << endl;
 
     cout << left << setw(6) << "ID"
          << setw(25) << "Name"
@@ -133,21 +123,7 @@ void Admin::deleteUser(Library &lib)
 {
     int id;
 
-    try
-    {
-        cout << "Enter user ID to delete: ";
-        cin >> id;
-
-        if (cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-    }
-    catch (const runtime_error &e)
-    {
-        cout << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-        return;
-    }
+    id = getValidInt("Enter user ID to delete: ");
 
     for (auto u : lib.getUsers())
     {
@@ -181,12 +157,7 @@ void Admin::addResource(Library &lib)
         cout << "3. AudioBook" << endl;
         cout << "4. Magazine" << endl;
         cout << "5. Newspaper" << endl;
-
-        cin >> choice;
-
-        if (cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
-
+            choice = getValidInt("Enter choice: ");
         int ID = generateNewResourceID("../database/resources.csv");
         int totalCopies;
         string title, author, category;
@@ -197,21 +168,14 @@ void Admin::addResource(Library &lib)
         if (title.empty())
             throw runtime_error("Title cannot be empty!");
 
-        cout << "Enter author/creator: ";
-        getline(cin, author);
-        if (author.empty())
-            throw runtime_error("Author cannot be empty!");
+        author = getValidString("Enter author/creator: ");
 
         cout << "Enter category: ";
         getline(cin, category);
         if (category.empty())
             throw runtime_error("Category cannot be empty!");
 
-        cout << "Enter total copies: ";
-        cin >> totalCopies;
-
-        if (cin.fail())
-            throw runtime_error("Invalid input. Expected an integer!");
+        totalCopies = getValidInt("Enter total copies: ");
 
         if (choice == 1)
         {
@@ -219,42 +183,25 @@ void Admin::addResource(Library &lib)
             int year;
             cout << "Enter ISBN: ";
             cin >> ISBN;
-            cout << "Enter publisher: ";
-            cin.ignore();
-            getline(cin, publisher);
-            cout << "Enter year published: ";
-            cin >> year;
-            if (cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
+            publisher = getValidString("Enter publisher: ");
+            year = getValidInt("Enter year published: ");
             newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
         }
         else if (choice == 2)
         {
             string director, genre;
             int duration;
-            cout << "Enter director: ";
-            cin.ignore();
-            getline(cin, director);
-            cout << "Enter duration (minutes): ";
-            cin >> duration;
-            if (cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
-            cout << "Enter genre: ";
-            cin.ignore();
-            getline(cin, genre);
+            director = getValidString("Enter director: ");
+            duration = getValidInt("Enter duration (minutes): ");
+            genre = getValidString("Enter genre: ");
             newRes = new DVD(ID, title, director, category, totalCopies, duration, genre);
         }
         else if (choice == 3)
         {
             string narrator, format;
             int duration;
-            cout << "Enter narrator: ";
-            cin.ignore();
-            getline(cin, narrator);
-            cout << "Enter duration (minutes): ";
-            cin >> duration;
-            if (cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
+            narrator = getValidString("Enter narrator: ");
+             duration = getValidInt("Enter duration (minutes): ");
             cout << "Enter format (MP3/CD): ";
             cin.ignore();
             getline(cin, format);
@@ -264,17 +211,9 @@ void Admin::addResource(Library &lib)
         {
             string publisher, pubDate;
             int volume, issue;
-            cout << "Enter publisher: ";
-            cin.ignore();
-            getline(cin, publisher);
-            cout << "Enter volume number: ";
-            cin >> volume;
-            if (cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
-            cout << "Enter issue number: ";
-            cin >> issue;
-            if (cin.fail())
-                throw runtime_error("Invalid input.Expected an integer!");
+            publisher = getValidString("Enter publisher: ");
+            volume = getValidInt("Enter volume number: ");
+            issue = getValidInt("Enter issue number: ");
             cout << "Enter publication date (e.g. May 2025): ";
             cin.ignore();
             getline(cin, pubDate);
@@ -283,13 +222,10 @@ void Admin::addResource(Library &lib)
         else if (choice == 5)
         {
             string publisher, editionDate, region;
-            cout << "Enter publisher: ";
-            cin.ignore();
-            getline(cin, publisher);
+            publisher = getValidString("Enter publisher: ");
             cout << "Enter edition date (DD-MM-YYYY): ";
             getline(cin, editionDate);
-            cout << "Enter region: ";
-            getline(cin, region);
+            region = getValidString("Enter region: ");
             newRes = new Newspaper(ID, title, publisher, category, totalCopies, editionDate, region);
         }
         else
@@ -316,10 +252,7 @@ void Admin::deleteResource(Library &lib)
 
     try
     {
-        cout << "Enter resource ID to delete: ";
-        cin >> id;
-        if (cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
+        id = getValidInt("Enter resource ID to delete: ");
 
         for (auto r : lib.getResources())
         {
@@ -351,10 +284,7 @@ void Admin::updateResource(Library &lib)
 
     try
     {
-        cout << "Enter resource ID to update: ";
-        cin >> id;
-        if (cin.fail())
-            throw runtime_error("Invalid input.Expected an integer!");
+        id = getValidInt("Enter resource ID to update: ");
 
         for (auto r : lib.getResources())
         {
@@ -381,10 +311,7 @@ void Admin::updateResource(Library &lib)
                 if (!newCategory.empty())
                     r->setCategory(newCategory);
 
-                cout << "Enter new total copies (0 to keep current): ";
-                cin >> newCopies;
-                if (cin.fail())
-                    throw runtime_error("Invalid input.Expected an integer!");
+                newCopies = getValidInt("Enter new total copies (0 to keep current): ");
                 if (newCopies > 0)
                     r->setTotalCopies(newCopies);
 

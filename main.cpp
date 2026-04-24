@@ -2,7 +2,9 @@
 #include "include/Library.h"
 #include "include/admin.h"
 #include "FileHandling/FileHandler.h"
+#include "Include/utils.h"
 using namespace std;
+using namespace Utils;
 
 int main()
 {
@@ -30,15 +32,8 @@ int main()
         cout << "2. Register\n";
         cout << "3. View Available Resources (Guest)\n";
         cout << "0. Exit\n";
-        cout << "Enter choice: ";
 
-        if (!(cin >> choice))
-        {
-            cout << "Error: Invalid input! Please enter a number." << endl;
-            cin.clear();
-            cin.ignore(1000, '\n');
-            continue;
-        }
+        choice = getValidInt("Enter choice: ");
 
         try
         {
@@ -71,15 +66,8 @@ int main()
                         cout << "9. Statistics\n";
                         cout << "10. Export Report\n";
                         cout << "0. Logout\n";
-                        cout << "Enter choice: ";
 
-                        if (!(cin >> adminChoice))
-                        {
-                            cout << "Error: Invalid input! Please enter a number." << endl;
-                            cin.clear();
-                            cin.ignore(1000, '\n');
-                            continue;
-                        }
+                        adminChoice = getValidInt("Enter choice: ");
 
                         switch (adminChoice)
                         {
@@ -137,15 +125,7 @@ int main()
                         cout << "5. Borrow Resource\n";
                         cout << "6. Return Resource\n";
                         cout << "0. Logout\n";
-                        cout << "Enter choice: ";
-
-                        if (!(cin >> userChoice))
-                        {
-                            cout << "Error: Invalid input! Please enter a number." << endl;
-                            cin.clear();
-                            cin.ignore(1000, '\n');
-                            continue;
-                        }
+                        userChoice = getValidInt("Enter choice: ");
 
                         switch (userChoice)
                         {
@@ -168,8 +148,8 @@ int main()
                         case 5:
                         {
                             int id;
-                            cout << "Enter Resource ID: ";
-                            if (cin >> id)
+                            id = getValidInt("Enter Resource ID: ");
+                            if (id)
                             {
                                 bool found = false;
                                 for (auto r : lib.getResources())
@@ -198,8 +178,8 @@ int main()
                         case 6:
                         {
                             int id;
-                            cout << "Enter Resource ID: ";
-                            if (cin >> id)
+                            id = getValidInt("Enter Resource ID: ");
+                            if (id)
                             {
                                 bool found = false;
                                 for (auto r : lib.getResources())
