@@ -27,58 +27,40 @@ int Admin::getBorrowDays() const { return 0; }    // admin does not borrow
 // ---------- User Management ----------
 void Admin::printAllCustomersReport(Library &lib)
 {
-    cout << "\n--- Customers Report ---" << endl;
-    cout << left << setw(6) << "ID"
-         << setw(25) << "Name"
-         << setw(12) << "Type"
-         << setw(20) << "Username"
-         << setw(10) << "Balance" << endl;
-    cout << string(73, '-') << endl;
+    int choice;
+    cout << "\nWhat would you like to print?" << endl;
+    cout << "1. Customers Info" << endl;
+    cout << "2. Borrowing History" << endl;
+    cout << "3. Both" << endl;
+    cout << "Enter your choice: ";
+    cin >> choice;
 
-    for (auto u : lib.getUsers())
+    if (choice == 1 || choice == 3)
     {
-        if (!u->getIsDeleted()) // skip deleted users
+        cout << "\n--- Customers Report ---" << endl;
+        cout << left << setw(6) << "ID"
+             << setw(25) << "Name"
+             << setw(12) << "Type"
+             << setw(20) << "Username"
+             << setw(10) << "Balance" << endl;
+        cout << string(73, '-') << endl;
+
+        for (auto u : lib.getUsers())
         {
-            cout << left << setw(6) << u->getUserID()
-                 << setw(25) << u->getName()
-                 << setw(12) << u->getType()
-                 << setw(20) << u->getUsername()
-                 << setw(10) << u->getBalance() << endl;
+            if (!u->getIsDeleted())
+            {
+                cout << left << setw(6) << u->getUserID()
+                     << setw(25) << u->getName()
+                     << setw(12) << u->getType()
+                     << setw(20) << u->getUsername()
+                     << setw(10) << u->getBalance() << endl;
+            }
         }
     }
 
-    cout << "\n--- Borrowing History ---" << endl;
-    cout << left << setw(8) << "User ID"
-         << setw(35) << "Resource"
-         << setw(14) << "Borrowed"
-         << setw(14) << "Due"
-         << setw(14) << "Returned"
-         << setw(8) << "Fine" << endl;
-    cout << string(93, '-') << endl;
-
-    for (const auto &record : lib.getBorrowHistory())
+    if (choice == 2 || choice == 3)
     {
-        // format date as DD-MM-YYYY instead of full ctime string
-        auto formatDate = [](time_t t) -> string
-        {
-            if (t == 0)
-                return "Not yet";
-            struct tm *tm_info = localtime(&t);
-            char buffer[11];
-            strftime(buffer, sizeof(buffer), "%d-%m-%Y", tm_info);
-            return string(buffer);
-        };
-
-        string borrowed = formatDate(record.borrowDate);
-        string due = formatDate(record.dueDate);
-        string returned = formatDate(record.returnDate);
-
-        cout << left << setw(8) << record.userID
-             << setw(35) << record.resource->getTitle()
-             << setw(14) << borrowed
-             << setw(14) << due
-             << setw(14) << returned
-             << setw(8) << record.fine << endl;
+        lib.showBorrowHistory();
     }
 }
 

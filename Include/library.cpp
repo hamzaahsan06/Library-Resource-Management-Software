@@ -510,53 +510,79 @@ bool Library::borrowResource(User *user, LibraryResource *res)
 // ---------- Returning Logic ----------
 bool Library::returnResource(User *user, LibraryResource *res)
 {
+    bool everBorrowed = false;
+
     // search borrow history for a matching unreturned record
     for (auto &record : borrowHistory) // loop through each borrow record by reference so changes reflect in original
     {
         if (record.userID == user->getUserID() && // same user
-            record.resource == res &&             // same resource
-            record.returnDate == 0)               // not yet returned
+            record.resource == res)               // same resource
         {
+            everBorrowed = true;
+
+            if (record.returnDate != 0) // not yet returned
+            {
+                cout << "\"" << res->getTitle() << "\" has already been returned." << endl;
+                return false;
+            }
+
             // set return date and calculate fine if overdue
             // fine is deducted from user balance inside markReturned
             record.markReturned(user);
-
+            
             // increase available copies by 1 in resource object
             res->returnResource();
 
             cout << user->getName() << " returned \"" << res->getTitle() << "\"." << endl;
 
             if (record.fine > 0)
-                cout << "Overdue! Fine of " << record.fine << " applied." << endl;
+                cout << "Overdue! Fine of " << record.fine << " deducted from balance." << endl;
 
             return true;
         }
     }
 
     // no active borrow record found for this user and resource
-    cout << user->getName() << " has not borrowed \"" << res->getTitle() << "\"." << endl;
+    if (!everBorrowed)
+        cout << user->getName() << " has never borrowed \"" << res->getTitle() << "\"." << endl;
+
     return false;
 }
 
 // ---------- Borrow History ----------
 void Library::showBorrowHistory() const
 {
-    cout << "\n"
-         << "Borrow History" << endl;
-    for (auto &record : borrowHistory)
+    cout << "\n--- Borrow History ---" << endl;
+    cout << left << setw(8)  << "User ID"
+         << setw(35) << "Resource"
+         << setw(14) << "Borrowed"
+         << setw(14) << "Due"
+         << setw(14) << "Returned"
+         << setw(8)  << "Fine" << endl;
+    cout << string(93, '-') << endl;
+
+    if (borrowHistory.empty())
     {
-        cout << "Resource : " << record.resource->getTitle() << endl;
-        cout << "Borrowed : " << ctime(&record.borrowDate);
+        cout << "No borrow history found." << endl;
+        return;
+    }
 
-        if (record.returnDate != 0)
-        {
-            cout << "Returned : " << ctime(&record.returnDate);
-            cout << "Fine     : " << record.fine << endl;
-        }
-        else
-            cout << "Status   : Not Returned Yet" << endl;
+    auto formatDate = [](time_t t) -> string {
+        if (t == 0) return "Not yet";
+        struct tm *tm_info = localtime(&t);
+        char buffer[11];
+        strftime(buffer, sizeof(buffer), "%d-%m-%Y", tm_info);
+        return string(buffer);
+    };
 
-        cout << "-----------------------" << endl;
+    for (const auto &record : borrowHistory)
+    {
+        cout << left << setw(8)  << record.userID
+             << setw(35) << record.resource->getTitle()
+             << setw(14) << formatDate(record.borrowDate)
+             << setw(14) << formatDate(record.dueDate)
+             << setw(14) << formatDate(record.returnDate)
+             << setw(8)  << record.fine << endl;
     }
 }
 
