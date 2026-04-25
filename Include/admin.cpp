@@ -374,7 +374,7 @@ void Admin::generateStats(Library &lib)
 
     if (mostBorrowed)
         cout << left << setw(25) << "Most Borrowed"
-             << mostBorrowed->getTitle() << " (" << maxCount << " times)" << endl;
+             << mostBorrowed->getTitle() << " (" << maxCount << " time(s))" << endl;
     else
         cout << left << setw(25) << "Most Borrowed" << "No borrows recorded yet." << endl;
 }
