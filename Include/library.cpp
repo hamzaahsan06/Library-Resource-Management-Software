@@ -291,14 +291,16 @@ void Library::changePassword(User *u)
     string oldPass, newPass;
 
     oldPass = getValidString("Enter current password: ");
-
     if (!u->login(u->getUsername(), oldPass))
     {
         cout << "Incorrect current password." << endl;
         return;
     }
+    newPass = oldPass;
+    while(newPass==oldPass){
+        newPass = getValidString("Enter new password: ");
+    }
 
-    newPass = getValidString("Enter new password: ");
 
     u->setPassword(newPass);
     cout << "Password changed successfully." << endl;
