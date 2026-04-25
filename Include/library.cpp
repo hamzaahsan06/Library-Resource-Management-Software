@@ -111,8 +111,7 @@ void Library::registerUser()
     int choice;
     User *u = nullptr;
 
-    try
-    {
+   
         cout << "Select user type:" << endl;
         cout << "1. Student" << endl;
         cout << "2. Teacher" << endl;
@@ -120,32 +119,20 @@ void Library::registerUser()
         cout << "4. Premium Member" << endl;
         choice = getValidInt("Enter choice: ");
 
-        if (cin.fail())
-            throw runtime_error("Invalid input. Expected an integer!");
 
         int id = generateNewUserID("../database/users.csv");
 
         string username, password, name, address;
         double balance;
 
-        cout << "Enter username: ";
         username = getValidString("Enter username: ");
-        if (username.empty())
-            throw runtime_error("Username cannot be empty!");
 
-        cout << "Enter password: ";
-        cin >> password;
-        if (password.empty())
-            throw runtime_error("Password cannot be empty!");
+        password = getValidString("Enter password: ");
 
-        cout << "Enter full name: ";
-        cin.ignore();
         name = getValidString("Enter full name: ");
 
-        cout << "Enter address: ";
-        getline(cin, address);
-        if (address.empty())
-            throw runtime_error("Address cannot be empty!");
+        address = getValidString("Enter address: ");
+
         balance = getValidDouble("Enter initial balance: ");
 
         if (choice == 1)
@@ -164,10 +151,7 @@ void Library::registerUser()
 
             department = getValidString("Enter department: ");
 
-            cout << "Enter designation: ";
-            getline(cin, designation);
-            if (designation.empty())
-                throw runtime_error("Designation cannot be empty!");
+            designation = getValidString("Enter designation: ");
 
             u = new Teacher(id, username, password, name, address, balance, department, designation);
         }
@@ -175,11 +159,7 @@ void Library::registerUser()
         {
             string position;
 
-            cout << "Enter position: ";
-            cin.ignore();
-            getline(cin, position);
-            if (position.empty())
-                throw runtime_error("Position cannot be empty!");
+            position = getValidString("Enter position: ");
 
             u = new Staff(id, username, password, name, address, balance, position);
         }
@@ -220,21 +200,13 @@ void Library::registerUser()
 
         users.push_back(u);
         cout << "User registered successfully. ID: " << id << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        delete u;
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
+   
 }
 
 // ---------- Search ----------
 void Library::searchResources() const
 {
-    try
-    {
+    
         // Display search options to the user
         cout << "\n===== Search Resources =====\n";
         cout << "Search by:\n";
@@ -248,11 +220,7 @@ void Library::searchResources() const
 
         // Take search keyword input
         string keyword;
-        cout << "Enter search keyword: ";
-        cin.ignore();          // Clear leftover newline from input buffer
-        getline(cin, keyword); // Allows multi-word input
-        if (keyword.empty())
-            throw runtime_error("Search keyword cannot be empty!");
+        keyword = getValidString("Enter search keyword: ");
 
         // Convert keyword to lowercase for case-insensitive comparison
         for (auto &c : keyword)
@@ -311,25 +279,15 @@ void Library::searchResources() const
         // If no matches found, inform the user
         if (!found)
             cout << "No resources found matching: " << keyword << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
+    
 }
 
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
 
-    try
-    {
-        cout << "Enter current password: ";
-        cin >> oldPass;
-        if (oldPass.empty())
-            throw runtime_error("Password cannot be empty!");
+    
+        oldPass = getValidString("Enter current password: ");
 
         if (!u->login(u->getUsername(), oldPass))
         {
@@ -337,20 +295,11 @@ void Library::changePassword(User *u)
             return;
         }
 
-        cout << "Enter new password: ";
-        cin >> newPass;
-        if (newPass.empty())
-            throw runtime_error("New password cannot be empty!");
+        newPass = getValidString("Enter new password: ");
 
         u->setPassword(newPass);
         cout << "Password changed successfully." << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
+    
 }
 
 void Library::showUserProfile(User *u) const
@@ -431,17 +380,10 @@ User *Library::loginUser()
 {
     string username, password;
 
-    try
-    {
-        cout << "Enter username: ";
-        cin >> username;
-        if (username.empty())
-            throw runtime_error("Username cannot be empty!");
+    
+        username = getValidString("Enter username: ");
 
-        cout << "Enter password: ";
-        cin >> password;
-        if (password.empty())
-            throw runtime_error("Password cannot be empty!");
+        password = getValidString("Enter password: ");
 
         for (auto user : users)
         {
@@ -451,14 +393,6 @@ User *Library::loginUser()
 
         cout << "Invalid username or password." << endl;
         return nullptr;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-        return nullptr;
-    }
 }
 
 // ---------- Borrowing Logic ----------

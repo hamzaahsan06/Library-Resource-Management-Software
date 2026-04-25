@@ -148,8 +148,6 @@ void Admin::addResource(Library &lib)
     int choice;
     LibraryResource *newRes = nullptr;
 
-    try
-    {
         cout << "Select resource type to add:" << endl;
         cout << "1. Book" << endl;
         cout << "2. DVD" << endl;
@@ -161,16 +159,11 @@ void Admin::addResource(Library &lib)
         int totalCopies;
         string title, author, category;
 
-        cout << "Enter title: ";
-        cin.ignore();
-        getline(cin, title);
-        if (title.empty())
-            throw runtime_error("Title cannot be empty!");
+        title = getValidString("Enter title: ");
 
         author = getValidString("Enter author/creator: ");
 
-        cout << "Enter category: ";
-        getline(cin, category);
+        category = getValidString("Enter category: ");
         if (category.empty())
             throw runtime_error("Category cannot be empty!");
 
@@ -180,8 +173,7 @@ void Admin::addResource(Library &lib)
         {
             string ISBN, publisher;
             int year;
-            cout << "Enter ISBN: ";
-            cin >> ISBN;
+            ISBN = getValidString("Enter ISBN: ");
             publisher = getValidString("Enter publisher: ");
             year = getValidInt("Enter year published: ");
             newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
@@ -201,9 +193,7 @@ void Admin::addResource(Library &lib)
             int duration;
             narrator = getValidString("Enter narrator: ");
              duration = getValidInt("Enter duration (minutes): ");
-            cout << "Enter format (MP3/CD): ";
-            cin.ignore();
-            getline(cin, format);
+            format = getValidString("Enter format (e.g. MP3, CD): ");
             newRes = new AudioBook(ID, title, author, category, totalCopies, narrator, duration, format);
         }
         else if (choice == 4)
@@ -213,17 +203,14 @@ void Admin::addResource(Library &lib)
             publisher = getValidString("Enter publisher: ");
             volume = getValidInt("Enter volume number: ");
             issue = getValidInt("Enter issue number: ");
-            cout << "Enter publication date (e.g. May 2025): ";
-            cin.ignore();
-            getline(cin, pubDate);
+            pubDate = getValidString("Enter publication date (e.g. May 2025): ");
             newRes = new Magazine(ID, title, publisher, category, totalCopies, volume, issue, pubDate);
         }
         else if (choice == 5)
         {
             string publisher, editionDate, region;
             publisher = getValidString("Enter publisher: ");
-            cout << "Enter edition date (DD-MM-YYYY): ";
-            getline(cin, editionDate);
+            editionDate = getValidString("Enter edition date (DD-MM-YYYY): ");
             region = getValidString("Enter region: ");
             newRes = new Newspaper(ID, title, publisher, category, totalCopies, editionDate, region);
         }
@@ -235,22 +222,13 @@ void Admin::addResource(Library &lib)
 
         lib.addResource(newRes); // push into library's resources vector
         cout << "Resource added successfully." << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        delete newRes; // Clean up on exception
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
+    
 }
 
 void Admin::deleteResource(Library &lib)
 {
     int id;
 
-    try
-    {
         id = getValidInt("Enter resource ID to delete: ");
 
         for (auto r : lib.getResources())
@@ -268,21 +246,12 @@ void Admin::deleteResource(Library &lib)
             }
         }
         cout << "Resource with ID " << id << " not found." << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
 }
 
 void Admin::updateResource(Library &lib)
 {
     int id;
 
-    try
-    {
         id = getValidInt("Enter resource ID to update: ");
 
         for (auto r : lib.getResources())
@@ -294,19 +263,15 @@ void Admin::updateResource(Library &lib)
                 string newTitle, newAuthor, newCategory;
                 int newCopies;
 
-                cout << "Enter new title (leave blank to keep current): ";
-                cin.ignore();
-                getline(cin, newTitle);
+                newTitle = getValidString("Enter new title (leave blank to keep current): ");
                 if (!newTitle.empty())
                     r->setTitle(newTitle);
 
-                cout << "Enter new author/creator (leave blank to keep current): ";
-                getline(cin, newAuthor);
+                newAuthor = getValidString("Enter new author/creator (leave blank to keep current): ");
                 if (!newAuthor.empty())
                     r->setAuthorCreator(newAuthor);
 
-                cout << "Enter new category (leave blank to keep current): ";
-                getline(cin, newCategory);
+                newCategory = getValidString("Enter new category (leave blank to keep current): ");
                 if (!newCategory.empty())
                     r->setCategory(newCategory);
 
@@ -321,13 +286,6 @@ void Admin::updateResource(Library &lib)
         }
 
         cout << "Resource with ID " << id << " not found." << endl;
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        cin.clear();
-        cin.ignore(1000, '\n');
-    }
 }
 
 // ---------- Circulation / Borrowing Management ----------
