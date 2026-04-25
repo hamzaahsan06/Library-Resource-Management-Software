@@ -17,7 +17,7 @@ void clearScreen()
 void pauseScreen()
 {
     cout << "\nPress Enter to return to menu...";
-    cin.ignore(1000, '\n'); // discard leftover '\n' from getValidInt
+    
     cin.get();
 }
 
