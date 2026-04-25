@@ -71,7 +71,7 @@ void Admin::searchUser(Library &lib)
 
     id = getValidInt("Enter user ID to search: ");
 
-     cout << "\n--- User Search Result ---" << endl;
+    cout << "\n--- User Search Result ---" << endl;
 
     cout << left << setw(6) << "ID"
          << setw(25) << "Name"
@@ -148,144 +148,148 @@ void Admin::addResource(Library &lib)
     int choice;
     LibraryResource *newRes = nullptr;
 
-        cout << "Select resource type to add:" << endl;
-        cout << "1. Book" << endl;
-        cout << "2. DVD" << endl;
-        cout << "3. AudioBook" << endl;
-        cout << "4. Magazine" << endl;
-        cout << "5. Newspaper" << endl;
-        choice = getValidInt("Enter choice: ");
-        int ID = generateNewResourceID("../database/resources.csv");
-        int totalCopies;
-        string title, author, category;
+    cout << "Select resource type to add:" << endl;
+    cout << "1. Book" << endl;
+    cout << "2. DVD" << endl;
+    cout << "3. AudioBook" << endl;
+    cout << "4. Magazine" << endl;
+    cout << "5. Newspaper" << endl;
+    choice = getValidInt("Enter choice: ");
+    int ID = generateNewResourceID("../database/resources.csv");
+    int availableCopies;
+    string title, author, category;
 
-        title = getValidString("Enter title: ");
+    title = getValidString("Enter title: ");
 
-        author = getValidString("Enter author/creator: ");
+    author = getValidString("Enter author/creator: ");
 
-        category = getValidString("Enter category: ");
-        if (category.empty())
-            throw runtime_error("Category cannot be empty!");
+    category = getValidString("Enter category: ");
+    if (category.empty())
+        throw runtime_error("Category cannot be empty!");
 
-        totalCopies = getValidInt("Enter total copies: ");
+    availableCopies = getValidInt("Enter available copies: ");
 
-        if (choice == 1)
-        {
-            string ISBN, publisher;
-            int year;
-            ISBN = getValidString("Enter ISBN: ");
-            publisher = getValidString("Enter publisher: ");
-            year = getValidInt("Enter year published: ");
-            newRes = new Book(ID, title, author, category, totalCopies, ISBN, publisher, year);
-        }
-        else if (choice == 2)
-        {
-            string director, genre;
-            int duration;
-            director = getValidString("Enter director: ");
-            duration = getValidInt("Enter duration (minutes): ");
-            genre = getValidString("Enter genre: ");
-            newRes = new DVD(ID, title, director, category, totalCopies, duration, genre);
-        }
-        else if (choice == 3)
-        {
-            string narrator, format;
-            int duration;
-            narrator = getValidString("Enter narrator: ");
-             duration = getValidInt("Enter duration (minutes): ");
-            format = getValidString("Enter format (e.g. MP3, CD): ");
-            newRes = new AudioBook(ID, title, author, category, totalCopies, narrator, duration, format);
-        }
-        else if (choice == 4)
-        {
-            string publisher, pubDate;
-            int volume, issue;
-            publisher = getValidString("Enter publisher: ");
-            volume = getValidInt("Enter volume number: ");
-            issue = getValidInt("Enter issue number: ");
-            pubDate = getValidString("Enter publication date (e.g. May 2025): ");
-            newRes = new Magazine(ID, title, publisher, category, totalCopies, volume, issue, pubDate);
-        }
-        else if (choice == 5)
-        {
-            string publisher, editionDate, region;
-            publisher = getValidString("Enter publisher: ");
-            editionDate = getValidString("Enter edition date (DD-MM-YYYY): ");
-            region = getValidString("Enter region: ");
-            newRes = new Newspaper(ID, title, publisher, category, totalCopies, editionDate, region);
-        }
-        else
-        {
-            cout << "Invalid choice. Resource not added." << endl;
-            throw runtime_error("Invalid resource type choice!");
-        }
+    if (choice == 1)
+    {
+        string ISBN, publisher;
+        int year;
+        ISBN = getValidString("Enter ISBN: ");
+        publisher = getValidString("Enter publisher: ");
+        year = getValidInt("Enter year published: ");
+        newRes = new Book(ID, title, author, category, availableCopies, ISBN, publisher, year);
+        newRes->setTotalCopies(availableCopies);
+    }
+    else if (choice == 2)
+    {
+        string director, genre;
+        int duration;
+        director = getValidString("Enter director: ");
+        duration = getValidInt("Enter duration (minutes): ");
+        genre = getValidString("Enter genre: ");
+        newRes = new DVD(ID, title, director, category, availableCopies, duration, genre);
+        newRes->setTotalCopies(availableCopies);
+    }
+    else if (choice == 3)
+    {
+        string narrator, format;
+        int duration;
+        narrator = getValidString("Enter narrator: ");
+        duration = getValidInt("Enter duration (minutes): ");
+        format = getValidString("Enter format (e.g. MP3, CD): ");
+        newRes = new AudioBook(ID, title, author, category, availableCopies, narrator, duration, format);
+        newRes->setTotalCopies(availableCopies);
+    }
+    else if (choice == 4)
+    {
+        string publisher, pubDate;
+        int volume, issue;
+        publisher = getValidString("Enter publisher: ");
+        volume = getValidInt("Enter volume number: ");
+        issue = getValidInt("Enter issue number: ");
+        pubDate = getValidString("Enter publication date (e.g. May 2025): ");
+        newRes = new Magazine(ID, title, publisher, category, availableCopies, volume, issue, pubDate);
+        newRes->setTotalCopies(availableCopies);
+    }
+    else if (choice == 5)
+    {
+        string publisher, editionDate, region;
+        publisher = getValidString("Enter publisher: ");
+        editionDate = getValidString("Enter edition date (DD-MM-YYYY): ");
+        region = getValidString("Enter region: ");
+        newRes = new Newspaper(ID, title, publisher, category, availableCopies, editionDate, region);
+        newRes->setTotalCopies(availableCopies);
+    }
+    else
+    {
+        cout << "Invalid choice. Resource not added." << endl;
+        throw runtime_error("Invalid resource type choice!");
+    }
 
-        lib.addResource(newRes); // push into library's resources vector
-        cout << "Resource added successfully." << endl;
-    
+    lib.addResource(newRes); // push into library's resources vector
+    cout << "Resource added successfully." << endl;
 }
 
 void Admin::deleteResource(Library &lib)
 {
     int id;
 
-        id = getValidInt("Enter resource ID to delete: ");
+    id = getValidInt("Enter resource ID to delete: ");
 
-        for (auto r : lib.getResources())
+    for (auto r : lib.getResources())
+    {
+        if (r->getResourceID() == id)
         {
-            if (r->getResourceID() == id)
+            if (r->getIsDeleted())
             {
-                if (r->getIsDeleted())
-                {
-                    cout << "Resource already deleted." << endl;
-                    return;
-                }
-                r->markDeleted();
-                cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
+                cout << "Resource already deleted." << endl;
                 return;
             }
+            r->markDeleted();
+            cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
+            return;
         }
-        cout << "Resource with ID " << id << " not found." << endl;
+    }
+    cout << "Resource with ID " << id << " not found." << endl;
 }
 
 void Admin::updateResource(Library &lib)
 {
     int id;
 
-        id = getValidInt("Enter resource ID to update: ");
+    id = getValidInt("Enter resource ID to update: ");
 
-        for (auto r : lib.getResources())
+    for (auto r : lib.getResources())
+    {
+        if (r->getResourceID() == id)
         {
-            if (r->getResourceID() == id)
-            {
-                cout << "Updating: " << r->getTitle() << endl;
+            cout << "Updating: " << r->getTitle() << endl;
 
-                string newTitle, newAuthor, newCategory;
-                int newCopies;
+            string newTitle, newAuthor, newCategory;
+            int newCopies;
 
-                newTitle = getValidString("Enter new title (leave blank to keep current): ");
-                if (!newTitle.empty())
-                    r->setTitle(newTitle);
+            newTitle = getValidString("Enter new title (leave blank to keep current): ");
+            if (!newTitle.empty())
+                r->setTitle(newTitle);
 
-                newAuthor = getValidString("Enter new author/creator (leave blank to keep current): ");
-                if (!newAuthor.empty())
-                    r->setAuthorCreator(newAuthor);
+            newAuthor = getValidString("Enter new author/creator (leave blank to keep current): ");
+            if (!newAuthor.empty())
+                r->setAuthorCreator(newAuthor);
 
-                newCategory = getValidString("Enter new category (leave blank to keep current): ");
-                if (!newCategory.empty())
-                    r->setCategory(newCategory);
+            newCategory = getValidString("Enter new category (leave blank to keep current): ");
+            if (!newCategory.empty())
+                r->setCategory(newCategory);
 
-                newCopies = getValidInt("Enter new total copies (0 to keep current): ");
-                if (newCopies > 0)
-                    r->setTotalCopies(newCopies);
+            newCopies = getValidInt("Enter new total copies (0 to keep current): ");
+            if (newCopies > 0)
+                r->setTotalCopies(newCopies);
 
-                r->updateStatus(); // refresh availability status
-                cout << "Resource updated successfully." << endl;
-                return;
-            }
+            r->updateStatus(); // refresh availability status
+            cout << "Resource updated successfully." << endl;
+            return;
         }
+    }
 
-        cout << "Resource with ID " << id << " not found." << endl;
+    cout << "Resource with ID " << id << " not found." << endl;
 }
 
 // ---------- Circulation / Borrowing Management ----------
