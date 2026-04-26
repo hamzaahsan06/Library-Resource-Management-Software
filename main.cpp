@@ -146,7 +146,7 @@ int main()
 
                             // 2. Search for the user in the library's user vector
                             User *donor = nullptr;
-                            for (auto u : lib.getUsers()) // Assuming lib.getUsers() returns the vector of User*
+                            for (auto u : lib.getUsers())
                             {
                                 if (u->getUserID() == donorID && !u->getIsDeleted())
                                 {
