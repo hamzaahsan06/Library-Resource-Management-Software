@@ -120,25 +120,20 @@ g++ main.cpp Include/utils.cpp Include/admin.cpp Include/library.cpp  Include/Us
 
 ### Admin Accounts
 
-
-### System Administrators
-----------------------------------------------------------------------
-Username        | Password
-----------------------------------------------------------------------
-admin1          | admin1@123
-admin2          | admin2@123
-admin3          | admin3@123
-----------------------------------------------------------------------
+| Username | Password |
+|----------|----------|
+| admin1 | admin1@123 |
+| admin2 | admin2@123 |
+| admin3 | admin3@123 |
 
 ### Sample User Accounts (for testing)
-----------------------------------------------------------------------
-Username        | Password             | Type
-----------------------------------------------------------------------
-bilal1          | bilal1@123           | Student
-imran501        | imran501@123         | Teacher
-ali601          | ali601@123           | Staff
-salman701       | salman701@123        | Premium Member
-----------------------------------------------------------------------
+
+| Username | Password | Type |
+|----------|----------|------|
+| bilal1 | bilal1@123 | Student |
+| imran501 | imran501@123 | Teacher |
+| ali601 | ali601@123 | Staff |
+| salman701 | salman701@123 | Premium Member |
 
 ---
 
