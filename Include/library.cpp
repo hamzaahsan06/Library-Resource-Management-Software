@@ -392,9 +392,6 @@ User *Library::loginUser()
 
     username = getValidString("Enter username: ");
 
-    // ── old line should be GONE ──
-    // password = getValidString("Enter password: ");  ← DELETE THIS
-
     cout << "Enter password: ";
     char ch;
     while (true)
