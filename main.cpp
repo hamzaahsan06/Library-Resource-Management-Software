@@ -17,7 +17,7 @@ void clearScreen()
 void pauseScreen()
 {
     cout << "\nPress Enter to return to menu...";
-    cin.ignore(1000, '\n'); // discard leftover '\n' from getValidInt
+    
     cin.get();
 }
 
@@ -43,8 +43,8 @@ int main()
     {
         clearScreen();
         cout << "\n===== LIBRARY MANAGEMENT SYSTEM =====\n";
-        cout << "1. Login\n";
-        cout << "2. Register\n";
+        cout << "1. Sign in\n";
+        cout << "2. Sign up\n";
         cout << "3. View Available Resources (Guest)\n";
         cout << "0. Exit\n";
 

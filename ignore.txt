@@ -47,5 +47,7 @@ execute loop like other admin function has and compare id and display in tabular
 
 
 To run : 
-Step 1 : g++ main.cpp include/*.cpp filehandling/*.cpp -Iinclude -Ifilehandling -o app
+Step 1: 
+g++ main.cpp Include/utils.cpp Include/admin.cpp Include/library.cpp  Include/Users.cpp Include/Resources.cpp FileHandling/FileHandler.cpp -Iinclude -Ifilehandling -o app
+
 Step 2 : .\app.exe

@@ -112,195 +112,199 @@ void Library::registerUser()
     int choice;
     User *u = nullptr;
 
-   
-        cout << "Select user type:" << endl;
-        cout << "1. Student" << endl;
-        cout << "2. Teacher" << endl;
-        cout << "3. Staff" << endl;
-        cout << "4. Premium Member" << endl;
-        choice = getValidInt("Enter choice: ");
+    cout << "Select user type:" << endl;
+    cout << "1. Student" << endl;
+    cout << "2. Teacher" << endl;
+    cout << "3. Staff" << endl;
+    cout << "4. Premium Member" << endl;
+    choice = getValidInt("Enter choice: ");
 
+    int id = generateNewUserID("../database/users.csv");
 
-        int id = generateNewUserID("../database/users.csv");
+    string username, password, name, address;
+    double balance;
 
-        string username, password, name, address;
-        double balance;
+    username = getValidString("Enter username: ");
 
-        username = getValidString("Enter username: ");
+    password = getValidString("Enter password: ");
 
-        password = getValidString("Enter password: ");
+    name = getValidString("Enter full name: ");
 
-        name = getValidString("Enter full name: ");
+    address = getValidString("Enter address: ");
 
-        address = getValidString("Enter address: ");
+    balance = getValidDouble("Enter initial balance: ");
 
-        balance = getValidDouble("Enter initial balance: ");
+    if (choice == 1)
+    {
+        string department;
+        int rollNo;
 
-        if (choice == 1)
+        department = getValidString("Enter department: ");
+        rollNo = getValidInt("Enter roll number: ");
+
+        u = new Student(id, username, password, name, address, balance, department, rollNo);
+    }
+    else if (choice == 2)
+    {
+        string department, designation;
+
+        department = getValidString("Enter department: ");
+
+        designation = getValidString("Enter designation: ");
+
+        u = new Teacher(id, username, password, name, address, balance, department, designation);
+    }
+    else if (choice == 3)
+    {
+        string position;
+
+        position = getValidString("Enter position: ");
+
+        u = new Staff(id, username, password, name, address, balance, position);
+    }
+    else if (choice == 4)
+    {
+        int choice;
+        string level;
+
+        while (true)
         {
-            string department;
-            int rollNo;
+            cout << "Select membership level:\n";
+            cout << "1. Gold\n";
+            cout << "2. Silver\n";
+            cout << "3. Bronze\n";
+            choice = getValidInt("Enter choice: ");
 
-            department = getValidString("Enter department: "); 
-            rollNo = getValidInt("Enter roll number: ");
-
-            u = new Student(id, username, password, name, address, balance, department, rollNo);
+            if (choice == 1)
+            {
+                level = "Gold";
+                break;
+            }
+            else if (choice == 2)
+            {
+                level = "Silver";
+                break;
+            }
+            else if (choice == 3)
+            {
+                level = "Bronze";
+                break;
+            }
+            else
+            {
+                cerr << "Invalid choice. Please select 1, 2, or 3.\n";
+            }
         }
-        else if (choice == 2)
-        {
-            string department, designation;
 
-            department = getValidString("Enter department: ");
+        cout << "You selected membership level: " << level << endl;
 
-            designation = getValidString("Enter designation: ");
-
-            u = new Teacher(id, username, password, name, address, balance, department, designation);
-        }
-        else if (choice == 3)
-        {
-            string position;
-
-            position = getValidString("Enter position: ");
-
-            u = new Staff(id, username, password, name, address, balance, position);
-        }
-        else if (choice == 4)
-        {
-            int choice;
-    string level;
-
-    while (true) {
-        cout << "Select membership level:\n";
-        cout << "1. Gold\n";
-        cout << "2. Silver\n";
-        cout << "3. Bronze\n";
-        choice = getValidInt("Enter choice: ");
-
-        if (choice == 1) {
-            level = "Gold";
-            break;
-        } else if (choice == 2) {
-            level = "Silver";
-            break;
-        } else if (choice == 3) {
-            level = "Bronze";
-            break;
-        } else {
-            cerr << "Invalid choice. Please select 1, 2, or 3.\n";
-        }
+        u = new PremiumMember(id, username, password, name, address, balance, level);
+    }
+    else
+    {
+        throw runtime_error("Invalid choice. Please select 1-4!");
     }
 
-    cout << "You selected membership level: " << level << endl;
-
-            u = new PremiumMember(id, username, password, name, address, balance, level);
-        }
-        else
-        {
-            throw runtime_error("Invalid choice. Please select 1-4!");
-        }
-
-        users.push_back(u);
-        cout << "User registered successfully. ID: " << id << endl;
-   
+    users.push_back(u);
+    cout << "User registered successfully. ID: " << id << endl;
 }
 
 // ---------- Search ----------
 void Library::searchResources() const
 {
-    
-        // Display search options to the user
-        cout << "\n===== Search Resources =====\n";
-        cout << "Search by:\n";
-        cout << "1. Title\n";
-        cout << "2. Author\n";
-        cout << "3. Category\n";
-        cout << "4. Type\n";
 
-        int choice;
-        choice = getValidInt("Enter choice: ");
+    // Display search options to the user
+    cout << "\n===== Search Resources =====\n";
+    cout << "Search by:\n";
+    cout << "1. Title\n";
+    cout << "2. Author\n";
+    cout << "3. Category\n";
+    cout << "4. Type\n";
 
-        // Take search keyword input
-        string keyword;
-        keyword = getValidString("Enter search keyword: ");
+    int choice;
+    choice = getValidInt("Enter choice: ");
 
-        // Convert keyword to lowercase for case-insensitive comparison
-        for (auto &c : keyword)
+    // Take search keyword input
+    string keyword;
+    keyword = getValidString("Enter search keyword: ");
+
+    // Convert keyword to lowercase for case-insensitive comparison
+    for (auto &c : keyword)
+        c = tolower(c);
+
+    // Print table header in formatted style
+    cout << left << setw(6) << "ID"
+         << setw(35) << "Title"
+         << setw(15) << "Type"
+         << setw(20) << "Author"
+         << setw(15) << "Available" << endl;
+
+    cout << string(91, '-') << endl;
+
+    bool found = false; // Tracks if any match is found
+
+    // Iterate through all resources in the library
+    for (auto res : resources)
+    {
+        // Skip resources that are marked as deleted
+        if (res->getIsDeleted())
+            continue;
+
+        string field;
+
+        // Select the appropriate field based on user choice
+        if (choice == 1)
+            field = res->getTitle();
+        else if (choice == 2)
+            field = res->getAuthorCreator();
+        else if (choice == 3)
+            field = res->getCategory();
+        else if (choice == 4)
+            field = res->getType();
+        else
+            throw runtime_error("Invalid choice. Please select 1-4!");
+
+        // Convert selected field to lowercase for fair comparison
+        for (auto &c : field)
             c = tolower(c);
 
-        // Print table header in formatted style
-        cout << left << setw(6) << "ID"
-             << setw(35) << "Title"
-             << setw(15) << "Type"
-             << setw(20) << "Author"
-             << setw(15) << "Available" << endl;
-
-        cout << string(91, '-') << endl;
-
-        bool found = false; // Tracks if any match is found
-
-        // Iterate through all resources in the library
-        for (auto res : resources)
+        // Check if keyword exists inside the selected field
+        if (field.find(keyword) != string::npos)
         {
-            // Skip resources that are marked as deleted
-            if (res->getIsDeleted())
-                continue;
+            // Display matching resource in formatted output
+            cout << left << setw(6) << res->getResourceID()
+                 << setw(35) << res->getTitle()
+                 << setw(15) << res->getType()
+                 << setw(20) << res->getAuthorCreator()
+                 << setw(15) << res->getAvailableCopies() << endl;
 
-            string field;
-
-            // Select the appropriate field based on user choice
-            if (choice == 1)
-                field = res->getTitle();
-            else if (choice == 2)
-                field = res->getAuthorCreator();
-            else if (choice == 3)
-                field = res->getCategory();
-            else if (choice == 4)
-                field = res->getType();
-            else
-                throw runtime_error("Invalid choice. Please select 1-4!");
-
-            // Convert selected field to lowercase for fair comparison
-            for (auto &c : field)
-                c = tolower(c);
-
-            // Check if keyword exists inside the selected field
-            if (field.find(keyword) != string::npos)
-            {
-                // Display matching resource in formatted output
-                cout << left << setw(6) << res->getResourceID()
-                     << setw(35) << res->getTitle()
-                     << setw(15) << res->getType()
-                     << setw(20) << res->getAuthorCreator()
-                     << setw(15) << res->getAvailableCopies() << endl;
-
-                found = true;
-            }
+            found = true;
         }
+    }
 
-        // If no matches found, inform the user
-        if (!found)
-            cout << "No resources found matching: " << keyword << endl;
-    
+    // If no matches found, inform the user
+    if (!found)
+        cout << "No resources found matching: " << keyword << endl;
 }
 
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
 
-    
-        oldPass = getValidString("Enter current password: ");
-
-        if (!u->login(u->getUsername(), oldPass))
-        {
-            cout << "Incorrect current password." << endl;
-            return;
-        }
-
+    oldPass = getValidString("Enter current password: ");
+    if (!u->login(u->getUsername(), oldPass))
+    {
+        cout << "Incorrect current password." << endl;
+        return;
+    }
+    newPass = oldPass;
+    while(newPass==oldPass){
         newPass = getValidString("Enter new password: ");
+    }
 
-        u->setPassword(newPass);
-        cout << "Password changed successfully." << endl;
-    
+
+    u->setPassword(newPass);
+    cout << "Password changed successfully." << endl;
 }
 
 void Library::showUserProfile(User *u) const
@@ -324,47 +328,37 @@ void Library::showUserProfile(User *u) const
          << setw(10) << u->getBalance() << endl;
 
     // Borrow history section
-    cout << "\n========== My Borrow History ==========\n";
-
-    cout << left << setw(8) << "UserID"
-         << setw(30) << "Resource"
-         << setw(25) << "Borrowed"
-         << setw(25) << "Due"
-         << setw(15) << "Status"
+    cout << "\n--- Borrow History ---" << endl;
+    cout << left << setw(8) << "User ID"
+         << setw(35) << "Resource"
+         << setw(14) << "Borrowed"
+         << setw(14) << "Due"
+         << setw(14) << "Returned"
          << setw(8) << "Fine" << endl;
 
-    cout << string(111, '-') << endl;
+    cout << string(93, '-') << endl;
 
     bool found = false;
 
+    auto formatDate = [](time_t t) -> string
+    {
+        if (t == 0)
+            return "Not yet";
+        struct tm *tm_info = localtime(&t);
+        char buffer[11];
+        strftime(buffer, sizeof(buffer), "%d-%m-%Y", tm_info);
+        return string(buffer);
+    };
+
     for (const auto &record : borrowHistory)
     {
-        if (record.userID == u->getUserID())
+        if (record.userID == u->getUserID()) // filter for specific user
         {
-            // Format dates properly
-            string borrowed = ctime(&record.borrowDate);
-            string due = ctime(&record.dueDate);
-
-            // Remove newline added by ctime
-            borrowed.pop_back();
-            due.pop_back();
-
-            string status;
-
-            if (record.returnDate == 0)
-            {
-                status = "Not Returned";
-            }
-            else
-            {
-                status = "Returned";
-            }
-
             cout << left << setw(8) << record.userID
-                 << setw(30) << record.resource->getTitle()
-                 << setw(25) << borrowed
-                 << setw(25) << due
-                 << setw(15) << status
+                 << setw(35) << record.resource->getTitle()
+                 << setw(14) << formatDate(record.borrowDate)
+                 << setw(14) << formatDate(record.dueDate)
+                 << setw(14) << formatDate(record.returnDate)
                  << setw(8) << record.fine << endl;
 
             found = true;
@@ -373,7 +367,7 @@ void Library::showUserProfile(User *u) const
 
     if (!found)
     {
-        cout << "No borrow history found.\n";
+        cout << "No borrow history found." << endl;
     }
 }
 
@@ -382,6 +376,9 @@ User *Library::loginUser()
     string username, password = "";
 
     username = getValidString("Enter username: ");
+
+    // ── old line should be GONE ──
+    // password = getValidString("Enter password: ");  ← DELETE THIS
 
     cout << "Enter password: ";
     char ch;
@@ -478,7 +475,7 @@ bool Library::returnResource(User *user, LibraryResource *res)
             // set return date and calculate fine if overdue
             // fine is deducted from user balance inside markReturned
             record.markReturned(user);
-            
+
             // increase available copies by 1 in resource object
             res->returnResource();
 
@@ -502,12 +499,12 @@ bool Library::returnResource(User *user, LibraryResource *res)
 void Library::showBorrowHistory() const
 {
     cout << "\n--- Borrow History ---" << endl;
-    cout << left << setw(8)  << "User ID"
+    cout << left << setw(8) << "User ID"
          << setw(35) << "Resource"
          << setw(14) << "Borrowed"
          << setw(14) << "Due"
          << setw(14) << "Returned"
-         << setw(8)  << "Fine" << endl;
+         << setw(8) << "Fine" << endl;
     cout << string(93, '-') << endl;
 
     if (borrowHistory.empty())
@@ -516,8 +513,10 @@ void Library::showBorrowHistory() const
         return;
     }
 
-    auto formatDate = [](time_t t) -> string {
-        if (t == 0) return "Not yet";
+    auto formatDate = [](time_t t) -> string
+    {
+        if (t == 0)
+            return "Not yet";
         struct tm *tm_info = localtime(&t);
         char buffer[11];
         strftime(buffer, sizeof(buffer), "%d-%m-%Y", tm_info);
@@ -526,12 +525,12 @@ void Library::showBorrowHistory() const
 
     for (const auto &record : borrowHistory)
     {
-        cout << left << setw(8)  << record.userID
+        cout << left << setw(8) << record.userID
              << setw(35) << record.resource->getTitle()
              << setw(14) << formatDate(record.borrowDate)
              << setw(14) << formatDate(record.dueDate)
              << setw(14) << formatDate(record.returnDate)
-             << setw(8)  << record.fine << endl;
+             << setw(8) << record.fine << endl;
     }
 }
 
