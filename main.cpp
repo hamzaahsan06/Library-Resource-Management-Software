@@ -17,7 +17,7 @@ void clearScreen()
 void pauseScreen()
 {
     cout << "\nPress Enter to return to menu...";
-    
+
     cin.get();
 }
 
@@ -137,6 +137,37 @@ int main()
                             admin->exportReports(lib, "report.txt");
                             pauseScreen();
                             break;
+                        case 11:
+                        {
+                            clearScreen();
+
+                            // 1. Ask for User ID to identify the donor
+                            int donorID = getValidInt("Enter User ID of the donor: ");
+
+                            // 2. Search for the user in the library's user vector
+                            User *donor = nullptr;
+                            for (auto u : lib.getUsers()) // Assuming lib.getUsers() returns the vector of User*
+                            {
+                                if (u->getUserID() == donorID && !u->getIsDeleted())
+                                {
+                                    donor = u;
+                                    break;
+                                }
+                            }
+
+                            // 3. If user is found, proceed with donation; otherwise, show error
+                            if (donor != nullptr)
+                            {
+                                admin->collectDonationFromUser(donor, lib);
+                            }
+                            else
+                            {
+                                cout << "Error: User with ID " << donorID << " not found." << endl;
+                            }
+
+                            pauseScreen();
+                        }
+                        break;
                         case 0:
                             cout << "Logging out..." << endl;
                             break;
