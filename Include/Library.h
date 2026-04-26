@@ -14,8 +14,9 @@ class Library
 {
 private:
     // tracks a single borrowing transaction
-    struct BorrowRecord
+    class BorrowRecord
     {
+        public:
         int userID;                // who borrowed
         LibraryResource *resource; // what was borrowed
         time_t borrowDate;
