@@ -216,17 +216,29 @@ void Library::searchResources() const
     // Display search options to the user
     cout << "\n===== Search Resources =====\n";
     cout << "Search by:\n";
-    cout << "1. Title\n";
-    cout << "2. Author\n";
-    cout << "3. Category\n";
-    cout << "4. Type\n";
+    cout << "1. ID\n";
+    cout << "2. Title\n";
+    cout << "3. Author\n";
+    cout << "4. Category\n";
+    cout << "5. Type\n";
 
     int choice;
     choice = getValidInt("Enter choice: ");
 
     // Take search keyword input
     string keyword;
-    keyword = getValidString("Enter search keyword: ");
+    if (choice == 1)
+        keyword = getValidString("Enter ID: ");
+    else if (choice == 2)
+        keyword = getValidString("Enter Title: ");
+    else if (choice == 3)
+        keyword = getValidString("Enter Author: ");
+    else if (choice == 4)
+        keyword = getValidString("Enter Category: ");
+    else if (choice == 5)
+        keyword = getValidString("Enter Type: ");
+    else
+        throw runtime_error("Invalid choice. Please select 1-5!");
 
     // Convert keyword to lowercase for case-insensitive comparison
     for (auto &c : keyword)
@@ -237,9 +249,10 @@ void Library::searchResources() const
          << setw(35) << "Title"
          << setw(15) << "Type"
          << setw(20) << "Author"
+         << setw(20) << "Category"
          << setw(15) << "Available" << endl;
 
-    cout << string(91, '-') << endl;
+    cout << string(111, '-') << endl;
 
     bool found = false; // Tracks if any match is found
 
@@ -254,28 +267,30 @@ void Library::searchResources() const
 
         // Select the appropriate field based on user choice
         if (choice == 1)
-            field = res->getTitle();
+            field = to_string(res->getResourceID());
         else if (choice == 2)
-            field = res->getAuthorCreator();
+            field = res->getTitle();
         else if (choice == 3)
-            field = res->getCategory();
+            field = res->getAuthorCreator();
         else if (choice == 4)
+            field = res->getCategory();
+        else if (choice == 5)
             field = res->getType();
-        else
-            throw runtime_error("Invalid choice. Please select 1-4!");
 
         // Convert selected field to lowercase for fair comparison
-        for (auto &c : field)
+        string fieldLower = field;
+        for (auto &c : fieldLower)
             c = tolower(c);
 
         // Check if keyword exists inside the selected field
-        if (field.find(keyword) != string::npos)
+        if (fieldLower.find(keyword) != string::npos)
         {
             // Display matching resource in formatted output
             cout << left << setw(6) << res->getResourceID()
                  << setw(35) << res->getTitle()
                  << setw(15) << res->getType()
                  << setw(20) << res->getAuthorCreator()
+                 << setw(20) << res->getCategory()
                  << setw(15) << res->getAvailableCopies() << endl;
 
             found = true;
