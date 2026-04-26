@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include<utils.h>
+#include <conio.h>
 using namespace std;
 using namespace Utils;
 
@@ -378,21 +379,37 @@ void Library::showUserProfile(User *u) const
 
 User *Library::loginUser()
 {
-    string username, password;
+    string username, password = "";
 
-    
-        username = getValidString("Enter username: ");
+    username = getValidString("Enter username: ");
 
-        password = getValidString("Enter password: ");
-
-        for (auto user : users)
+    cout << "Enter password: ";
+    char ch;
+    while (true)
+    {
+        ch = _getch();
+        if (ch == '\r' || ch == '\n') break;
+        else if (ch == '\b' && !password.empty())
         {
-            if (!user->getIsDeleted() && user->login(username, password))
-                return user; // returns pointer to actual object in vector
+            password.pop_back();
+            cout << "\b \b";
         }
+        else if (ch != '\b')
+        {
+            password += ch;
+            cout << '*';
+        }
+    }
+    cout << endl;
 
-        cout << "Invalid username or password." << endl;
-        return nullptr;
+    for (auto user : users)
+    {
+        if (!user->getIsDeleted() && user->login(username, password))
+            return user;
+    }
+
+    cout << "Invalid username or password." << endl;
+    return nullptr;
 }
 
 // ---------- Borrowing Logic ----------
