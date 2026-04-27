@@ -81,6 +81,7 @@ int main()
                         cout << "8. Overdue Resources\n";
                         cout << "9. Statistics\n";
                         cout << "10. Export Report\n";
+                        cout << "11. Collect donation\n";
                         cout << "0. Logout\n";
 
                         adminChoice = getValidInt("Enter choice: ");
