@@ -349,16 +349,31 @@ void Admin::printOverdueResources(Library &lib)
 void Admin::generateStats(Library &lib)
 {
     cout << "\n--- Library Statistics ---" << endl;
-    cout << left << setw(25) << "Total Users" << lib.getUsers().size() << endl;
-    cout << left << setw(25) << "Total Resources" << lib.getResources().size() << endl;
+
+    // count only active (non-deleted) users
+    int activeUsers = 0;
+    for (auto u : lib.getUsers())
+        if (!u->getIsDeleted())
+            activeUsers++;
+
+    // count only active (non-deleted) resources
+    int activeResources = 0;
+    for (auto r : lib.getResources())
+        if (!r->getIsDeleted())
+            activeResources++;
+
+    cout << left << setw(25) << "Total Users" << activeUsers << endl;
+    cout << left << setw(25) << "Total Resources" << activeResources << endl;
     cout << left << setw(25) << "Total Borrows" << lib.getBorrowHistory().size() << endl;
 
-    // find most borrowed resource
+    // find most borrowed resource — skip deleted resources
     int maxCount = 0;
     LibraryResource *mostBorrowed = nullptr;
-
     for (auto r : lib.getResources())
     {
+        if (r->getIsDeleted())
+            continue;
+
         int count = 0;
         for (const auto &record : lib.getBorrowHistory())
         {

@@ -11,8 +11,8 @@
 |---------|---------|
 | Hamza   | CS-130  |
 | Shahzad | CS-127  |
-| Haseeb  | CS-
-| Moosa   | CS-
+| Haseeb  | CS-120  |
+| Moosa   | CS-143  |
 
 ---
 
