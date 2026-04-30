@@ -82,6 +82,7 @@ int main()
                         cout << "9. Statistics\n";
                         cout << "10. Export Report\n";
                         cout << "11. Collect donation\n";
+                        cout << "12. Fine Management\n";
                         cout << "0. Logout\n";
 
                         adminChoice = getValidInt("Enter choice: ");
@@ -169,6 +170,11 @@ int main()
                             pauseScreen();
                         }
                         break;
+                        case 12:
+                            clearScreen();
+                            admin->fineManagement(lib);
+                            pauseScreen();
+                            break;
                         case 0:
                             cout << "Logging out..." << endl;
                             break;

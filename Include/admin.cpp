@@ -102,21 +102,42 @@ void Admin::searchUser(Library &lib)
         cout << "User with ID " << id << " not found." << endl;
 }
 
-void Admin::fineManagement(Library &lib)
-{
-    cout << "\n--- Fine Management ---" << endl;
-    cout << left << setw(6) << "ID"
+void Admin::fineManagement(Library &lib) {
+    cout << "\n--- Fine Management (Overdue Report) ---" << endl;
+    cout << left << setw(6) << "User ID"
          << setw(25) << "Name"
-         << setw(10) << "Balance" << endl;
-    cout << string(41, '-') << endl;
+         << setw(35) << "Resource"
+         << setw(15) << "Days Overdue"
+         << setw(10) << "Fine (Pending)" << endl;
+    cout << string(95, '-') << endl;
 
-    for (auto u : lib.getUsers())
-    {
-        cout << left << setw(6) << u->getUserID()
-             << setw(25) << u->getName()
-             << setw(10) << u->getBalance() << endl;
+    time_t now = time(0);
+    bool found = false;
+
+    for (auto &record : lib.getBorrowHistory()) {
+        // If resource not yet returned and overdue
+        if (record.returnDate == 0 && difftime(now, record.dueDate) > 0) {
+            int daysLate = static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24));
+            double fine = daysLate * lib.getUsers()[record.userID - 1]->getFineRate();
+
+            // Store fine in record but do NOT deduct balance yet
+            record.fine = fine;
+
+            cout << left << setw(6) << record.userID
+                 << setw(25) << lib.getUsers()[record.userID - 1]->getName()
+                 << setw(35) << record.resource->getTitle()
+                 << setw(15) << daysLate
+                 << setw(10) << fine << endl;
+
+            found = true;
+        }
+    }
+
+    if (!found) {
+        cout << "No overdue resources at the moment." << endl;
     }
 }
+
 
 void Admin::deleteUser(Library &lib)
 {
@@ -164,8 +185,6 @@ void Admin::addResource(Library &lib)
     author = getValidString("Enter author/creator: ");
 
     category = getValidString("Enter category: ");
-    if (category.empty())
-        throw runtime_error("Category cannot be empty!");
 
     availableCopies = getValidInt("Enter available copies: ");
 
@@ -268,20 +287,12 @@ void Admin::updateResource(Library &lib)
             int newCopies;
 
             newTitle = getValidString("Enter new title (leave blank to keep current): ");
-            if (!newTitle.empty())
-                r->setTitle(newTitle);
 
             newAuthor = getValidString("Enter new author/creator (leave blank to keep current): ");
-            if (!newAuthor.empty())
-                r->setAuthorCreator(newAuthor);
 
             newCategory = getValidString("Enter new category (leave blank to keep current): ");
-            if (!newCategory.empty())
-                r->setCategory(newCategory);
 
             newCopies = getValidInt("Enter new total copies (0 to keep current): ");
-            if (newCopies > 0)
-                r->setTotalCopies(newCopies);
 
             r->updateStatus(); // refresh availability status
             cout << "Resource updated successfully." << endl;
@@ -400,8 +411,7 @@ void Admin::exportReports(Library &lib, const string &filename)
 
     if (!out.is_open())
     {
-        cout << "Error: Could not open " << filename << endl;
-        return;
+        throw runtime_error("Failed to open file for writing: " + filename);
     }
 
     out << "--- Issued Resources ---" << endl;
