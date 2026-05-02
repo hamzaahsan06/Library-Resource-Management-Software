@@ -414,29 +414,50 @@ void Admin::exportReports(Library &lib, const string &filename)
         throw runtime_error("Failed to open file for writing: " + filename);
     }
 
-    out << "--- Issued Resources ---" << endl;
+    // --- Issued Resources ---
+    out << "\n--- Issued Resources ---" << endl;
+    out << left << setw(6) << "ID"
+        << setw(35) << "Title"
+        << setw(15) << "Type"
+        << setw(15) << "Issued Copies" << endl;
+    out << string(71, '-') << endl;
+
+    bool foundIssued = false;
     for (auto r : lib.getResources())
     {
-        if (r->getAvailableCopies() < r->getTotalCopies())
+        if (!r->getIsDeleted() && r->getAvailableCopies() < r->getTotalCopies())
         {
-            out << r->getTitle() << " | Issued: "
-                << (r->getTotalCopies() - r->getAvailableCopies()) << " copies" << endl;
+            out << left << setw(6) << r->getResourceID()
+                << setw(35) << r->getTitle()
+                << setw(15) << r->getType()
+                << setw(15) << (r->getTotalCopies() - r->getAvailableCopies()) << endl;
+            foundIssued = true;
         }
     }
+    if (!foundIssued)
+        out << "No resources are currently issued." << endl;
 
-    out << endl
-        << "--- Overdue Resources ---" << endl;
+    // --- Overdue Resources ---
+    out << "\n--- Overdue Resources ---" << endl;
+    out << left << setw(10) << "User ID"
+        << setw(35) << "Resource"
+        << setw(15) << "Days Overdue" << endl;
+    out << string(60, '-') << endl;
+
     time_t now = time(0);
+    bool foundOverdue = false;
     for (const auto &record : lib.getBorrowHistory())
     {
-        if (record.returnDate == 0 && difftime(now, record.dueDate) > 0)
+        if (!record.resource->getIsDeleted() && record.returnDate == 0 && difftime(now, record.dueDate) > 0)
         {
-            out << "User ID: " << record.userID
-                << " | Resource: " << record.resource->getTitle()
-                << " | Days Overdue: "
-                << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24)) << endl;
+            out << left << setw(10) << record.userID
+                << setw(35) << record.resource->getTitle()
+                << setw(15) << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24)) << endl;
+            foundOverdue = true;
         }
     }
+    if (!foundOverdue)
+        out << "No overdue resources." << endl;
 
     out.close();
     cout << "Reports exported to " << filename << endl;
