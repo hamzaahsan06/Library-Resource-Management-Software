@@ -4,6 +4,7 @@
 #include "include/admin.h"
 #include "FileHandling/FileHandler.h"
 #include "Include/utils.h"
+#include "include/title.h"
 using namespace std;
 using namespace Utils;
 
@@ -23,6 +24,11 @@ void pauseScreen()
 
 int main()
 {
+    showTitle();
+    cout << "\nPress Enter to dive into LMS...";
+    cin.get();
+    
+
     Library lib("My Library");
 
     try

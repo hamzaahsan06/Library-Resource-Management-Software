@@ -88,7 +88,8 @@ cd path\to\project
 3. Run the following compile command:
 
 ```
-g++ main.cpp Include/utils.cpp Include/admin.cpp Include/library.cpp  Include/Users.cpp Include/Resources.cpp FileHandling/FileHandler.cpp -Iinclude -Ifilehandling -o app
+
+g++ -o library_system.exe main.cpp Include/admin.cpp Include/library.cpp Include/Resources.cpp Include/Users.cpp Include/title.cpp Include/utils.cpp FileHandling/FileHandler.cpp -I Include -I FileHandling
 
 ```
 
