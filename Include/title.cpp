@@ -13,23 +13,30 @@ void showTitle()
 {
     system("cls"); // for Windows
 
-    // ASCII Art for "LIBRARY"
-    const std::string LIBRARY_ART =
-        "  _         _____    ____   \n"
-        " | |       |_   _|  |  _ \\ \n"
-        " | |         | |    | |_) | \n"
-        " | |         | |    |  _ <| \n"
-        " | |____    _| |_   | |_) | \n"
-        " |______|  |_____|  | ___ /  \n";
+    // ASCII Art for "L M S"
+    const std::string LMS_ART =
+        "  _          __  __     _____ \n"
+        " | |        |  \\/  |   / ____|\n"
+        " | |        | \\  / |  | (___  \n"
+        " | |        | |\\/| |   \\___ \\ \n"
+        " | |____    | |  | |   ____) |\n"
+        " |______|   |_|  |_|  |_____/ \n";
 
-    // ASCII Art for "MANAGEMENT SYSTEM"
+    // Updated with RESOURCE[cite: 1]
+    const std::string SUB_TITLE1 = "\n\n  L I B R A R Y   &   R E S O U R C E";
+    const std::string SUB_TITLE2 = "\n        M A N A G E M E N T";
+    const std::string SUB_TITLE3 = "\n            S Y S T E M \n\n";
 
-    const std::string TITLE = "\n    M A N A G E M E N T";
-    const std::string TITLE1 = "\n       S Y S T E M \n\n";
-    const std::string QUOTE = "Your mind is your instrument. Learn to be its master and not its slave.";
+    const std::string QUOTE_TEXT = "\"Your mind is your instrument. Learn to be its master and not its slave.\"";
 
-    std::cout << GOLD << LIBRARY_ART << RESET;
-    std::cout << CYAN << TITLE << RESET;
-    std::cout << CYAN << TITLE1 << RESET;
-    std::cout << ITALIC << WHITE << QUOTE << RESET << std::endl;
+    // Displaying the Titles
+    std::cout << GOLD << LMS_ART << RESET;
+    std::cout << CYAN << SUB_TITLE1 << RESET;
+    std::cout << CYAN << SUB_TITLE2 << RESET;
+    std::cout << CYAN << SUB_TITLE3 << RESET;
+
+    // Small single-line border for the quote
+    std::cout << CYAN << " -----------------------------------------------------------------------------" << std::endl;
+    std::cout << " | " << GOLD << ITALIC << QUOTE_TEXT << RESET << CYAN << " |" << std::endl;
+    std::cout << " -----------------------------------------------------------------------------" << RESET << std::endl;
 }

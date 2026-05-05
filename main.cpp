@@ -25,7 +25,7 @@ void pauseScreen()
 int main()
 {
     showTitle();
-    cout << "\nPress Enter to dive into LMS...";
+    cout << "\nPress Enter to explore....";
     cin.get();
     
 
