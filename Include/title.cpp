@@ -39,4 +39,7 @@ void showTitle()
     std::cout << CYAN << " -----------------------------------------------------------------------------" << std::endl;
     std::cout << " | " << GOLD << ITALIC << QUOTE_TEXT << RESET << CYAN << " |" << std::endl;
     std::cout << " -----------------------------------------------------------------------------" << RESET << std::endl;
+
+    cout << "\nPress Enter to explore....";
+    cin.get();
 }
