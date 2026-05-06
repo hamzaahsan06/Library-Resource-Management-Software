@@ -1,13 +1,16 @@
 #include "library_menu.h"
 #include "../include/utils.h"
+#include "clearANDpause.h"
 #include <iostream>
 
 using namespace std;
 using namespace Utils;
 
-void library_menu(User* loggedUser, Library& lib) {
+void library_menu(User *loggedUser, Library &lib)
+{
     int userChoice;
-    do {
+    do
+    {
         clearScreen();
         cout << "\n===== USER MENU =====\n";
         cout << "1. View Profile\n";
@@ -20,7 +23,8 @@ void library_menu(User* loggedUser, Library& lib) {
 
         userChoice = getValidInt("Enter choice: ");
 
-        switch (userChoice) {
+        switch (userChoice)
+        {
         case 1:
             clearScreen();
             lib.showUserProfile(loggedUser);
@@ -41,43 +45,57 @@ void library_menu(User* loggedUser, Library& lib) {
             lib.searchResources();
             pauseScreen();
             break;
-        case 5: {
+        case 5:
+        {
             clearScreen();
             int id = getValidInt("Enter Resource ID: ");
-            if (id) {
+            if (id)
+            {
                 bool found = false;
-                for (auto r : lib.getResources()) {
-                    if (r->getResourceID() == id && !r->getIsDeleted()) {
+                for (auto r : lib.getResources())
+                {
+                    if (r->getResourceID() == id && !r->getIsDeleted())
+                    {
                         lib.borrowResource(loggedUser, r);
                         found = true;
                         break;
                     }
                 }
-                if (!found) {
+                if (!found)
+                {
                     cout << "Resource with ID " << id << " not found or is deleted." << endl;
                 }
-            } else {
+            }
+            else
+            {
                 cout << "Error: Invalid resource ID!" << endl;
             }
             pauseScreen();
             break;
         }
-        case 6: {
+        case 6:
+        {
             clearScreen();
             int id = getValidInt("Enter Resource ID: ");
-            if (id) {
+            if (id)
+            {
                 bool found = false;
-                for (auto r : lib.getResources()) {
-                    if (r->getResourceID() == id) {
+                for (auto r : lib.getResources())
+                {
+                    if (r->getResourceID() == id)
+                    {
                         lib.returnResource(loggedUser, r);
                         found = true;
                         break;
                     }
                 }
-                if (!found) {
+                if (!found)
+                {
                     cout << "Resource with ID " << id << " not found." << endl;
                 }
-            } else {
+            }
+            else
+            {
                 cout << "Error: Invalid resource ID!" << endl;
             }
             pauseScreen();

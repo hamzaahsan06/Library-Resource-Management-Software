@@ -1,13 +1,16 @@
 #include "admin_menu.h"
 #include "../include/utils.h"
+#include "clearANDpause.h"
 #include <iostream>
 
 using namespace std;
 using namespace Utils;
 
-void admin_menu(Admin* admin, Library& lib) {
+void admin_menu(Admin *admin, Library &lib)
+{
     int adminChoice;
-    do {
+    do
+    {
         clearScreen();
         cout << "\n===== ADMIN MENU =====\n";
         cout << "1. Add Resource\n";
@@ -26,7 +29,8 @@ void admin_menu(Admin* admin, Library& lib) {
 
         adminChoice = getValidInt("Enter choice: ");
 
-        switch (adminChoice) {
+        switch (adminChoice)
+        {
         case 1:
             clearScreen();
             admin->addResource(lib);
@@ -77,19 +81,25 @@ void admin_menu(Admin* admin, Library& lib) {
             admin->exportReports(lib, "report.txt");
             pauseScreen();
             break;
-        case 11: {
+        case 11:
+        {
             clearScreen();
             int donorID = getValidInt("Enter User ID of the donor: ");
-            User* donor = nullptr;
-            for (auto u : lib.getUsers()) {
-                if (u->getUserID() == donorID && !u->getIsDeleted()) {
+            User *donor = nullptr;
+            for (auto u : lib.getUsers())
+            {
+                if (u->getUserID() == donorID && !u->getIsDeleted())
+                {
                     donor = u;
                     break;
                 }
             }
-            if (donor != nullptr) {
+            if (donor != nullptr)
+            {
                 admin->collectDonationFromUser(donor, lib);
-            } else {
+            }
+            else
+            {
                 cout << "Error: User with ID " << donorID << " not found." << endl;
             }
             pauseScreen();
