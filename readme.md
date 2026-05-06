@@ -89,7 +89,7 @@ cd path\to\project
 
 ```
 
-g++ -o library_system.exe main.cpp Include/admin.cpp Include/library.cpp Include/Resources.cpp Include/Users.cpp Include/title.cpp Include/utils.cpp FileHandling/FileHandler.cpp -I Include -I FileHandling
+g++ -o library_system.exe main.cpp Include/admin.cpp Include/library.cpp Include/Resources.cpp Include/Users.cpp Include/title.cpp Include/utils.cpp FileHandling/FileHandler.cpp main_menu/admin_menu.cpp main_menu/clearANDpause.cpp main_menu/library_menu.cpp -I Include -I FileHandling
 
 ```
 
