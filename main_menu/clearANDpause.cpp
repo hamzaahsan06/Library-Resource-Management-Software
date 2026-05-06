@@ -1,9 +1,16 @@
-#include<iostream>
+#include "clearANDpause.h"
+#include <iostream>
+#include <cstdlib>
+#include <limits>
+
 using namespace std;
+
 void clearScreen()
 {
 #ifdef _WIN32
     system("cls");
+#else
+    system("clear");
 #endif
 }
 
