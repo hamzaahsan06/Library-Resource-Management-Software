@@ -31,73 +31,110 @@ int main()
     }
 
     int choice;
-
-    do
+    try
     {
-        clearScreen();
-        cout << "\n===== LIBRARY MANAGEMENT SYSTEM =====\n";
-        cout << "1. Sign in\n";
-        cout << "2. Sign up\n";
-        cout << "3. View Available Resources (Guest)\n";
-        cout << "0. Exit\n";
-
-        choice = getValidInt("Enter choice: ");
-
-        try
+        do
         {
-            if (choice == 1)
+            clearScreen();
+            cout << "\n===== LIBRARY MANAGEMENT SYSTEM =====\n";
+            cout << "1. Sign in\n";
+            cout << "2. Sign up\n";
+            cout << "3. View Available Resources (Guest)\n";
+            cout << "0. Exit\n";
+
+            choice = getValidInt("Enter choice: ");
+
+            try
             {
-                User *loggedUser = lib.loginUser();
-
-                if (loggedUser == nullptr)
+                if (choice == 1)
                 {
+                    User *loggedUser = lib.loginUser();
+
+                    if (loggedUser == nullptr)
+                    {
+                        pauseScreen();
+                        continue;
+                    }
+
+                    if (loggedUser->getType() == "admin")
+                    {
+                        Admin *admin = dynamic_cast<Admin *>(loggedUser);
+                        admin_menu(admin, lib);
+                    }
+                    else
+                    {
+                        library_menu(loggedUser, lib);
+                    }
+                }
+
+                else if (choice == 2)
+                {
+                    clearScreen();
+                    lib.registerUser();
                     pauseScreen();
-                    continue;
                 }
 
-                if (loggedUser->getType() == "admin")
+                else if (choice == 3)
                 {
-                    Admin *admin = dynamic_cast<Admin *>(loggedUser);
-                    admin_menu(admin, lib);
+                    clearScreen();
+                    lib.showAvailableResources();
+                    pauseScreen();
                 }
+
+                else if (choice == 0)
+                {
+                    cout << "Exiting system...\n";
+                }
+
                 else
                 {
-                    library_menu(loggedUser, lib);
+                    cout << "Invalid menu choice! Please select 0-3." << endl;
+                    pauseScreen();
                 }
             }
-
-            else if (choice == 2)
+            catch (const invalid_argument &e)
             {
-                clearScreen();
-                lib.registerUser();
+                cout << "Input Error: " << e.what() << endl;
+                pauseScreen();
+            }
+            catch (const runtime_error &e)
+            {
+                cout << "Runtime Error: " << e.what() << endl;
+                pauseScreen();
+            }
+            catch (const exception &e)
+            {
+                cout << "Error: " << e.what() << endl;
+                pauseScreen();
+            }
+            catch (...)
+            {
+                cout << "An unexpected error occurred." << endl;
                 pauseScreen();
             }
 
-            else if (choice == 3)
-            {
-                clearScreen();
-                lib.showAvailableResources();
-                pauseScreen();
-            }
-
-            else if (choice == 0)
-            {
-                cout << "Exiting system...\n";
-            }
-
-            else
-            {
-                cout << "Invalid menu choice! Please select 0-3." << endl;
-                pauseScreen();
-            }
-        }
-        catch (const exception &e)
-        {
-            cout << "Error: " << e.what() << endl;
-            pauseScreen();
-        }
-
-    } while (choice != 0);
+        } while (choice != 0);
+    }
+    catch (const invalid_argument &e)
+    {
+        cout << "Input Error: " << e.what() << endl;
+        pauseScreen();
+    }
+    catch (const runtime_error &e)
+    {
+        cout << "Runtime Error: " << e.what() << endl;
+        pauseScreen();
+    }
+    catch (const exception &e)
+    {
+        cout << "Error: " << e.what() << endl;
+        pauseScreen();
+    }
+    catch (...)
+    {
+        cout << "An unexpected error occurred." << endl;
+        pauseScreen();
+    }
 
     try
     {
