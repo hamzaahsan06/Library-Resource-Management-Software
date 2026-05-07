@@ -1,151 +1,41 @@
 #include <iostream>
 #include <cstdlib>
 #include "include/Library.h"
-#include "include/admin.h"
-#include "FileHandling/FileHandler.h"
-#include "Include/utils.h"
-#include "include/title.h"
-#include "main_menu/admin_menu.h"
-#include "main_menu/library_menu.h"
-#include "main_menu/clearANDpause.h"
+#include "include/Menu.h"
+#include "include/FileHandler.h"
+#include "include/Utils.h"
+#include "include/Title.h"
+#include "include/Colors.h"
 
 using namespace std;
 using namespace Utils;
 
-int main()
-{
+int main() {
+    system("color");
     showTitle();
-
     Library lib("My Library");
 
-    try
-    {
+    // Initialization: Load data from files
+    try {
         ReadUsersFromFile("database/users.csv", lib.getUsers());
         ReadResourcesFromFile("database/resources.csv", lib.getResources());
         ReadBorrowHistoryFromFile("database/borrowHistory.csv", lib);
-    }
-    catch (const exception &e)
-    {
-        cout << "Error loading data: " << e.what() << endl;
-        cout << "Starting with empty database..." << endl;
+    } catch (const exception &e) {
+        cout << COLOR_ERROR << "Error loading data: " << e.what() << RESET << endl;
+        cout << COLOR_SYSTEM_NOTIFY << "Starting with empty database..." << RESET << endl;
     }
 
-    int choice;
-    try
-    {
-        do
-        {
-            clearScreen();
-            cout << "\n===== LIBRARY MANAGEMENT SYSTEM =====\n";
-            cout << "1. Sign in\n";
-            cout << "2. Sign up\n";
-            cout << "3. View Available Resources (Guest)\n";
-            cout << "0. Exit\n";
+    // Launch the Library Management System UI
+    runLibrarySystem(lib);
 
-            choice = getValidInt("Enter choice: ");
-
-            try
-            {
-                if (choice == 1)
-                {
-                    User *loggedUser = lib.loginUser();
-
-                    if (loggedUser == nullptr)
-                    {
-                        pauseScreen();
-                        continue;
-                    }
-
-                    if (loggedUser->getType() == "admin")
-                    {
-                        Admin *admin = dynamic_cast<Admin *>(loggedUser);
-                        admin_menu(admin, lib);
-                    }
-                    else
-                    {
-                        library_menu(loggedUser, lib);
-                    }
-                }
-
-                else if (choice == 2)
-                {
-                    clearScreen();
-                    lib.registerUser();
-                    pauseScreen();
-                }
-
-                else if (choice == 3)
-                {
-                    clearScreen();
-                    lib.showAvailableResources();
-                    pauseScreen();
-                }
-
-                else if (choice == 0)
-                {
-                    cout << "Exiting system...\n";
-                }
-
-                else
-                {
-                    cout << "Invalid menu choice! Please select 0-3." << endl;
-                    pauseScreen();
-                }
-            }
-            catch (const invalid_argument &e)
-            {
-                cout << "Input Error: " << e.what() << endl;
-                pauseScreen();
-            }
-            catch (const runtime_error &e)
-            {
-                cout << "Runtime Error: " << e.what() << endl;
-                pauseScreen();
-            }
-            catch (const exception &e)
-            {
-                cout << "Error: " << e.what() << endl;
-                pauseScreen();
-            }
-            catch (...)
-            {
-                cout << "An unexpected error occurred." << endl;
-                pauseScreen();
-            }
-
-        } while (choice != 0);
-    }
-    catch (const invalid_argument &e)
-    {
-        cout << "Input Error: " << e.what() << endl;
-        pauseScreen();
-    }
-    catch (const runtime_error &e)
-    {
-        cout << "Runtime Error: " << e.what() << endl;
-        pauseScreen();
-    }
-    catch (const exception &e)
-    {
-        cout << "Error: " << e.what() << endl;
-        pauseScreen();
-    }
-    catch (...)
-    {
-        cout << "An unexpected error occurred." << endl;
-        pauseScreen();
-    }
-
-    try
-    {
+    // Finalization: Save all state to files
+    try {
         SaveUsersToFile("database/users.csv", lib.getUsers());
         SaveResourcesToFile("database/resources.csv", lib.getResources());
         SaveBorrowHistoryToFile("database/borrowHistory.csv", lib);
-        cout << "Data saved successfully." << endl;
-    }
-    catch (const exception &e)
-    {
-        cout << "Error saving data: " << e.what() << endl;
+        cout << COLOR_SUCCESS << "Data saved successfully." << RESET << endl;
+    } catch (const exception &e) {
+        cout << COLOR_ERROR << "Error saving data: " << e.what() << RESET << endl;
     }
 
     return 0;

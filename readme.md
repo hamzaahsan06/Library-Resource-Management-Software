@@ -89,14 +89,14 @@ cd path\to\project
 
 ```
 
-g++ -o library_system.exe main.cpp Include/admin.cpp Include/library.cpp Include/Resources.cpp Include/Users.cpp Include/title.cpp Include/utils.cpp FileHandling/FileHandler.cpp main_menu/admin_menu.cpp main_menu/clearANDpause.cpp main_menu/library_menu.cpp -I Include -I FileHandling
+g++ -o bin/LibrarySystem.exe main.cpp src/Admin.cpp src/FileHandler.cpp src/Library.cpp src/Menu.cpp src/Resources.cpp src/Title.cpp src/Users.cpp src/Utils.cpp -I include
 
 ```
 
 4. Run the executable:
 
 ```
-.\app.exe
+.\bin\LibrarySystem.exe
 ```
 
 ### Option 2: Using an IDE (Code::Blocks / Dev-C++)

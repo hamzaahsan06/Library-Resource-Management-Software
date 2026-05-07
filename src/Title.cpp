@@ -1,5 +1,6 @@
 #include <iostream>
-#include "title.h"
+#include "../include/Title.h"
+
 using namespace std;
 
 // ANSI Color Codes

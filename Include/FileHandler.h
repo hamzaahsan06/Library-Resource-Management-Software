@@ -5,8 +5,8 @@
 #include <sstream>
 #include <vector>
 #include <string>
-#include "../include/Library.h"
-#include "../include/admin.h"
+#include "Library.h"
+#include "Admin.h"
 using namespace std;
 
 // ---------- Load Functions ----------

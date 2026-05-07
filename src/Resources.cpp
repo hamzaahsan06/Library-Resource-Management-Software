@@ -1,5 +1,6 @@
-#include "Resources.h"
+#include "../include/Resources.h"
 #include <iostream>
+
 using namespace std;
 
 // ===================== LibraryResource =====================
