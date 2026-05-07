@@ -217,7 +217,12 @@ void handleUserMenu(User *loggedUser, Library &lib)
                 {
                     if (r->getResourceID() == id && !r->getIsDeleted())
                     {
-                        lib.borrowResource(loggedUser, r);
+                        bool success = lib.borrowResource(loggedUser, r);
+
+                        if (success)
+                            cout << COLOR_SUCCESS << "Resource borrowed successfully!" << RESET << endl;
+                        else
+                            cout << COLOR_ERROR << "Borrow failed!" << RESET << endl;
                         found = true;
                         break;
                     }

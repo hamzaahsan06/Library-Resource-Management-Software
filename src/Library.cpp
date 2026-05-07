@@ -116,7 +116,6 @@ void Library::registerUser()
     cout << "1. Student" << endl;
     cout << "2. Teacher" << endl;
     cout << "3. Staff" << endl;
-    cout << "4. Premium Member" << endl;
     choice = getValidInt("Enter choice: ");
 
     int id = generateNewUserID("../database/users.csv");
@@ -162,51 +161,14 @@ void Library::registerUser()
 
         u = new Staff(id, username, password, name, address, balance, position);
     }
-    else if (choice == 4)
-    {
-        int choice;
-        string level;
-
-        while (true)
-        {
-            cout << "Select membership level:\n";
-            cout << "1. Gold\n";
-            cout << "2. Silver\n";
-            cout << "3. Bronze\n";
-            choice = getValidInt("Enter choice: ");
-
-            if (choice == 1)
-            {
-                level = "Gold";
-                break;
-            }
-            else if (choice == 2)
-            {
-                level = "Silver";
-                break;
-            }
-            else if (choice == 3)
-            {
-                level = "Bronze";
-                break;
-            }
-            else
-            {
-                cerr << "Invalid choice. Please select 1, 2, or 3.\n";
-            }
-        }
-
-        cout << "You selected membership level: " << level << endl;
-
-        u = new PremiumMember(id, username, password, name, address, balance, level);
-    }
     else
     {
-        throw runtime_error("Invalid choice. Please select 1-4!");
+        throw runtime_error("Invalid choice. Please select 1-3!");
     }
 
     users.push_back(u);
-    cout << "User registered successfully. ID: " << id << endl;
+    cout << "  Welcome to the community, " << u->getName() << " !" << endl;
+    cout << "  Registration complete. Your ID is: #" << id << endl;
 }
 
 // ---------- Search ----------
@@ -313,10 +275,10 @@ void Library::changePassword(User *u)
         return;
     }
     newPass = oldPass;
-    while(newPass==oldPass){
+    while (newPass == oldPass)
+    {
         newPass = getValidString("Enter new password: ");
     }
-
 
     u->setPassword(newPass);
     cout << "Password changed successfully." << endl;
@@ -397,7 +359,8 @@ User *Library::loginUser()
     while (true)
     {
         ch = _getch();
-        if (ch == '\r' || ch == '\n') break;
+        if (ch == '\r' || ch == '\n')
+            break;
         else if (ch == '\b' && !password.empty())
         {
             password.pop_back();
