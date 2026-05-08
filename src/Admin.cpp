@@ -31,35 +31,31 @@ int Admin::getBorrowDays() const { return 0; }    // admin does not borrow
 void Admin::printAllCustomersReport(Library &lib)
 {
     int choice;
-    cout << COLOR_ADMIN_HEADER << "\nWhat would you like to print?" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "1. Customers Info" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "2. Borrowing History" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "3. Both" << RESET << endl;
-    choice = getValidInt(COLOR_INPUT_PROMPT "Enter your choice: " RESET);
+    cout << "\nWhat would you like to print?" << endl;
+    cout << "1. Customers Info" << endl;
+    cout << "2. Borrowing History" << endl;
+    cout << "3. Both" << endl;
+    choice = getValidInt("Enter your choice: ");
 
     if (choice == 1 || choice == 3)
     {
-        cout << COLOR_ADMIN_HEADER << "\n--- Customers Report ---" << RESET << endl;
-        cout << COLOR_TABLE_HEADER
-             << left << setw(6) << "ID"
+        cout << "\n--- Customers Report ---" << endl;
+        cout << left << setw(6) << "ID"
              << setw(25) << "Name"
              << setw(12) << "Type"
              << setw(20) << "Username"
-             << setw(10) << "Balance"
-             << RESET << endl;
-        cout << COLOR_SEPARATOR << string(73, '-') << RESET << endl;
+             << setw(10) << "Balance" << endl;
+        cout << string(73, '-') << endl;
 
         for (auto u : lib.getUsers())
         {
             if (!u->getIsDeleted())
             {
-                cout << COLOR_TABLE_ROW
-                     << left << setw(6) << u->getUserID()
+                cout << left << setw(6) << u->getUserID()
                      << setw(25) << u->getName()
                      << setw(12) << u->getType()
                      << setw(20) << u->getUsername()
-                     << setw(10) << u->getBalance()
-                     << RESET << endl;
+                     << setw(10) << u->getBalance() << endl;
             }
         }
     }
@@ -74,56 +70,47 @@ void Admin::searchUser(Library &lib)
 {
     int id;
 
-    id = getValidInt(COLOR_INPUT_PROMPT "Enter user ID to search: " RESET);
+    id = getValidInt("Enter user ID to search: ");
 
-    cout << COLOR_ADMIN_HEADER << "\n--- User Search Result ---" << RESET << endl;
+    cout << "\n--- User Search Result ---" << endl;
 
-    cout << COLOR_TABLE_HEADER
-         << left << setw(6) << "ID"
+    cout << left << setw(6) << "ID"
          << setw(25) << "Name"
          << setw(12) << "Type"
          << setw(20) << "Username"
          << setw(10) << "Balance"
-         << setw(10) << "Status"
-         << RESET << endl;
+         << setw(10) << "Status" << endl;
 
-    cout << COLOR_SEPARATOR << string(83, '-') << RESET << endl;
+    cout << string(83, '-') << endl;
 
     bool found = false;
     for (auto u : lib.getUsers())
     {
         if (u->getUserID() == id)
         {
-            cout << COLOR_TABLE_ROW
-                 << left << setw(6) << u->getUserID()
+            cout << left << setw(6) << u->getUserID()
                  << setw(25) << u->getName()
                  << setw(12) << u->getType()
                  << setw(20) << u->getUsername()
                  << setw(10) << u->getBalance()
-                 << RESET;
-            if (u->getIsDeleted())
-                cout << COLOR_STATUS_BORROWED << setw(10) << "Deleted" << RESET << endl;
-            else
-                cout << COLOR_STATUS_AVAILABLE << setw(10) << "Active" << RESET << endl;
+                 << setw(10) << (u->getIsDeleted() ? "Deleted" : "Active") << endl;
             found = true;
             break;
         }
     }
 
     if (!found)
-        cout << COLOR_ERROR << "User with ID " << id << " not found." << RESET << endl;
+        cout << "User with ID " << id << " not found." << endl;
 }
 
 void Admin::fineManagement(Library &lib) {
-    cout << COLOR_ADMIN_HEADER << "\n--- Fine Management (Overdue Report) ---" << RESET << endl;
-    cout << COLOR_TABLE_HEADER
-         << left << setw(6) << "User ID"
+    cout << "\n--- Fine Management (Overdue Report) ---" << endl;
+    cout << left << setw(8) << "User ID"
          << setw(25) << "Name"
          << setw(35) << "Resource"
          << setw(15) << "Days Overdue"
-         << setw(10) << "Fine (Pending)"
-         << RESET << endl;
-    cout << COLOR_SEPARATOR << string(95, '-') << RESET << endl;
+         << setw(10) << "Fine (Pending)" << endl;
+    cout << string(95, '-') << endl;
 
     time_t now = time(0);
     bool found = false;
@@ -137,20 +124,18 @@ void Admin::fineManagement(Library &lib) {
             // Store fine in record but do NOT deduct balance yet
             record.fine = fine;
 
-            cout << COLOR_FINE_WARNING
-                 << left << setw(6) << record.userID
+            cout << left << setw(8) << record.userID
                  << setw(25) << lib.getUsers()[record.userID - 1]->getName()
                  << setw(35) << record.resource->getTitle()
                  << setw(15) << daysLate
-                 << setw(10) << fine
-                 << RESET << endl;
+                 << setw(10) << fine << endl;
 
             found = true;
         }
     }
 
     if (!found) {
-        cout << COLOR_SUCCESS << "No overdue resources at the moment." << RESET << endl;
+        cout << "No overdue resources at the moment." << endl;
     }
 }
 
@@ -159,7 +144,7 @@ void Admin::deleteUser(Library &lib)
 {
     int id;
 
-    id = getValidInt(COLOR_INPUT_PROMPT "Enter user ID to delete: " RESET);
+    id = getValidInt("Enter user ID to delete: ");
 
     for (auto u : lib.getUsers())
     {
@@ -167,16 +152,16 @@ void Admin::deleteUser(Library &lib)
         {
             if (u->getIsDeleted())
             {
-                cout << COLOR_ERROR << "User already deleted." << RESET << endl;
+                cout << "User already deleted." << endl;
                 return;
             }
             u->markDeleted();
-            cout << COLOR_SUCCESS << "User \"" << u->getName() << "\" marked as deleted." << RESET << endl;
+            cout << "User \"" << u->getName() << "\" marked as deleted." << endl;
             return;
         }
     }
 
-    cout << COLOR_ERROR << "User with ID " << id << " not found." << RESET << endl;
+    cout << "User with ID " << id << " not found." << endl;
 }
 
 // ---------- Resource Management ----------
@@ -185,32 +170,32 @@ void Admin::addResource(Library &lib)
     int choice;
     LibraryResource *newRes = nullptr;
 
-    cout << COLOR_ADMIN_HEADER << "Select resource type to add:" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "1. Book" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "2. DVD" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "3. AudioBook" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "4. Magazine" << RESET << endl;
-    cout << COLOR_MENU_OPTION << "5. Newspaper" << RESET << endl;
-    choice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
+    cout << "Select resource type to add:" << endl;
+    cout << "1. Book" << endl;
+    cout << "2. DVD" << endl;
+    cout << "3. AudioBook" << endl;
+    cout << "4. Magazine" << endl;
+    cout << "5. Newspaper" << endl;
+    choice = getValidInt("Enter choice: ");
     int ID = generateNewResourceID("../database/resources.csv");
     int availableCopies;
     string title, author, category;
 
-    title = getValidString(COLOR_INPUT_PROMPT "Enter title: " RESET);
+    title = getValidString("Enter title: ");
 
-    author = getValidString(COLOR_INPUT_PROMPT "Enter author/creator: " RESET);
+    author = getValidString("Enter author/creator: ");
 
-    category = getValidString(COLOR_INPUT_PROMPT "Enter category: " RESET);
+    category = getValidString("Enter category: ");
 
-    availableCopies = getValidInt(COLOR_INPUT_PROMPT "Enter available copies: " RESET);
+    availableCopies = getValidInt("Enter available copies: ");
 
     if (choice == 1)
     {
         string ISBN, publisher;
         int year;
-        ISBN = getValidString(COLOR_INPUT_PROMPT "Enter ISBN: " RESET);
-        publisher = getValidString(COLOR_INPUT_PROMPT "Enter publisher: " RESET);
-        year = getValidInt(COLOR_INPUT_PROMPT "Enter year published: " RESET);
+        ISBN = getValidString("Enter ISBN: ");
+        publisher = getValidString("Enter publisher: ");
+        year = getValidInt("Enter year published: ");
         newRes = new Book(ID, title, author, category, availableCopies, ISBN, publisher, year);
         newRes->setTotalCopies(availableCopies);
     }
@@ -218,9 +203,9 @@ void Admin::addResource(Library &lib)
     {
         string director, genre;
         int duration;
-        director = getValidString(COLOR_INPUT_PROMPT "Enter director: " RESET);
-        duration = getValidInt(COLOR_INPUT_PROMPT "Enter duration (minutes): " RESET);
-        genre = getValidString(COLOR_INPUT_PROMPT "Enter genre: " RESET);
+        director = getValidString("Enter director: ");
+        duration = getValidInt("Enter duration (minutes): ");
+        genre = getValidString("Enter genre: ");
         newRes = new DVD(ID, title, director, category, availableCopies, duration, genre);
         newRes->setTotalCopies(availableCopies);
     }
@@ -228,9 +213,9 @@ void Admin::addResource(Library &lib)
     {
         string narrator, format;
         int duration;
-        narrator = getValidString(COLOR_INPUT_PROMPT "Enter narrator: " RESET);
-        duration = getValidInt(COLOR_INPUT_PROMPT "Enter duration (minutes): " RESET);
-        format = getValidString(COLOR_INPUT_PROMPT "Enter format (e.g. MP3, CD): " RESET);
+        narrator = getValidString("Enter narrator: ");
+        duration = getValidInt("Enter duration (minutes): ");
+        format = getValidString("Enter format (e.g. MP3, CD): ");
         newRes = new AudioBook(ID, title, author, category, availableCopies, narrator, duration, format);
         newRes->setTotalCopies(availableCopies);
     }
@@ -238,37 +223,37 @@ void Admin::addResource(Library &lib)
     {
         string publisher, pubDate;
         int volume, issue;
-        publisher = getValidString(COLOR_INPUT_PROMPT "Enter publisher: " RESET);
-        volume = getValidInt(COLOR_INPUT_PROMPT "Enter volume number: " RESET);
-        issue = getValidInt(COLOR_INPUT_PROMPT "Enter issue number: " RESET);
-        pubDate = getValidString(COLOR_INPUT_PROMPT "Enter publication date (e.g. May 2025): " RESET);
+        publisher = getValidString("Enter publisher: ");
+        volume = getValidInt("Enter volume number: ");
+        issue = getValidInt("Enter issue number: ");
+        pubDate = getValidString("Enter publication date (e.g. May 2025): ");
         newRes = new Magazine(ID, title, publisher, category, availableCopies, volume, issue, pubDate);
         newRes->setTotalCopies(availableCopies);
     }
     else if (choice == 5)
     {
         string publisher, editionDate, region;
-        publisher = getValidString(COLOR_INPUT_PROMPT "Enter publisher: " RESET);
-        editionDate = getValidString(COLOR_INPUT_PROMPT "Enter edition date (DD-MM-YYYY): " RESET);
-        region = getValidString(COLOR_INPUT_PROMPT "Enter region: " RESET);
+        publisher = getValidString("Enter publisher: ");
+        editionDate = getValidString("Enter edition date (DD-MM-YYYY): ");
+        region = getValidString("Enter region: ");
         newRes = new Newspaper(ID, title, publisher, category, availableCopies, editionDate, region);
         newRes->setTotalCopies(availableCopies);
     }
     else
     {
-        cout << COLOR_ERROR << "Invalid choice. Resource not added." << RESET << endl;
+        cout << "Invalid choice. Resource not added." << endl;
         throw runtime_error("Invalid resource type choice!");
     }
 
     lib.addResource(newRes); // push into library's resources vector
-    cout << COLOR_SUCCESS << "Resource added successfully." << RESET << endl;
+    cout << "Resource added successfully." << endl;
 }
 
 void Admin::deleteResource(Library &lib)
 {
     int id;
 
-    id = getValidInt(COLOR_INPUT_PROMPT "Enter resource ID to delete: " RESET);
+    id = getValidInt("Enter resource ID to delete: ");
 
     for (auto r : lib.getResources())
     {
@@ -276,89 +261,83 @@ void Admin::deleteResource(Library &lib)
         {
             if (r->getIsDeleted())
             {
-                cout << COLOR_ERROR << "Resource already deleted." << RESET << endl;
+                cout << "Resource already deleted." << endl;
                 return;
             }
             r->markDeleted();
-            cout << COLOR_SUCCESS << "Resource \"" << r->getTitle() << "\" marked as deleted." << RESET << endl;
+            cout << "Resource \"" << r->getTitle() << "\" marked as deleted." << endl;
             return;
         }
     }
-    cout << COLOR_ERROR << "Resource with ID " << id << " not found." << RESET << endl;
+    cout << "Resource with ID " << id << " not found." << endl;
 }
 
 void Admin::updateResource(Library &lib)
 {
     int id;
 
-    id = getValidInt(COLOR_INPUT_PROMPT "Enter resource ID to update: " RESET);
+    id = getValidInt("Enter resource ID to update: ");
 
     for (auto r : lib.getResources())
     {
         if (r->getResourceID() == id)
         {
-            cout << COLOR_SYSTEM_NOTIFY << "Updating: " << r->getTitle() << RESET << endl;
+            cout << "Updating: " << r->getTitle() << endl;
 
             string newTitle, newAuthor, newCategory;
             int newCopies;
 
-            newTitle = getValidString(COLOR_INPUT_PROMPT "Enter new title (leave blank to keep current): " RESET);
+            newTitle = getValidString("Enter new title (leave blank to keep current): ");
 
-            newAuthor = getValidString(COLOR_INPUT_PROMPT "Enter new author/creator (leave blank to keep current): " RESET);
+            newAuthor = getValidString("Enter new author/creator (leave blank to keep current): ");
 
-            newCategory = getValidString(COLOR_INPUT_PROMPT "Enter new category (leave blank to keep current): " RESET);
+            newCategory = getValidString("Enter new category (leave blank to keep current): ");
 
-            newCopies = getValidInt(COLOR_INPUT_PROMPT "Enter new total copies (0 to keep current): " RESET);
+            newCopies = getValidInt("Enter new total copies (0 to keep current): ");
 
             r->updateStatus(); // refresh availability status
-            cout << COLOR_SUCCESS << "Resource updated successfully." << RESET << endl;
+            cout << "Resource updated successfully." << endl;
             return;
         }
     }
 
-    cout << COLOR_ERROR << "Resource with ID " << id << " not found." << RESET << endl;
+    cout << "Resource with ID " << id << " not found." << endl;
 }
 
 // ---------- Circulation / Borrowing Management ----------
 void Admin::printIssuedResources(Library &lib)
 {
-    cout << COLOR_ADMIN_HEADER << "\n--- Issued Resources ---" << RESET << endl;
-    cout << COLOR_TABLE_HEADER
-         << left << setw(6) << "ID"
+    cout << "\n--- Issued Resources ---" << endl;
+    cout << left << setw(6) << "ID"
          << setw(35) << "Title"
          << setw(15) << "Type"
-         << setw(15) << "Issued Copies"
-         << RESET << endl;
-    cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
+         << setw(15) << "Issued Copies" << endl;
+    cout << string(71, '-') << endl;
 
     bool found = false;
     for (auto r : lib.getResources())
     {
         if (r->getAvailableCopies() < r->getTotalCopies())
         {
-            cout << COLOR_TABLE_ROW
-                 << left << setw(6) << r->getResourceID()
+            cout << left << setw(6) << r->getResourceID()
                  << setw(35) << r->getTitle()
                  << setw(15) << r->getType()
-                 << RESET
-                 << COLOR_STATS << setw(15) << (r->getTotalCopies() - r->getAvailableCopies()) << RESET << endl;
+                 << setw(15) << (r->getTotalCopies() - r->getAvailableCopies()) << endl;
             found = true;
         }
     }
 
     if (!found)
-        cout << COLOR_SUCCESS << "No resources are currently issued." << RESET << endl;
+        cout << "No resources are currently issued." << endl;
 }
 
 void Admin::printOverdueResources(Library &lib)
 {
-    cout << COLOR_ADMIN_HEADER << "\n--- Overdue Resources ---" << RESET << endl;
-    cout << COLOR_TABLE_HEADER
-         << left << setw(10) << "User ID"
+    cout << "\n--- Overdue Resources ---" << endl;
+    cout << left << setw(10) << "User ID"
          << setw(35) << "Resource"
-         << setw(15) << "Days Overdue"
-         << RESET << endl;
-    cout << COLOR_SEPARATOR << string(60, '-') << RESET << endl;
+         << setw(15) << "Days Overdue" << endl;
+    cout << string(60, '-') << endl;
 
     time_t now = time(0);
     bool found = false;
@@ -367,23 +346,21 @@ void Admin::printOverdueResources(Library &lib)
     {
         if (record.returnDate == 0 && difftime(now, record.dueDate) > 0)
         {
-            cout << COLOR_FINE_WARNING
-                 << left << setw(10) << record.userID
+            cout << left << setw(10) << record.userID
                  << setw(35) << record.resource->getTitle()
-                 << setw(15) << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24))
-                 << RESET << endl;
+                 << setw(15) << static_cast<int>(difftime(now, record.dueDate) / (60 * 60 * 24)) << endl;
             found = true;
         }
     }
 
     if (!found)
-        cout << COLOR_SUCCESS << "No overdue resources." << RESET << endl;
+        cout << "No overdue resources." << endl;
 }
 
 // ---------- Reports & Analytics ----------
 void Admin::generateStats(Library &lib)
 {
-    cout << COLOR_ADMIN_HEADER << "\n--- Library Statistics ---" << RESET << endl;
+    cout << "\n--- Library Statistics ---" << endl;
 
     // count only active (non-deleted) users
     int activeUsers = 0;
@@ -397,12 +374,9 @@ void Admin::generateStats(Library &lib)
         if (!r->getIsDeleted())
             activeResources++;
 
-    cout << COLOR_TABLE_ROW << left << setw(25) << "Total Users" << RESET
-         << COLOR_STATS << activeUsers << RESET << endl;
-    cout << COLOR_TABLE_ROW << left << setw(25) << "Total Resources" << RESET
-         << COLOR_STATS << activeResources << RESET << endl;
-    cout << COLOR_TABLE_ROW << left << setw(25) << "Total Borrows" << RESET
-         << COLOR_STATS << lib.getBorrowHistory().size() << RESET << endl;
+    cout << left << setw(25) << "Total Users" << activeUsers << endl;
+    cout << left << setw(25) << "Total Resources" << activeResources << endl;
+    cout << left << setw(25) << "Total Borrows" << lib.getBorrowHistory().size() << endl;
 
     // find most borrowed resource — skip deleted resources
     int maxCount = 0;
@@ -426,11 +400,10 @@ void Admin::generateStats(Library &lib)
     }
 
     if (mostBorrowed)
-        cout << COLOR_TABLE_ROW << left << setw(25) << "Most Borrowed" << RESET
-             << COLOR_STATS << mostBorrowed->getTitle() << " (" << maxCount << " time(s))" << RESET << endl;
+        cout << left << setw(25) << "Most Borrowed"
+             << mostBorrowed->getTitle() << " (" << maxCount << " time(s))" << endl;
     else
-        cout << COLOR_TABLE_ROW << left << setw(25) << "Most Borrowed" << RESET
-             << COLOR_HINT << "No borrows recorded yet." << RESET << endl;
+        cout << left << setw(25) << "Most Borrowed" << "No borrows recorded yet." << endl;
 }
 
 void Admin::exportReports(Library &lib, const string &filename)
@@ -488,14 +461,14 @@ void Admin::exportReports(Library &lib, const string &filename)
         out << "No overdue resources." << endl;
 
     out.close();
-    cout << COLOR_SUCCESS << "Reports exported to " << filename << RESET << endl;
+    cout << "Reports exported to " << filename << endl;
 }
 
 // ---------- Special / Additional Features ----------
 void Admin::collectDonationFromUser(User *u, Library &lib)
 {
-    cout << COLOR_ADMIN_HEADER << "\n--- Resource Donation ---" << RESET << endl;
-    cout << COLOR_TABLE_ROW << "User: " << u->getName() << RESET << endl;
+    cout << "\n--- Resource Donation ---" << endl;
+    cout << "User: " << u->getName() << endl;
 
     // collect donated resource details
     addResource(lib); // reuse existing addResource logic
@@ -504,14 +477,14 @@ void Admin::collectDonationFromUser(User *u, Library &lib)
     double reward = 100.0; // fixed reward per donation
     u->updateBalance(reward);
 
-    cout << COLOR_SUCCESS << "Balance rewarded: " << reward << RESET << endl;
-    cout << COLOR_STATS << "New balance: " << u->getBalance() << RESET << endl;
+    cout << "Balance rewarded: " << reward << endl;
+    cout << "New balance: " << u->getBalance() << endl;
 }
 
 // ---------- Display ----------
 void Admin::displayInfo() const
 {
-    cout << COLOR_TABLE_ROW << "ID   : " << userID << RESET << endl;
-    cout << COLOR_TABLE_ROW << "Name : " << name << RESET << endl;
-    cout << COLOR_TABLE_ROW << "Role : Admin" << RESET << endl;
+    cout << "ID   : " << userID << endl;
+    cout << "Name : " << name << endl;
+    cout << "Role : Admin" << endl;
 }
