@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
 using namespace std;
 
 // --------------------- Base User Class ---------------------
@@ -36,7 +37,7 @@ public:
     // ---------- Setters ----------
     void setAddress(const string &addr);
     void setPassword(const string &pass);
-    void updateBalance(double amount); // positive to add, negative to deduct
+    void updateBalance(double amount, vector<User *> &users); // positive to add, negative to deduct
 
     // ---------- Authentication ----------
     bool login(string user, string pass);

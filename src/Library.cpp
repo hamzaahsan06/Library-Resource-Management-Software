@@ -26,7 +26,6 @@ void Library::BorrowRecord::markReturned(User *user)
     {
         int daysLate = static_cast<int>(difftime(returnDate, dueDate) / (60 * 60 * 24));
         fine = daysLate * user->getFineRate();
-        user->updateBalance(-fine);
     }
 }
 
@@ -529,7 +528,10 @@ bool Library::returnResource(User *user, LibraryResource *res)
             cout << COLOR_SUCCESS << user->getName() << " returned \"" << res->getTitle() << "\"." << RESET << endl;
 
             if (record.fine > 0)
+            {
                 cout << COLOR_FINE << "Overdue! Fine of " << record.fine << " deducted from balance." << RESET << endl;
+                user->updateBalance(-record.fine, users);
+            }
 
             return true;
         }
