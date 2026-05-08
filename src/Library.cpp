@@ -1,6 +1,7 @@
 #include "../include/Library.h"
 #include "../include/FileHandler.h"
 #include "../include/Utils.h"
+#include "../include/Colors.h"
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
@@ -48,63 +49,92 @@ Library::~Library()
 void Library::addResource(LibraryResource *res)
 {
     resources.push_back(res);
-    cout << "Resource \"" << res->getTitle() << "\" added to " << libraryName << endl;
+    cout << COLOR_SUCCESS << "Resource \"" << res->getTitle() << "\" added to " << libraryName << RESET << endl;
 }
 
 void Library::showResources() const
 {
     cout << "\n"
-         << "Resources in " << libraryName << endl;
-    cout << left << setw(6) << "ID"
+         << COLOR_SECTION << "Resources in " << libraryName << RESET << endl;
+
+    // Column headers — bold cyan like a textbook heading
+    cout << COLOR_TABLE_HEADER
+         << left << setw(6) << "ID"
          << setw(35) << "Title"
          << setw(15) << "Type"
-         << setw(15) << "Available" << endl;
-    cout << string(71, '-') << endl;
+         << setw(15) << "Available"
+         << RESET << endl;
+
+    // Separator — cyan divider line
+    cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 
     for (auto res : resources)
     {
         if (!res->getIsDeleted()) // skip deleted resources
         {
-            cout << left << setw(6) << res->getResourceID()
-                 << setw(35) << res->getTitle()
-                 << setw(15) << res->getType()
-                 << setw(15) << res->getAvailableCopies() << endl;
+            // ID in bold yellow — like a sticky note label
+            cout << COLOR_ID << left << setw(6) << res->getResourceID() << RESET;
+            // Title in bold white — most important, highest contrast
+            cout << COLOR_TITLE << setw(35) << res->getTitle() << RESET;
+            // Type in magenta — distinct category label
+            cout << COLOR_TYPE << setw(15) << res->getType() << RESET;
+
+            // Available copies — green if > 0, red if 0 (traffic light logic)
+            int copies = res->getAvailableCopies();
+            if (copies > 0)
+                cout << COLOR_AVAILABLE << setw(15) << copies << RESET;
+            else
+                cout << COLOR_UNAVAILABLE << setw(15) << copies << RESET;
+
+            cout << endl;
         }
     }
+
+    cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 }
 
 // ---------- show only available resources ----------
 void Library::showAvailableResources() const
 {
-    cout << "\n--- Available Resources ---" << endl;
-    cout << left << setw(6) << "ID"
+    cout << "\n"
+         << COLOR_MAIN_HEADER
+         << "========== AVAILABLE RESOURCES =========="
+         << RESET << endl;
+
+    cout << COLOR_TABLE_HEADER
+         << left << setw(6) << "ID"
          << setw(35) << "Title"
          << setw(15) << "Type"
-         << setw(15) << "Available" << endl;
-    cout << string(71, '-') << endl;
+         << setw(15) << "Available"
+         << RESET << endl;
+
+    cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 
     bool found = false;
     for (auto res : resources)
     {
         if (!res->getIsDeleted() && res->isAvailable())
         {
-            cout << left << setw(6) << res->getResourceID()
-                 << setw(35) << res->getTitle()
-                 << setw(15) << res->getType()
-                 << setw(15) << res->getAvailableCopies() << endl;
+            cout << COLOR_ID << left << setw(6) << res->getResourceID() << RESET;
+            cout << COLOR_TITLE << setw(35) << res->getTitle() << RESET;
+            cout << COLOR_TYPE << setw(15) << res->getType() << RESET;
+            cout << COLOR_AVAILABLE << setw(15) << res->getAvailableCopies() << RESET;
+            cout << endl;
             found = true;
         }
     }
 
     if (!found)
-        cout << "No resources currently available." << endl;
+        cout << COLOR_WARNING << "No resources currently available." << RESET << endl;
+
+    cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 }
 
 // ---------- User Management ----------
 void Library::addUser(User *user)
 {
     users.push_back(user);
-    cout << "User \"" << user->getName() << "\" added to " << libraryName << endl;
+    cout << COLOR_SUCCESS << "User \"" << user->getName() << "\" added to " << libraryName << RESET << endl;
 }
 
 void Library::registerUser()
@@ -112,92 +142,74 @@ void Library::registerUser()
     int choice;
     User *u = nullptr;
 
-    cout << "Select user type:" << endl;
-    cout << "1. Student" << endl;
-    cout << "2. Teacher" << endl;
-    cout << "3. Staff" << endl;
-    cout << "4. Premium Member" << endl;
-    choice = getValidInt("Enter choice: ");
+    cout << COLOR_SECTION << "Select user type:" << RESET << endl;
+    cout << COLOR_MENU_OPTION << "1. Student" << RESET << endl;
+    cout << COLOR_MENU_OPTION << "2. Teacher" << RESET << endl;
+    cout << COLOR_MENU_OPTION << "3. Staff" << RESET << endl;
+    cout << COLOR_MENU_OPTION << "4. Premium Member" << RESET << endl;
+    choice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
 
     int id = generateNewUserID("../database/users.csv");
 
     string username, password, name, address;
     double balance;
 
-    username = getValidString("Enter username: ");
-
-    password = getValidString("Enter password: ");
-
-    name = getValidString("Enter full name: ");
-
-    address = getValidString("Enter address: ");
-
-    balance = getValidDouble("Enter initial balance: ");
+    username = getValidString(COLOR_INPUT_PROMPT "Enter username: " RESET);
+    password = getValidString(COLOR_INPUT_PROMPT "Enter password: " RESET);
+    name = getValidString(COLOR_INPUT_PROMPT "Enter full name: " RESET);
+    address = getValidString(COLOR_INPUT_PROMPT "Enter address: " RESET);
+    balance = getValidDouble(COLOR_INPUT_PROMPT "Enter initial balance: " RESET);
 
     if (choice == 1)
     {
         string department;
         int rollNo;
-
-        department = getValidString("Enter department: ");
-        rollNo = getValidInt("Enter roll number: ");
-
+        department = getValidString(COLOR_INPUT_PROMPT "Enter department: " RESET);
+        rollNo = getValidInt(COLOR_INPUT_PROMPT "Enter roll number: " RESET);
         u = new Student(id, username, password, name, address, balance, department, rollNo);
     }
     else if (choice == 2)
     {
         string department, designation;
-
-        department = getValidString("Enter department: ");
-
-        designation = getValidString("Enter designation: ");
-
+        department = getValidString(COLOR_INPUT_PROMPT "Enter department: " RESET);
+        designation = getValidString(COLOR_INPUT_PROMPT "Enter designation: " RESET);
         u = new Teacher(id, username, password, name, address, balance, department, designation);
     }
     else if (choice == 3)
     {
         string position;
-
-        position = getValidString("Enter position: ");
-
+        position = getValidString(COLOR_INPUT_PROMPT "Enter position: " RESET);
         u = new Staff(id, username, password, name, address, balance, position);
     }
     else if (choice == 4)
     {
-        int choice;
+        int lvlChoice;
         string level;
-
         while (true)
         {
-            cout << "Select membership level:\n";
-            cout << "1. Gold\n";
-            cout << "2. Silver\n";
-            cout << "3. Bronze\n";
-            choice = getValidInt("Enter choice: ");
-
-            if (choice == 1)
+            cout << COLOR_SECTION << "Select membership level:" << RESET << "\n";
+            cout << COLOR_MENU_OPTION << "1. Gold\n2. Silver\n3. Bronze" << RESET << "\n";
+            lvlChoice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
+            if (lvlChoice == 1)
             {
                 level = "Gold";
                 break;
             }
-            else if (choice == 2)
+            else if (lvlChoice == 2)
             {
                 level = "Silver";
                 break;
             }
-            else if (choice == 3)
+            else if (lvlChoice == 3)
             {
                 level = "Bronze";
                 break;
             }
             else
-            {
-                cerr << "Invalid choice. Please select 1, 2, or 3.\n";
-            }
+                cerr << COLOR_ERROR << "Invalid choice. Please select 1, 2, or 3.\n"
+                     << RESET;
         }
-
-        cout << "You selected membership level: " << level << endl;
-
+        cout << COLOR_SUCCESS << "You selected membership level: " << level << RESET << endl;
         u = new PremiumMember(id, username, password, name, address, balance, level);
     }
     else
@@ -206,37 +218,34 @@ void Library::registerUser()
     }
 
     users.push_back(u);
-    cout << "User registered successfully. ID: " << id << endl;
+    cout << COLOR_SUCCESS << "User registered successfully. ID: " << id << RESET << endl;
 }
 
 // ---------- Search ----------
 void Library::searchResources() const
 {
-
     // Display search options to the user
-    cout << "\n===== Search Resources =====\n";
-    cout << "Search by:\n";
-    cout << "1. ID\n";
-    cout << "2. Title\n";
-    cout << "3. Author\n";
-    cout << "4. Category\n";
-    cout << "5. Type\n";
+    cout << "\n"
+         << COLOR_SECTION << "===== Search Resources =====" << RESET << "\n";
+    cout << COLOR_MENU_OPTION
+         << "1. ID\n2. Title\n3. Author\n4. Category\n5. Type"
+         << RESET << "\n";
 
     int choice;
-    choice = getValidInt("Enter choice: ");
+    choice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
 
     // Take search keyword input
     string keyword;
     if (choice == 1)
-        keyword = getValidString("Enter ID: ");
+        keyword = getValidString(COLOR_INPUT_PROMPT "Enter ID: " RESET);
     else if (choice == 2)
-        keyword = getValidString("Enter Title: ");
+        keyword = getValidString(COLOR_INPUT_PROMPT "Enter Title: " RESET);
     else if (choice == 3)
-        keyword = getValidString("Enter Author: ");
+        keyword = getValidString(COLOR_INPUT_PROMPT "Enter Author: " RESET);
     else if (choice == 4)
-        keyword = getValidString("Enter Category: ");
+        keyword = getValidString(COLOR_INPUT_PROMPT "Enter Category: " RESET);
     else if (choice == 5)
-        keyword = getValidString("Enter Type: ");
+        keyword = getValidString(COLOR_INPUT_PROMPT "Enter Type: " RESET);
     else
         throw runtime_error("Invalid choice. Please select 1-5!");
 
@@ -245,14 +254,16 @@ void Library::searchResources() const
         c = tolower(c);
 
     // Print table header in formatted style
-    cout << left << setw(6) << "ID"
+    cout << COLOR_TABLE_HEADER
+         << left << setw(6) << "ID"
          << setw(35) << "Title"
          << setw(15) << "Type"
          << setw(20) << "Author"
          << setw(20) << "Category"
-         << setw(15) << "Available" << endl;
+         << setw(15) << "Available"
+         << RESET << endl;
 
-    cout << string(111, '-') << endl;
+    cout << COLOR_SEPARATOR << string(111, '-') << RESET << endl;
 
     bool found = false; // Tracks if any match is found
 
@@ -286,72 +297,84 @@ void Library::searchResources() const
         if (fieldLower.find(keyword) != string::npos)
         {
             // Display matching resource in formatted output
-            cout << left << setw(6) << res->getResourceID()
-                 << setw(35) << res->getTitle()
-                 << setw(15) << res->getType()
-                 << setw(20) << res->getAuthorCreator()
-                 << setw(20) << res->getCategory()
-                 << setw(15) << res->getAvailableCopies() << endl;
+            cout << COLOR_ID << left << setw(6) << res->getResourceID() << RESET;
+            cout << COLOR_TITLE << setw(35) << res->getTitle() << RESET;
+            cout << COLOR_TYPE << setw(15) << res->getType() << RESET;
+            cout << WHITE << setw(20) << res->getAuthorCreator() << RESET;
+            cout << WHITE << setw(20) << res->getCategory() << RESET;
 
+            int copies = res->getAvailableCopies();
+            if (copies > 0)
+                cout << COLOR_AVAILABLE << setw(15) << copies << RESET;
+            else
+                cout << COLOR_UNAVAILABLE << setw(15) << copies << RESET;
+
+            cout << endl;
             found = true;
         }
     }
 
     // If no matches found, inform the user
     if (!found)
-        cout << "No resources found matching: " << keyword << endl;
+        cout << COLOR_ERROR << "No resources found matching: " << keyword << RESET << endl;
 }
 
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
 
-    oldPass = getValidString("Enter current password: ");
+    oldPass = getValidString(COLOR_INPUT_PROMPT "Enter current password: " RESET);
     if (!u->login(u->getUsername(), oldPass))
     {
-        cout << "Incorrect current password." << endl;
+        cout << COLOR_ERROR << "Incorrect current password." << RESET << endl;
         return;
     }
     newPass = oldPass;
-    while(newPass==oldPass){
-        newPass = getValidString("Enter new password: ");
-    }
-
+    while (newPass == oldPass)
+        newPass = getValidString(COLOR_INPUT_PROMPT "Enter new password: " RESET);
 
     u->setPassword(newPass);
-    cout << "Password changed successfully." << endl;
+    cout << COLOR_SUCCESS << "Password changed successfully." << RESET << endl;
 }
 
 void Library::showUserProfile(User *u) const
 {
-    cout << "\n========== " << u->getName() << " Profile ==========\n";
+    cout << "\n"
+         << COLOR_SECTION << "========== " << u->getName() << " Profile ==========" << RESET << "\n";
 
     // Table header for user details
-    cout << left << setw(6) << "ID"
+    cout << COLOR_TABLE_HEADER
+         << left << setw(6) << "ID"
          << setw(25) << "Name"
          << setw(20) << "Username"
          << setw(12) << "Type"
-         << setw(10) << "Balance" << endl;
+         << setw(10) << "Balance"
+         << RESET << endl;
 
-    cout << string(73, '-') << endl;
+    cout << COLOR_SEPARATOR << string(73, '-') << RESET << endl;
 
     // User data in tabular format
-    cout << left << setw(6) << u->getUserID()
-         << setw(25) << u->getName()
-         << setw(20) << u->getUsername()
-         << setw(12) << u->getType()
-         << setw(10) << u->getBalance() << endl;
+    cout << COLOR_ID << left << setw(6) << u->getUserID() << RESET;
+    cout << COLOR_TITLE << setw(25) << u->getName() << RESET;
+    cout << WHITE << setw(20) << u->getUsername() << RESET;
+    cout << COLOR_TYPE << setw(12) << u->getType() << RESET;
+    cout << COLOR_BALANCE << setw(10) << u->getBalance() << RESET;
+    cout << endl;
 
     // Borrow history section
-    cout << "\n--- Borrow History ---" << endl;
-    cout << left << setw(8) << "User ID"
+    cout << "\n"
+         << COLOR_SECTION << "--- Borrow History ---" << RESET << endl;
+
+    cout << COLOR_TABLE_HEADER
+         << left << setw(8) << "User ID"
          << setw(35) << "Resource"
          << setw(14) << "Borrowed"
          << setw(14) << "Due"
          << setw(14) << "Returned"
-         << setw(8) << "Fine" << endl;
+         << setw(8) << "Fine"
+         << RESET << endl;
 
-    cout << string(93, '-') << endl;
+    cout << COLOR_SEPARATOR << string(93, '-') << RESET << endl;
 
     bool found = false;
 
@@ -369,20 +392,31 @@ void Library::showUserProfile(User *u) const
     {
         if (record.userID == u->getUserID()) // filter for specific user
         {
-            cout << left << setw(8) << record.userID
-                 << setw(35) << record.resource->getTitle()
-                 << setw(14) << formatDate(record.borrowDate)
-                 << setw(14) << formatDate(record.dueDate)
-                 << setw(14) << formatDate(record.returnDate)
-                 << setw(8) << record.fine << endl;
+            cout << COLOR_ID << left << setw(8) << record.userID << RESET;
+            cout << COLOR_TITLE << setw(35) << record.resource->getTitle() << RESET;
+            cout << COLOR_DATE << setw(14) << formatDate(record.borrowDate) << RESET;
+            cout << COLOR_DATE << setw(14) << formatDate(record.dueDate) << RESET;
 
+            // Returned date — green if returned, yellow if still out
+            if (record.returnDate != 0)
+                cout << COLOR_AVAILABLE << setw(14) << formatDate(record.returnDate) << RESET;
+            else
+                cout << COLOR_WARNING << setw(14) << "Not yet" << RESET;
+
+            // Fine — red if > 0, white if none
+            if (record.fine > 0)
+                cout << COLOR_FINE << setw(8) << record.fine << RESET;
+            else
+                cout << WHITE << setw(8) << record.fine << RESET;
+
+            cout << endl;
             found = true;
         }
     }
 
     if (!found)
     {
-        cout << "No borrow history found." << endl;
+        cout << COLOR_WARNING << "No borrow history found." << RESET << endl;
     }
 }
 
@@ -390,14 +424,15 @@ User *Library::loginUser()
 {
     string username, password = "";
 
-    username = getValidString("Enter username: ");
+    username = getValidString(COLOR_INPUT_PROMPT "Enter username: " RESET);
 
-    cout << "Enter password: ";
+    cout << COLOR_INPUT_PROMPT << "Enter password: " << RESET;
     char ch;
     while (true)
     {
         ch = _getch();
-        if (ch == '\r' || ch == '\n') break;
+        if (ch == '\r' || ch == '\n')
+            break;
         else if (ch == '\b' && !password.empty())
         {
             password.pop_back();
@@ -417,7 +452,7 @@ User *Library::loginUser()
             return user;
     }
 
-    cout << "Invalid username or password." << endl;
+    cout << COLOR_ERROR << "Invalid username or password." << RESET << endl;
     return nullptr;
 }
 
@@ -443,15 +478,15 @@ bool Library::borrowResource(User *user, LibraryResource *res)
     // student=2, teacher=3, staff=4, premium=5
     if (countToday >= user->getDailyLimit())
     {
-        cout << user->getName() << " has reached the daily borrow limit of "
-             << user->getDailyLimit() << " resources." << endl;
+        cout << COLOR_WARNING << user->getName() << " has reached the daily borrow limit of "
+             << user->getDailyLimit() << " resources." << RESET << endl;
         return false;
     }
 
     // block borrow if no copies available
     if (!res->isAvailable())
     {
-        cout << "Resource \"" << res->getTitle() << "\" is not available." << endl;
+        cout << COLOR_UNAVAILABLE << "Resource \"" << res->getTitle() << "\" is not available." << RESET << endl;
         return false;
     }
 
@@ -461,7 +496,7 @@ bool Library::borrowResource(User *user, LibraryResource *res)
     // get borrow duration from user type and create borrow record
     borrowHistory.push_back(BorrowRecord(user->getUserID(), res, user->getBorrowDays()));
 
-    cout << user->getName() << " successfully borrowed \"" << res->getTitle() << "\"." << endl;
+    cout << COLOR_SUCCESS << user->getName() << " successfully borrowed \"" << res->getTitle() << "\"." << RESET << endl;
     return true;
 }
 
@@ -480,7 +515,7 @@ bool Library::returnResource(User *user, LibraryResource *res)
 
             if (record.returnDate != 0) // not yet returned
             {
-                cout << "\"" << res->getTitle() << "\" has already been returned." << endl;
+                cout << COLOR_WARNING << "\"" << res->getTitle() << "\" has already been returned." << RESET << endl;
                 return false;
             }
 
@@ -491,10 +526,10 @@ bool Library::returnResource(User *user, LibraryResource *res)
             // increase available copies by 1 in resource object
             res->returnResource();
 
-            cout << user->getName() << " returned \"" << res->getTitle() << "\"." << endl;
+            cout << COLOR_SUCCESS << user->getName() << " returned \"" << res->getTitle() << "\"." << RESET << endl;
 
             if (record.fine > 0)
-                cout << "Overdue! Fine of " << record.fine << " deducted from balance." << endl;
+                cout << COLOR_FINE << "Overdue! Fine of " << record.fine << " deducted from balance." << RESET << endl;
 
             return true;
         }
@@ -502,7 +537,7 @@ bool Library::returnResource(User *user, LibraryResource *res)
 
     // no active borrow record found for this user and resource
     if (!everBorrowed)
-        cout << user->getName() << " has never borrowed \"" << res->getTitle() << "\"." << endl;
+        cout << COLOR_ERROR << user->getName() << " has never borrowed \"" << res->getTitle() << "\"." << RESET << endl;
 
     return false;
 }
@@ -510,18 +545,23 @@ bool Library::returnResource(User *user, LibraryResource *res)
 // ---------- Borrow History ----------
 void Library::showBorrowHistory() const
 {
-    cout << "\n--- Borrow History ---" << endl;
-    cout << left << setw(8) << "User ID"
+    cout << "\n"
+         << COLOR_SECTION << "--- Borrow History ---" << RESET << endl;
+
+    cout << COLOR_TABLE_HEADER
+         << left << setw(8) << "User ID"
          << setw(35) << "Resource"
          << setw(14) << "Borrowed"
          << setw(14) << "Due"
          << setw(14) << "Returned"
-         << setw(8) << "Fine" << endl;
-    cout << string(93, '-') << endl;
+         << setw(8) << "Fine"
+         << RESET << endl;
+
+    cout << COLOR_SEPARATOR << string(93, '-') << RESET << endl;
 
     if (borrowHistory.empty())
     {
-        cout << "No borrow history found." << endl;
+        cout << COLOR_WARNING << "No borrow history found." << RESET << endl;
         return;
     }
 
@@ -537,12 +577,22 @@ void Library::showBorrowHistory() const
 
     for (const auto &record : borrowHistory)
     {
-        cout << left << setw(8) << record.userID
-             << setw(35) << record.resource->getTitle()
-             << setw(14) << formatDate(record.borrowDate)
-             << setw(14) << formatDate(record.dueDate)
-             << setw(14) << formatDate(record.returnDate)
-             << setw(8) << record.fine << endl;
+        cout << COLOR_ID << left << setw(8) << record.userID << RESET;
+        cout << COLOR_TITLE << setw(35) << record.resource->getTitle() << RESET;
+        cout << COLOR_DATE << setw(14) << formatDate(record.borrowDate) << RESET;
+        cout << COLOR_DATE << setw(14) << formatDate(record.dueDate) << RESET;
+
+        if (record.returnDate != 0)
+            cout << COLOR_AVAILABLE << setw(14) << formatDate(record.returnDate) << RESET;
+        else
+            cout << COLOR_WARNING << setw(14) << "Not yet" << RESET;
+
+        if (record.fine > 0)
+            cout << COLOR_FINE << setw(8) << record.fine << RESET;
+        else
+            cout << WHITE << setw(8) << record.fine << RESET;
+
+        cout << endl;
     }
 }
 
@@ -557,6 +607,7 @@ void Library::addBorrowRecord(int userID, LibraryResource *res, time_t borrowDat
     record.durationDays = durationDays;
     borrowHistory.push_back(record);
 }
+
 // ---------- Getters ----------
 string Library::getLibraryName() const { return libraryName; }
 vector<User *> &Library::getUsers() { return users; }

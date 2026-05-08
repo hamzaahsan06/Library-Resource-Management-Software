@@ -10,17 +10,21 @@
 using namespace std;
 using namespace Utils;
 
-int main() {
+int main()
+{
     system("color");
     showTitle();
     Library lib("My Library");
 
     // Initialization: Load data from files
-    try {
+    try
+    {
         ReadUsersFromFile("database/users.csv", lib.getUsers());
         ReadResourcesFromFile("database/resources.csv", lib.getResources());
         ReadBorrowHistoryFromFile("database/borrowHistory.csv", lib);
-    } catch (const exception &e) {
+    }
+    catch (const exception &e)
+    {
         cout << COLOR_ERROR << "Error loading data: " << e.what() << RESET << endl;
         cout << COLOR_SYSTEM_NOTIFY << "Starting with empty database..." << RESET << endl;
     }
@@ -29,12 +33,15 @@ int main() {
     runLibrarySystem(lib);
 
     // Finalization: Save all state to files
-    try {
+    try
+    {
         SaveUsersToFile("database/users.csv", lib.getUsers());
         SaveResourcesToFile("database/resources.csv", lib.getResources());
         SaveBorrowHistoryToFile("database/borrowHistory.csv", lib);
         cout << COLOR_SUCCESS << "Data saved successfully." << RESET << endl;
-    } catch (const exception &e) {
+    }
+    catch (const exception &e)
+    {
         cout << COLOR_ERROR << "Error saving data: " << e.what() << RESET << endl;
     }
 
