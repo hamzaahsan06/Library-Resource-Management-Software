@@ -26,6 +26,7 @@ void Library::BorrowRecord::markReturned(User *user)
     {
         int daysLate = static_cast<int>(difftime(returnDate, dueDate) / (60 * 60 * 24));
         fine = daysLate * user->getFineRate();
+        user->updateBalance(-fine);
     }
 }
 
@@ -418,6 +419,57 @@ void Library::showUserProfile(User *u) const
         cout << COLOR_WARNING << "No borrow history found." << RESET << endl;
     }
 }
+// Process the deposit and immediately check for an upgrade
+void Library::depositToUser(int userID, double amount)
+{
+    // Find the user in the library's master vector
+    for (auto &uPtr : users)
+    {
+        if (uPtr->getUserID() == userID)
+        {
+
+            // Add the money
+            uPtr->depositAmount(amount);
+
+            // Check if this new balance triggers a Premium upgrade
+            checkAndUpgradeUser(uPtr);
+            return;
+        }
+    }
+    cout << "\n[ERROR] User ID not found in system." << endl;
+}
+
+// Grants the user membership status
+void Library::checkAndUpgradeUser(User *&uPtr)
+{
+    // Only proceed if they are NOT already a Premium member and balance >= 500
+    if (uPtr->getType() != "Premium" && uPtr->getBalance() >= 500.0)
+    {
+
+        // Determine sub-tier: 1000+ is Diamond, 500-999 is Gold
+        string level = (uPtr->getBalance() >= 1000.0) ? "Diamond" : "Gold";
+
+        // Hold onto the old object pointer to delete it later
+        User *oldUser = uPtr;
+
+        // Replace the pointer at this exact vector index with a new PremiumMember
+        uPtr = new PremiumMember(
+            oldUser->getUserID(),
+            oldUser->getUsername(),
+            oldUser->getPassword(), // Use getters or friend access if protected
+            oldUser->getName(),
+            oldUser->getAddress(),
+            oldUser->getBalance(),
+            level);
+
+        // Delete the old Student/Teacher object to prevent memory leaks
+        delete oldUser;
+
+        // Notify the user of the system change
+        cout << BOLD_YELLOW << "CONGRATULATIONS " << uPtr->getName() << "!" << RESET << endl;
+        cout << " You have been upgraded to " << level << " Premium Membership!" << endl;
+    }
+}
 
 User *Library::loginUser()
 {
@@ -528,10 +580,7 @@ bool Library::returnResource(User *user, LibraryResource *res)
             cout << COLOR_SUCCESS << user->getName() << " returned \"" << res->getTitle() << "\"." << RESET << endl;
 
             if (record.fine > 0)
-            {
                 cout << COLOR_FINE << "Overdue! Fine of " << record.fine << " deducted from balance." << RESET << endl;
-                user->updateBalance(-record.fine, users);
-            }
 
             return true;
         }
