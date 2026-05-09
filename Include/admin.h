@@ -26,7 +26,7 @@ public:
     void printAllCustomersReport(Library &lib); // report of all users and borrow history
     void searchUser(Library &lib);              // search user by ID
     void fineManagement(Library &lib);          // view all user balances and fines
-    void deleteUser(Library &lib);     // marks user as deleted — does not remove from vector
+    void deleteUser(Library &lib);              // marks user as deleted — does not remove from vector
 
     // ---------- Resource Management ----------
     void addResource(Library &lib);    // add new resource to library

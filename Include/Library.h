@@ -16,7 +16,7 @@ private:
     // tracks a single borrowing transaction
     class BorrowRecord
     {
-        public:
+    public:
         int userID;                // who borrowed
         LibraryResource *resource; // what was borrowed
         time_t borrowDate;

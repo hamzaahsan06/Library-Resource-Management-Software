@@ -66,11 +66,11 @@ namespace Utils
     // Clears the terminal screen based on the operating system
     void clearScreen()
     {
-        #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
+#ifdef _WIN32
+        system("cls");
+#else
+        system("clear");
+#endif
     }
 
     // Pauses execution and waits for user input to continue

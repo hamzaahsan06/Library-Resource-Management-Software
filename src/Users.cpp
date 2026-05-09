@@ -1,5 +1,6 @@
 #include "../include/Users.h"
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
@@ -43,7 +44,46 @@ string User::getPassword() const { return password; }
 // ---------- Setters ----------
 void User::setAddress(const string &addr) { address = addr; }
 void User::setPassword(const string &pass) { password = pass; }
-void User::updateBalance(double amount) { balance += amount; } // positive or negative
+void User::updateBalance(double amount, vector<User *> &users)
+{
+    balance += amount;
+
+    // Trigger upgrade only if threshold met and user is not already a Premium member
+    if (balance >= 500.0 && getType() != "Premium")
+    {
+        // Determine sub-tier based on the new balance
+        string initialLevel = (balance >= 1000.0) ? "Diamond" : "Gold";
+
+        cout << " CONGRATULATIONS " << getName() << "!" << endl;
+        cout << " You have been promoted to " << initialLevel << " Membership." << endl;
+
+        // Create the upgraded user passing all inherited attributes
+        // We use 'this->' to access protected members for the constructor
+        User *upgradedUser = new PremiumMember(
+            this->getUserID(),
+            this->getUsername(),
+            this->password,
+            this->getName(),
+            this->address,
+            this->balance,
+            initialLevel
+        );
+
+        // Use auto reference loop to find and swap the pointer in the vector
+        for (auto &uPtr : users)
+        {
+            if (uPtr->getUserID() == this->getUserID())
+            {
+                // Delete the current Student/Teacher/Staff object memory
+                delete uPtr; 
+                
+                // Replace the vector's pointer with the new PremiumMember address
+                uPtr = upgradedUser; 
+                break;
+            }
+        }
+    }
+} // positive or negative
 
 // ---------- Authentication ----------
 bool User::login(string user, string pass)
@@ -189,9 +229,29 @@ PremiumMember::PremiumMember(int ID, string username, string password,
 string PremiumMember::getMembershipLevel() const { return membershipLevel; }
 
 // ---------- Role Rules ----------
-int PremiumMember::getDailyLimit() const { return 5; }    // max 5 resources/day
-double PremiumMember::getFineRate() const { return 3.0; } // 3 per overdue day
-int PremiumMember::getBorrowDays() const { return 30; }   // must return in 30 days
+// Returns Daily Limit based on the sub-tier
+int PremiumMember::getDailyLimit() const
+{
+    if (this->membershipLevel == "Diamond") return 10;
+    if (this->membershipLevel == "Gold") return 5;
+    return 3; // Default
+}
+
+// Returns discounted fine rates for higher tiers
+double PremiumMember::getFineRate() const
+{
+    if (this->membershipLevel == "Diamond") return 5.0;  // High discount
+    if (this->membershipLevel == "Gold") return 10.0;    // Standard Premium rate
+    return 20.0; // Base rate
+}
+
+// Returns extended borrow durations
+int PremiumMember::getBorrowDays() const
+{
+    if (this->membershipLevel == "Diamond") return 30; // 30 days
+    if (this->membershipLevel == "Gold") return 21;    // 21 days
+    return 14; // Default
+}
 
 // ---------- Display ----------
 void PremiumMember::displayInfo() const
