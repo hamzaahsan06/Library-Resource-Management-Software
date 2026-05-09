@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\LibrarySystem.dir/objects.a
+C:\MinGW\bin\ar.exe qc CMakeFiles\LibrarySystem.dir/objects.a @CMakeFiles\LibrarySystem.dir\objects1.rsp
+C:\MinGW\bin\c++.exe -Wl,--whole-archive CMakeFiles\LibrarySystem.dir/objects.a -Wl,--no-whole-archive -o C:\Users\moosa\OneDrive\Desktop\Library-Resource-Management-Software\bin\LibrarySystem.exe -Wl,--out-implib,libLibrarySystem.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\LibrarySystem.dir\linkLibs.rsp

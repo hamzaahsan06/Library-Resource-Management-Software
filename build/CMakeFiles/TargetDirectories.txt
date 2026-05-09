@@ -1,0 +1,3 @@
+C:/Users/moosa/OneDrive/Desktop/Library-Resource-Management-Software/build/CMakeFiles/LibrarySystem.dir
+C:/Users/moosa/OneDrive/Desktop/Library-Resource-Management-Software/build/CMakeFiles/edit_cache.dir
+C:/Users/moosa/OneDrive/Desktop/Library-Resource-Management-Software/build/CMakeFiles/rebuild_cache.dir
