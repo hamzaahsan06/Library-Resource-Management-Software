@@ -63,9 +63,9 @@ void User::depositAmount(double amount)
     {
         this->balance += amount;
         cout << COLOR_SUCCESS << this->getName()
-        << ", Rs. " << amount << " deposited successfully." << RESET << endl;
+             << ", Rs. " << amount << " deposited successfully." << RESET << endl;
         cout << COLOR_TABLE_HEADER << "Current Balance: " << RESET
-        << BOLD_WHITE << "Rs. " << this->balance << RESET << endl;
+             << BOLD_WHITE << "Rs. " << this->balance << RESET << endl;
     }
     else
     {

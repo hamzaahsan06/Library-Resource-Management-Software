@@ -130,7 +130,7 @@ void Library::showAvailableResources() const
     cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 }
 
-// adds new user to library 
+// adds new user to library
 void Library::addUser(User *user)
 {
     users.push_back(user);
@@ -465,11 +465,13 @@ void Library::checkAndUpgradeUser(User *&uPtr)
         delete oldUser;
 
         // Notify the user of the system change
-        cout << "\n" << COLOR_SEPARATOR << string(45, '=') << RESET << endl;
-cout << BOLD_YELLOW << "  CONGRATULATIONS, " << uPtr->getName() << "!" << RESET << endl;
-cout << COLOR_SUCCESS << "  You have been upgraded to "
-     << BOLD_WHITE << level << " Premium Membership!" << RESET << endl;
-cout << COLOR_SEPARATOR << string(45, '=') << RESET << "\n" << endl;
+        cout << "\n"
+             << COLOR_SEPARATOR << string(45, '=') << RESET << endl;
+        cout << BOLD_YELLOW << "  CONGRATULATIONS, " << uPtr->getName() << "!" << RESET << endl;
+        cout << COLOR_SUCCESS << "  You have been upgraded to "
+             << BOLD_WHITE << level << " Premium Membership!" << RESET << endl;
+        cout << COLOR_SEPARATOR << string(45, '=') << RESET << "\n"
+             << endl;
     }
 }
 
