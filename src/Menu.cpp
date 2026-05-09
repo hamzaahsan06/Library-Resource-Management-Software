@@ -6,7 +6,7 @@
 
 using namespace std;
 using namespace Utils;
-
+// main menu loop for the library system
 void runLibrarySystem(Library &lib)
 {
     int choice;
@@ -69,7 +69,7 @@ void runLibrarySystem(Library &lib)
         }
     } while (choice != 0);
 }
-
+// separate menus for admin and regular users
 void handleAdminMenu(Admin *admin, Library &lib)
 {
     int adminChoice;
@@ -170,7 +170,7 @@ void handleAdminMenu(Admin *admin, Library &lib)
         }
     } while (adminChoice != 0);
 }
-
+// menu for regular users after login
 void handleUserMenu(User *loggedUser, Library &lib)
 {
     int userChoice;

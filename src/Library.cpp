@@ -44,7 +44,7 @@ Library::~Library()
         delete res;
 }
 
-// ---------- Resource Management ----------
+// adds new resource to library
 void Library::addResource(LibraryResource *res)
 {
     resources.push_back(res);
@@ -129,13 +129,13 @@ void Library::showAvailableResources() const
     cout << COLOR_SEPARATOR << string(71, '-') << RESET << endl;
 }
 
-// ---------- User Management ----------
+// adds new user to library 
 void Library::addUser(User *user)
 {
     users.push_back(user);
     cout << COLOR_SUCCESS << "User \"" << user->getName() << "\" added to " << libraryName << RESET << endl;
 }
-
+// collects user info from input and adds to users vector
 void Library::registerUser()
 {
     int choice;
@@ -220,7 +220,7 @@ void Library::registerUser()
     cout << COLOR_SUCCESS << "User registered successfully. ID: " << id << RESET << endl;
 }
 
-// ---------- Search ----------
+// searches users vector by username and password, returns matched user
 void Library::searchResources() const
 {
     // Display search options to the user
@@ -317,7 +317,7 @@ void Library::searchResources() const
     if (!found)
         cout << COLOR_ERROR << "No resources found matching: " << keyword << RESET << endl;
 }
-
+// searches users vector by username and password, returns matched user
 void Library::changePassword(User *u)
 {
     string oldPass, newPass;
@@ -335,7 +335,7 @@ void Library::changePassword(User *u)
     u->setPassword(newPass);
     cout << COLOR_SUCCESS << "Password changed successfully." << RESET << endl;
 }
-
+// shows user's own details and borrow history
 void Library::showUserProfile(User *u) const
 {
     cout << "\n"
@@ -455,7 +455,7 @@ User *Library::loginUser()
     return nullptr;
 }
 
-// ---------- Borrowing Logic ----------
+// borrows a resource for a user
 // duration is taken from user type — student=7, teacher=14, staff=14, premium=30
 bool Library::borrowResource(User *user, LibraryResource *res)
 {
@@ -499,7 +499,7 @@ bool Library::borrowResource(User *user, LibraryResource *res)
     return true;
 }
 
-// ---------- Returning Logic ----------
+// returns a resource for a user, calculates fine if overdue, and updates borrow record
 bool Library::returnResource(User *user, LibraryResource *res)
 {
     bool everBorrowed = false;
@@ -597,7 +597,7 @@ void Library::showBorrowHistory() const
         cout << endl;
     }
 }
-
+// adds a new borrow record to the history vector
 void Library::addBorrowRecord(int userID, LibraryResource *res, time_t borrowDate,
                               time_t dueDate, time_t returnDate, double fine, int durationDays)
 {

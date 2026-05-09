@@ -9,10 +9,10 @@ const std::string GOLD = "\033[38;5;220m"; // Vibrant Gold/Yellow
 const std::string CYAN = "\033[36m";       // Cyan
 const std::string WHITE = "\033[37m";      // White
 const std::string ITALIC = "\033[3m";      // Italic text
-
+// Displays the title screen with ASCII art and a quote
 void showTitle()
 {
-    system("cls"); // for Windows
+    system("cls"); 
 
     // ASCII Art for "L M S"
     const std::string LMS_ART =

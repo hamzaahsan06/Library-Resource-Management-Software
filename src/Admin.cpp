@@ -70,7 +70,7 @@ void Admin::printAllCustomersReport(Library &lib)
         lib.showBorrowHistory();
     }
 }
-
+// searches user by ID and prints their details and borrow history
 void Admin::searchUser(Library &lib)
 {
     int id;
@@ -117,7 +117,7 @@ void Admin::searchUser(Library &lib)
     if (!found)
         cout << COLOR_ERROR << "User with ID " << id << " not found." << RESET << endl;
 }
-
+// set fines for all overdue resources but do NOT deduct from user balance yet
 void Admin::fineManagement(Library &lib)
 {
     cout << "\n"
@@ -163,7 +163,7 @@ void Admin::fineManagement(Library &lib)
         cout << COLOR_SUCCESS << "No overdue resources at the moment." << RESET << endl;
     }
 }
-
+// marks user as deleted — does not remove from vector
 void Admin::deleteUser(Library &lib)
 {
     int id;
@@ -187,8 +187,7 @@ void Admin::deleteUser(Library &lib)
 
     cout << COLOR_ERROR << "User with ID " << id << " not found." << RESET << endl;
 }
-
-// ---------- Resource Management ----------
+// adds new resource to library
 void Admin::addResource(Library &lib)
 {
     int choice;
@@ -267,7 +266,7 @@ void Admin::addResource(Library &lib)
     lib.addResource(newRes); // push into library's resources vector
     cout << COLOR_SUCCESS << "Resource added successfully." << RESET << endl;
 }
-
+// marks resource as deleted — does not remove from vector
 void Admin::deleteResource(Library &lib)
 {
     int id;
@@ -290,7 +289,7 @@ void Admin::deleteResource(Library &lib)
     }
     cout << COLOR_ERROR << "Resource with ID " << id << " not found." << RESET << endl;
 }
-
+// updates resource details
 void Admin::updateResource(Library &lib)
 {
     int id;
@@ -441,7 +440,7 @@ void Admin::generateStats(Library &lib)
         cout << COLOR_TABLE_HEADER << left << setw(25) << "Most Borrowed" << RESET
              << COLOR_WARNING << "No borrows recorded yet." << RESET << endl;
 }
-
+// export report to file
 void Admin::exportReports(Library &lib, const string &filename)
 {
     ofstream out(filename);
@@ -451,7 +450,6 @@ void Admin::exportReports(Library &lib, const string &filename)
         throw runtime_error("Failed to open file for writing: " + filename);
     }
 
-    // --- Issued Resources ---
     out << "\n--- Issued Resources ---" << endl;
     out << left << setw(6) << "ID"
         << setw(35) << "Title"
@@ -474,7 +472,6 @@ void Admin::exportReports(Library &lib, const string &filename)
     if (!foundIssued)
         out << "No resources are currently issued." << endl;
 
-    // --- Overdue Resources ---
     out << "\n--- Overdue Resources ---" << endl;
     out << left << setw(10) << "User ID"
         << setw(35) << "Resource"
@@ -500,7 +497,7 @@ void Admin::exportReports(Library &lib, const string &filename)
     cout << COLOR_SUCCESS << "Reports exported to " << filename << RESET << endl;
 }
 
-// ---------- Special / Additional Features ----------
+// collects donated resource and rewards user balance
 void Admin::collectDonationFromUser(User *u, Library &lib)
 {
     cout << "\n"

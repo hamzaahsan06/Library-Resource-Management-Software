@@ -39,7 +39,7 @@ public:
     void setPassword(const string &pass);
     void updateBalance(double amount, vector<User *> &users); // positive to add, negative to deduct
 
-    // ---------- Authentication ----------
+    // login function to verify credentials
     bool login(string user, string pass);
 
     // ---------- Role-based Rules ----------

@@ -163,7 +163,7 @@ void SaveUsersToFile(const string &filename, vector<User *> &users)
 // CSV column order:
 // resourceID,type,title,authorCreator,category,totalCopies,availableCopies,availabilityStatus,isDeleted,
 // ISBN,publisher,yearPublished,director,durationMinutes,genre,narrator,format,volumeNumber,issueNumber,publicationDate,editionDate,region
-
+// reads each row, creates correct derived object based on type, pushes into vector
 void ReadResourcesFromFile(const string &filename, vector<LibraryResource *> &resources)
 {
     ifstream readFile(filename);
@@ -423,6 +423,8 @@ void SaveResourcesToFile(const string &filename, vector<LibraryResource *> &reso
 
     writeFile.close();
 }
+// saves current borrow history vector to CSV file
+
 void SaveBorrowHistoryToFile(const string &filename, Library &lib)
 {
     ofstream writeFile(filename);
@@ -451,7 +453,7 @@ void SaveBorrowHistoryToFile(const string &filename, Library &lib)
 
     writeFile.close();
 }
-
+// reads borrow history from CSV and pushes into library's borrowHistory vector
 void ReadBorrowHistoryFromFile(const string &filename, Library &lib)
 {
     ifstream readFile(filename);

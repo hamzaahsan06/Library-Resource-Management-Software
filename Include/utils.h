@@ -7,10 +7,11 @@ using namespace std;
 
 namespace Utils
 {
+    // input validation functions
     int getValidInt(const string &prompt);
     double getValidDouble(const string &prompt);
     string getValidString(const string &prompt);
-
+    // screen management functions
     void clearScreen();
     void pauseScreen();
 }

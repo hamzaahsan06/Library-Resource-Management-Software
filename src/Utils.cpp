@@ -8,6 +8,7 @@ using namespace std;
 
 namespace Utils
 {
+    // input validation functions
     int getValidInt(const string &prompt)
     {
         int value;
@@ -16,6 +17,7 @@ namespace Utils
 
         if (cin.fail())
         {
+            // Clear the error state and ignore the rest of the line to prevent infinite loop
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             throw invalid_argument("Expected an integer input.");
@@ -24,7 +26,7 @@ namespace Utils
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         return value;
     }
-
+    // validates that input is not empty and not just digits
     string getValidString(const string &prompt)
     {
         string value;
@@ -45,7 +47,7 @@ namespace Utils
 
         return value;
     }
-
+    // validates that input is a valid double (for balance input)
     double getValidDouble(const string &prompt)
     {
         double value;
@@ -54,6 +56,7 @@ namespace Utils
 
         if (cin.fail())
         {
+            // Clear the error state and ignore the rest of the line to prevent infinite loop
             cin.clear();
             cin.ignore(numeric_limits<streamsize>::max(), '\n');
             throw invalid_argument("Expected a decimal number.");
