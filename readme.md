@@ -1,126 +1,116 @@
-# Library and Resource Management System
-
-## CS-116 Object Oriented Programming — Term Project
-**FE Batch 2025, Spring Semester 2026**
-
----
-
-## Team Members
-
-| Name    | Roll No |
-|---------|---------|
-| Hamza   | CS-130  |
-| Shahzad | CS-127  |
-| Haseeb  | CS-120  |
-| Moosa   | CS-143  |
+# 📚 Library & Resource Management System
+### CS-116 Object Oriented Programming — Term Project
+**FE Batch 2025 | Spring Semester 2026**
 
 ---
 
-## Project Overview
+## 👥 Team Members
 
-This is a console-based Library and Resource Management System developed in C++. The system manages library resources and member activities by tracking resource availability, borrowing history, and fine calculation. It supports multiple user types (Student, Teacher, Staff, Premium Member, Admin) and multiple resource types (Book, DVD, AudioBook, Magazine, Newspaper).
+| Name | Roll No | Section |
+|------|---------|---------|
+| Shahzad Ahmed Siddiqui | CS-127 | SEC C |
+| Muhammad Haseeb | CS-120 | SEC C |
+| Muhammad Hamza Ahsan | CS-130 | SEC C |
+| Muhammad Moosa Iqbal | CS-143 | SEC C |
 
 ---
 
-## Prerequisites
+## 📌 Project Overview
 
-Before running this project, make sure the following are installed on your PC:
+A console-based **Library & Resource Management System** built in C++. It supports multiple user roles (Student, Teacher, Staff, Premium Member, Admin) and multiple resource types (Book, DVD, AudioBook, Magazine, Newspaper). All data is stored and loaded from CSV flat-files automatically on startup and exit.
 
-- **Operating System:** Windows (required — the project uses `conio.h` for password masking and `system("cls")` for screen clearing)
+---
+
+## 🖥️ Prerequisites
+
+Before running this project, ensure the following are installed:
+
+- **OS:** Windows only — the project uses `conio.h` for password masking and `system("cls")` for screen clearing
 - **Compiler:** MinGW GCC (g++) or any Windows-compatible C++ compiler
-- **C++ Standard:** C++11 or later
+- **Standard:** C++11 or later
 
 ### Installing MinGW (if not already installed)
 
-1. Download MinGW from [https://sourceforge.net/projects/mingw/](https://sourceforge.net/projects/mingw/)
-2. During installation, select `mingw32-gcc-g++` package
-3. Add MinGW `bin` folder to your system PATH (usually `C:\MinGW\bin`)
-4. Verify installation by opening Command Prompt and running:
-
-```
-g++ --version
-```
+1. Download from [https://sourceforge.net/projects/mingw/](https://sourceforge.net/projects/mingw/)
+2. During setup, select the `mingw32-gcc-g++` package
+3. Add MinGW's `bin` folder to your system PATH (typically `C:\MinGW\bin`)
+4. Verify by running in Command Prompt:
+   ```
+   g++ --version
+   ```
 
 ---
 
-## Project Structure
+## 📂 Project Structure
 
 ```
-Project/
+LIBRARY-MANAGEMENT-SYSTEM/
 │
-├── main.cpp
+├── bin/                        # Compiled output
+│   └── LibrarySystem.exe
 │
-├── Include/
-│   ├── Library.h
-│   ├── library.cpp
-│   ├── Resources.h
-│   ├── Resources.cpp
-│   ├── Users.h
-│   ├── Users.cpp
-│   ├── admin.h
-│   ├── admin.cpp
-│   ├── utils.h
-│   └── utils.cpp
+├── database/                   # Flat-file storage (CSV)
+│   ├── borrowHistory.csv
+│   ├── resources.csv
+│   └── users.csv
 │
-├── FileHandling/
+├── docs/                       # UML diagrams and documentation
+│
+├── include/                    # Header files (.h)
+│   ├── Admin.h
+│   ├── Colors.h
 │   ├── FileHandler.h
-│   └── FileHandler.cpp
+│   ├── Library.h
+│   ├── Menu.h
+│   ├── Resources.h
+│   ├── Title.h
+│   ├── Users.h
+│   └── Utils.h
 │
-└── database/
-    ├── users.csv
-    ├── resources.csv
-    └── borrowHistory.csv
+├── src/                        # Implementation files (.cpp)
+│   ├── Admin.cpp
+│   ├── FileHandler.cpp
+│   ├── Library.cpp
+│   ├── Menu.cpp
+│   ├── Resources.cpp
+│   ├── Title.cpp
+│   ├── Users.cpp
+│   └── Utils.cpp
+│
+├── main.cpp                    # Entry point
+└── README.md
 ```
 
 ---
 
-## How to Compile and Run
+## ▶️ How to Compile and Run
 
-### Option 1: Using Command Prompt (Recommended)
+### Step 1 — Open Command Prompt
 
-1. Open Command Prompt
-2. Navigate to the root project folder:
-
+### Step 2 — Navigate to the project folder
 ```
-cd path\to\project
+cd path\to\LIBRARY-MANAGEMENT-SYSTEM
 ```
 
-3. Run the following compile command:
-
+### Step 3 — Compile the project
 ```
-
 g++ -o bin/LibrarySystem.exe main.cpp src/Admin.cpp src/FileHandler.cpp src/Library.cpp src/Menu.cpp src/Resources.cpp src/Title.cpp src/Users.cpp src/Utils.cpp -I include
-
 ```
 
-4. Run the executable:
-
+### Step 4 — Run the executable
 ```
 .\bin\LibrarySystem.exe
 ```
 
-### Option 2: Using an IDE (Code::Blocks / Dev-C++)
+> **Important:** The `database/` folder must remain in the same directory as the executable. It holds all CSV data files. Do not delete or move it.
 
-1. Open your IDE
-2. Create a new project and add all `.cpp` files listed above
-3. Make sure the `database` folder is placed in the same directory as the executable after build
-4. Build and run the project
+> **Exit properly:** Always exit using option `0` from the main menu so that data is saved back to the CSV files correctly.
 
 ---
 
-## Important Notes for Setup
-
-- The `database` folder **must be present** in the same directory where you run the executable. It contains the CSV files that store all user, resource, and borrow history data. Do not delete or move this folder.
-- The project **only runs on Windows** due to `conio.h` dependency used for password masking during login.
-- All data is automatically saved back to CSV files when you exit the program cleanly using option `0` from the main menu. Do not force close the program.
-- The database folder already contains pre-populated data with 640+ users and 800 resources for testing purposes.
-
----
-
-## Default Login Credentials
+## 🔐 Default Login Credentials
 
 ### Admin Accounts
-
 | Username | Password |
 |----------|----------|
 | admin1 | admin1@123 |
@@ -128,7 +118,6 @@ g++ -o bin/LibrarySystem.exe main.cpp src/Admin.cpp src/FileHandler.cpp src/Libr
 | admin3 | admin3@123 |
 
 ### Sample User Accounts (for testing)
-
 | Username | Password | Type |
 |----------|----------|------|
 | bilal1 | bilal1@123 | Student |
@@ -138,37 +127,74 @@ g++ -o bin/LibrarySystem.exe main.cpp src/Admin.cpp src/FileHandler.cpp src/Libr
 
 ---
 
-## Features
+## 🧠 OOP Concepts — Where Each Is Demonstrated
 
-- Role-based login system (Student, Teacher, Staff, Premium Member, Admin)
-- Multiple resource types: Book, DVD, AudioBook, Magazine, Newspaper
-- Borrow and return system with automatic fine calculation for overdue items
-- Role-specific borrow limits and borrow durations
-- Resource search by ID, Title, Author, Category, or Type
-- Admin reports for issued resources, overdue resources, and customer history
-- Persistent data storage through CSV file handling
-- Password masking during login
-- Colored CLI interface for better readability
-- Exception handling for invalid inputs throughout the system
+**Inheritance**
+The `User` base class is extended by `Student`, `Teacher`, `Staff`, `PremiumMember`, and `Admin`. Similarly, `LibraryResource` is the base for `Book`, `DVD`, `AudioBook`, `Magazine`, and `Newspaper`. Both hierarchies are declared in `Users.h` / `Resources.h` and implemented in their respective `.cpp` files.
+
+**Abstract Classes & Pure Virtual Functions**
+Both `User` and `LibraryResource` contain pure virtual functions (`getDailyLimit()`, `getFineRate()`, `getBorrowDays()`, `displayInfo()`), making them abstract. No object of these base classes can be created directly.
+
+**Method Overriding (Polymorphism)**
+Each derived class provides its own implementation of `displayInfo()`, `getDailyLimit()`, `getFineRate()`, and `getBorrowDays()`. For example, a `Student` gets 7 borrow days and is fined Rs. 10/day, while a `PremiumMember` with Diamond tier gets 30 days and Rs. 5/day fine.
+
+**Encapsulation**
+All class data members are `protected` or `private`. Access is strictly through getters and setters defined in each class.
+
+**Association, Aggregation & Composition**
+The `Library` class aggregates `User*` and `LibraryResource*` vectors. It is composed with the nested `BorrowRecord` class, which holds references to both a user ID and a `LibraryResource*`. This is found in `Library.h` and `Library.cpp`.
+
+**Exception Handling**
+`try/catch` blocks wrap all major operations in `main.cpp`, `Admin.cpp`, `Library.cpp`, `Utils.cpp`, and `Menu.cpp`. Invalid inputs (wrong type, empty strings, digits-only text) throw `invalid_argument` or `runtime_error` exceptions, which are caught and displayed without crashing the program.
+
+**File Handling (Flat-file Persistence)**
+All CSV reading and writing is handled in `FileHandler.cpp`. On startup, `main.cpp` calls the read functions to populate the in-memory vectors. On clean exit, write functions save all changes back. Borrow history, users, and resources each have their own CSV with structured column layouts.
+
+**Soft Delete**
+Rather than erasing users or resources from memory, an `isDeleted` flag marks them as inactive. This preserves historical borrow records that still reference them.
+
+**Membership Upgrade Logic**
+`Library::checkAndUpgradeUser()` in `Library.cpp` detects when a user's balance reaches Rs. 500 or more after a deposit and automatically replaces their object with a new `PremiumMember` pointer, freeing the old one.
 
 ---
 
-## Individual Contributions
+## ✅ What Works
+
+- Role-based login with masked password entry
+- Full borrow and return flow with automatic fine calculation
+- Daily borrow limits enforced per user type
+- Resource search by ID, title, author, category, or type
+- Admin features: add/update/delete resources and users, view reports, export to file, fine management, donation collection
+- User features: view profile, borrow history, deposit funds, change password
+- Automatic membership upgrade when balance threshold is met
+- All data saved and restored between sessions via CSV files
+- Colored CLI output for improved readability
+- Guest view of available resources (no login required)
+
+## ⚠️ What Doesn't Work / Known Limitations
+
+- The `updateResource()` function in `Admin.cpp` collects new values from input but does not apply them to the resource object — the setters are never called, so edits don't actually persist.
+- The project is **Windows-only** due to `conio.h` usage. It will not compile or run on Linux or macOS without modifications.
+- There is no input validation on username uniqueness during registration — two users can be registered with the same username.
+- The `generateNewUserID()` and `generateNewResourceID()` functions read directly from the CSV file path `../database/...`, which may fail depending on where the executable is run from.
+
+---
+
+## 📖 Resources Used
+
+1. **YouTube** — for understanding OOP concepts, CSV file handling in C++, and ANSI color codes
+2. **AI Models** — especially Claude, for assistance with debugging, code structure, and writing logic for certain features
+
+---
+
+## 👨‍💻 Individual Contributions
+
+All team members collaborated on project design, coding, testing, and documentation, with primary responsibilities as follows:
 
 **Shahzad** implemented exception handling throughout the project and developed the majority of admin-related functionalities including resource management, user management, and reporting features. He also assisted in designing the UML class diagram and contributed to the main function structure.
 
-**Haseeb** implemented several core Library class functions and cross-checked the desired output by manually executing and verifying each feature. He also contributed to one or two admin functions and helped ensure correctness of the overall system behavior.
+**Haseeb** implemented several core Library class functions and cross-checked the desired output by manually executing and verifying each feature. He also contributed to a few admin functions and helped ensure correctness of the overall system behavior. He also worked on adding eye-catching colours to the project.
 
-**Hamza** designed and built the database structure and CSV-based file handling system, organized the entire codebase into a proper folder structure with separate header and source files, designed the UML class diagram, debugged errors across the project, reviewed and examined teammates' code throughout development, and implemented the User and Resource class hierarchies including all header and source files.
+**Hamza** designed and built the database structure and CSV-based file handling system, organized the entire codebase into a proper folder structure with separate header and source files, designed the UML class diagram, debugged errors across the project, reviewed and examined teammates' code throughout development, and implemented the User and Resource class hierarchies including all header and source files. He also worked on the title/starting page and the user upgrade-to-membership feature.
 
-**Moosa** contributed several Library class functions, assisted in developing the User and Resource class hierarchies, and added a colored interface to the CLI for improved visual presentation.
-
----
-
-## OOP Features Implemented
-
-1. **Inheritance** — User base class with Student, Teacher, Staff, PremiumMember, Admin as derived classes. LibraryResource base class with Book, DVD, AudioBook, Magazine, Newspaper as derived classes.
-2. **Abstract Classes** — User and LibraryResource both contain pure virtual functions.
-3. **Method Overriding** — displayInfo(), getDailyLimit(), getFineRate(), getBorrowDays() are overridden in each derived class.
-4. **Association / Aggregation / Composition** — Library aggregates Users and LibraryResources, and is composed with BorrowRecord. BorrowRecord references both User and LibraryResource.
-5. **Exception Handling** — try/catch blocks used throughout main.cpp and admin.cpp for robust error handling.
+**Moosa** contributed several Library class functions, assisted in developing the User and Resource class hierarchies, and helped add a coloured interface to the CLI for improved visual presentation. He also added CMake support for building the project and worked on preparing the project documentation/report.
