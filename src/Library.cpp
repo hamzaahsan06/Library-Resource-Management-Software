@@ -465,8 +465,11 @@ void Library::checkAndUpgradeUser(User *&uPtr)
         delete oldUser;
 
         // Notify the user of the system change
-        cout << BOLD_YELLOW << "CONGRATULATIONS " << uPtr->getName() << "!" << RESET << endl;
-        cout << " You have been upgraded to " << level << " Premium Membership!" << endl;
+        cout << "\n" << COLOR_SEPARATOR << string(45, '=') << RESET << endl;
+cout << BOLD_YELLOW << "  CONGRATULATIONS, " << uPtr->getName() << "!" << RESET << endl;
+cout << COLOR_SUCCESS << "  You have been upgraded to "
+     << BOLD_WHITE << level << " Premium Membership!" << RESET << endl;
+cout << COLOR_SEPARATOR << string(45, '=') << RESET << "\n" << endl;
     }
 }
 

@@ -1,4 +1,5 @@
 #include "../include/Users.h"
+#include "../include/Colors.h"
 #include <iostream>
 
 using namespace std;
@@ -61,8 +62,10 @@ void User::depositAmount(double amount)
     if (amount > 0)
     {
         this->balance += amount;
-        cout << this->getName() << " you have successfully Deposited Rs. " << amount << " into your account." << endl;
-        cout << "Current Balance: Rs. " << this->balance << endl;
+        cout << COLOR_SUCCESS << this->getName()
+        << ", Rs. " << amount << " deposited successfully." << RESET << endl;
+        cout << COLOR_TABLE_HEADER << "Current Balance: " << RESET
+        << BOLD_WHITE << "Rs. " << this->balance << RESET << endl;
     }
     else
     {
