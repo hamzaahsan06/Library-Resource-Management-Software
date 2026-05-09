@@ -18,11 +18,10 @@ void runLibrarySystem(Library &lib)
         cout << COLOR_MENU_OPTION << "2. Sign up" << RESET << "\n";
         cout << COLOR_MENU_OPTION << "3. View Available Resources (Guest)" << RESET << "\n";
         cout << COLOR_MENU_OPTION << "0. Exit" << RESET << "\n";
-
-        choice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
-
         try
         {
+            choice = getValidInt(COLOR_INPUT_PROMPT "Enter choice: " RESET);
+
             if (choice == 1)
             {
                 User *loggedUser = lib.loginUser();
