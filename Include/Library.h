@@ -37,6 +37,8 @@ private:
     vector<User *> users;                // all registered users
     vector<BorrowRecord> borrowHistory;  // full borrow history
 
+    void checkAndUpgradeUser(User *&uPtr); // Internal library logic to check and apply membership upgrades
+
 public:
     // vectors start empty, FileHandler fills them from CSV
     Library(string name);
@@ -56,6 +58,7 @@ public:
     void changePassword(User *u);        // asks for new password and updates user account
     void showUserProfile(User *u) const; // shows user's own details and borrow history
     User *loginUser();                   // searches users vector by username and password, returns matched user
+    void depositToUser(int userID, double amount); // UI controller calls this to process a deposit
     void searchResources() const;        // Allows user to search for a specific resource
 
     // ---------- Borrowing Logic ----------

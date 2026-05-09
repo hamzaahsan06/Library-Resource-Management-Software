@@ -179,7 +179,7 @@ void handleUserMenu(User *loggedUser, Library &lib)
         clearScreen();
         cout << "\n===== USER MENU =====\n";
         cout << "1. View Profile\n2. Change Password\n3. View Available Resources\n";
-        cout << "4. Search Resources\n5. Borrow Resource\n6. Return Resource\n0. Logout\n";
+        cout << "4. Search Resources\n5. Borrow Resource\n6. Return Resource\n7. Deposit Amount\n0. Logout\n";
 
         userChoice = getValidInt("Enter choice: ");
 
@@ -258,6 +258,35 @@ void handleUserMenu(User *loggedUser, Library &lib)
             pauseScreen();
         }
         break;
+        case 7:
+        {
+            clearScreen();
+            double amount;
+            cout << "\n--- Account Top-Up ---" << endl;
+            cout << "Enter amount to deposit: Rs. ";
+
+            // Basic input validation
+            if (!(cin >> amount))
+            {
+                cout << "Invalid input. Please enter a valid number." << endl;
+                cin.clear();
+                cin.ignore(10000, '\n');
+                break;
+            }
+
+            if (amount > 0)
+            {
+                // Call the Library Controller, passing the currently logged-in user's ID
+                // Replace 'lib' with whatever your Library object instance is named
+                lib.depositToUser(loggedUser->getUserID(), amount);
+            }
+            else
+            {
+                cout << "[ERROR] Amount must be greater than zero." << endl;
+            }
+            pauseScreen();
+            break;
+        }
         case 0:
             cout << "Logging out..." << endl;
             break;

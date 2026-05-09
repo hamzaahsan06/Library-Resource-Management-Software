@@ -509,7 +509,7 @@ void Admin::collectDonationFromUser(User *u, Library &lib)
 
     // reward user balance based on donation
     double reward = 100.0; // fixed reward per donation
-    u->updateBalance(reward, lib.getUsers());
+    u->updateBalance(reward);
 
     cout << COLOR_SUCCESS << "Balance rewarded: " << reward << RESET << endl;
     cout << COLOR_SUCCESS << "New balance: " << u->getBalance() << RESET << endl;
