@@ -263,16 +263,8 @@ void handleUserMenu(User *loggedUser, Library &lib)
             clearScreen();
             double amount;
             cout << "\n--- Account Top-Up ---" << endl;
-            cout << "Enter amount to deposit: Rs. ";
 
-            // Basic input validation
-            if (!(cin >> amount))
-            {
-                cout << "Invalid input. Please enter a valid number." << endl;
-                cin.clear();
-                cin.ignore(10000, '\n');
-                break;
-            }
+            amount = getValidDouble("Enter amount to deposit: Rs. ");
 
             if (amount > 0)
             {
@@ -282,7 +274,7 @@ void handleUserMenu(User *loggedUser, Library &lib)
             }
             else
             {
-                cout << "[ERROR] Amount must be greater than zero." << endl;
+                throw invalid_argument("Deposit amount must be greater than zero.");
             }
             pauseScreen();
             break;

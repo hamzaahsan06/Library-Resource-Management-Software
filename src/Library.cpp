@@ -326,8 +326,7 @@ void Library::changePassword(User *u)
     oldPass = getValidString(COLOR_INPUT_PROMPT "Enter current password: " RESET);
     if (!u->login(u->getUsername(), oldPass))
     {
-        cout << COLOR_ERROR << "Incorrect current password." << RESET << endl;
-        return;
+        throw runtime_error("Incorrect current password.");
     }
     newPass = oldPass;
     while (newPass == oldPass)
@@ -436,7 +435,7 @@ void Library::depositToUser(int userID, double amount)
             return;
         }
     }
-    cout << "\n[ERROR] User ID not found in system." << endl;
+    throw runtime_error("User not found for deposit.");
 }
 
 // Grants the user membership status

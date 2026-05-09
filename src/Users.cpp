@@ -66,7 +66,7 @@ void User::depositAmount(double amount)
     }
     else
     {
-        cout << "\nInvalid deposit amount." << endl;
+        throw invalid_argument("Deposit amount must be greater than zero.");
     }
 }
 
