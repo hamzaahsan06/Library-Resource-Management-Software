@@ -301,6 +301,8 @@ void Admin::updateResource(Library &lib)
         if (r->getResourceID() == id)
         {
             cout << COLOR_SECTION << "Updating: " << r->getTitle() << RESET << endl;
+            cout << "Resource Type: " << r->getType() << endl
+                 << endl;
 
             string newTitle, newAuthor, newCategory;
             int newCopies;
@@ -309,6 +311,125 @@ void Admin::updateResource(Library &lib)
             newAuthor = getValidString(COLOR_INPUT_PROMPT "Enter new author/creator (leave blank to keep current): " RESET);
             newCategory = getValidString(COLOR_INPUT_PROMPT "Enter new category (leave blank to keep current): " RESET);
             newCopies = getValidInt(COLOR_INPUT_PROMPT "Enter new total copies (0 to keep current): " RESET);
+
+            // Apply common updates
+            if (!newTitle.empty())
+                r->setTitle(newTitle);
+
+            if (!newAuthor.empty())
+                r->setAuthorCreator(newAuthor);
+
+            if (!newCategory.empty())
+                r->setCategory(newCategory);
+
+            if (newCopies > 0)
+                r->setTotalCopies(newCopies);
+
+            // Type-specific updates based on resource type
+            string type = r->getType();
+
+            if (type == "book")
+            {
+                Book *book = dynamic_cast<Book *>(r);
+                if (book)
+                {
+                    string newISBN, newPublisher;
+                    int newYear;
+
+                    newISBN = getValidString(COLOR_INPUT_PROMPT "Enter new ISBN (leave blank to keep current): " RESET);
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
+                    newYear = getValidInt(COLOR_INPUT_PROMPT "Enter new year (0 to keep current): " RESET);
+
+                    if (!newISBN.empty())
+                        book->setISBN(newISBN);
+                    if (!newPublisher.empty())
+                        book->setPublisher(newPublisher);
+                    if (newYear > 0)
+                        book->setYear(newYear);
+                }
+            }
+            else if (type == "dvd")
+            {
+                DVD *dvd = dynamic_cast<DVD *>(r);
+                if (dvd)
+                {
+                    string newDirector, newGenre;
+                    int newDuration;
+
+                    newDirector = getValidString(COLOR_INPUT_PROMPT "Enter new director (leave blank to keep current): " RESET);
+                    newGenre = getValidString(COLOR_INPUT_PROMPT "Enter new genre (leave blank to keep current): " RESET);
+                    newDuration = getValidInt(COLOR_INPUT_PROMPT "Enter new duration in minutes (0 to keep current): " RESET);
+
+                    if (!newDirector.empty())
+                        dvd->setDirector(newDirector);
+                    if (!newGenre.empty())
+                        dvd->setGenre(newGenre);
+                    if (newDuration > 0)
+                        dvd->setDuration(newDuration);
+                }
+            }
+            else if (type == "audiobook")
+            {
+                AudioBook *audiobook = dynamic_cast<AudioBook *>(r);
+                if (audiobook)
+                {
+                    string newNarrator, newFormat;
+                    int newDuration;
+
+                    newNarrator = getValidString(COLOR_INPUT_PROMPT "Enter new narrator (leave blank to keep current): " RESET);
+                    newFormat = getValidString(COLOR_INPUT_PROMPT "Enter new format (leave blank to keep current): " RESET);
+                    newDuration = getValidInt(COLOR_INPUT_PROMPT "Enter new duration in minutes (0 to keep current): " RESET);
+
+                    if (!newNarrator.empty())
+                        audiobook->setNarrator(newNarrator);
+                    if (!newFormat.empty())
+                        audiobook->setFormat(newFormat);
+                    if (newDuration > 0)
+                        audiobook->setDuration(newDuration);
+                }
+            }
+            else if (type == "magazine")
+            {
+                Magazine *magazine = dynamic_cast<Magazine *>(r);
+                if (magazine)
+                {
+                    string newPublisher, newPubDate;
+                    int newVolume, newIssue;
+
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
+                    newPubDate = getValidString(COLOR_INPUT_PROMPT "Enter new publication date (leave blank to keep current): " RESET);
+                    newVolume = getValidInt(COLOR_INPUT_PROMPT "Enter new volume number (0 to keep current): " RESET);
+                    newIssue = getValidInt(COLOR_INPUT_PROMPT "Enter new issue number (0 to keep current): " RESET);
+
+                    if (!newPublisher.empty())
+                        magazine->setPublisher(newPublisher);
+                    if (!newPubDate.empty())
+                        magazine->setPublicationDate(newPubDate);
+                    if (newVolume > 0)
+                        magazine->setVolumeNumber(newVolume);
+                    if (newIssue > 0)
+                        magazine->setIssueNumber(newIssue);
+                }
+            }
+            else if (type == "newspaper")
+            {
+                Newspaper *newspaper = dynamic_cast<Newspaper *>(r);
+                if (newspaper)
+                {
+                    string newPublisher, newEditionDate, newRegion;
+
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
+                    newEditionDate = getValidString(COLOR_INPUT_PROMPT "Enter new edition date (leave blank to keep current): " RESET);
+                    newRegion = getValidString(COLOR_INPUT_PROMPT "Enter new region (leave blank to keep current): " RESET);
+
+                    if (!newPublisher.empty())
+                        newspaper->setPublisher(newPublisher);
+                    if (!newEditionDate.empty())
+                        newspaper->setEditionDate(newEditionDate);
+                    if (!newRegion.empty())
+                        newspaper->setRegion(newRegion);
+                }
+            }
 
             r->updateStatus(); // refresh availability status
             cout << COLOR_SUCCESS << "Resource updated successfully." << RESET << endl;

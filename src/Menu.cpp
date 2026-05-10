@@ -265,7 +265,7 @@ void handleUserMenu(User *loggedUser, Library &lib)
             cout << "\n--- Account Top-Up ---" << endl;
 
             cout << COLOR_SECTION << "\n--- Account Top-Up ---" << RESET << endl;
-            double amount = getValidDouble(COLOR_INPUT_PROMPT "Enter amount to deposit: Rs. " RESET);
+            amount = getValidDouble(COLOR_INPUT_PROMPT "Enter amount to deposit: Rs. " RESET);
 
             if (amount > 0)
             {
