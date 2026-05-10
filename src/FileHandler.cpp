@@ -460,8 +460,7 @@ void ReadBorrowHistoryFromFile(const string &filename, Library &lib)
 
     if (!readFile.is_open())
     {
-        cout << "Error: Could not open " << filename << endl;
-        return;
+        throw runtime_error("Error: Could not open " + filename);
     }
 
     string line;
