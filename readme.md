@@ -173,7 +173,6 @@ Rather than erasing users or resources from memory, an `isDeleted` flag marks th
 
 ## ⚠️ What Doesn't Work / Known Limitations
 
-- The `updateResource()` function in `Admin.cpp` collects new values from input but does not apply them to the resource object — the setters are never called, so edits don't actually persist.
 - The project is **Windows-only** due to `conio.h` usage. It will not compile or run on Linux or macOS without modifications.
 - There is no input validation on username uniqueness during registration — two users can be registered with the same username.
 - The `generateNewUserID()` and `generateNewResourceID()` functions read directly from the CSV file path `../database/...`, which may fail depending on where the executable is run from.
@@ -189,12 +188,12 @@ Rather than erasing users or resources from memory, an `isDeleted` flag marks th
 
 ## 👨‍💻 Individual Contributions
 
-All team members collaborated on project design, coding, testing, and documentation, with primary responsibilities as follows:
+All team members actively participated across the full development lifecycle — including system design, implementation, testing, and documentation — with primary responsibilities distributed as follows:
 
-**Shahzad** implemented exception handling throughout the project and developed the majority of admin-related functionalities including resource management, user management, and reporting features. He also assisted in designing the UML class diagram and contributed to the main function structure.
+**Shahzad** led the implementation of exception handling across the entire codebase, ensuring system robustness and fault tolerance. He was the primary developer for the admin module, delivering key functionalities such as resource management, user management, and reporting features. He also contributed to the architectural design of the UML class diagram and participated in structuring the main application entry point.
 
 **Haseeb** implemented several core Library class functions and cross-checked the desired output by manually executing and verifying each feature. He also contributed to a few admin functions and helped ensure correctness of the overall system behavior. He also worked on adding eye-catching colours to the project.
 
-**Hamza** designed and built the database structure and CSV-based file handling system, organized the entire codebase into a proper folder structure with separate header and source files, designed the UML class diagram, debugged errors across the project, reviewed and examined teammates' code throughout development, and implemented the User and Resource class hierarchies including all header and source files. He also worked on the title/starting page and the user upgrade-to-membership feature.
+**Hamza** was responsible for the foundational architecture of the project. His contributions include designing and implementing the database structure and CSV-based file handling system, organizing the codebase into a modular folder structure with clearly separated header and source files, and authoring the UML class diagram. He performed systematic debugging across the project, conducted regular code reviews of teammates' work throughout the development cycle, and implemented the complete User and Resource class hierarchies — including all associated header and source files. He also developed the application's title and startup screen, as well as the user membership upgrade feature.
 
-**Moosa** contributed several Library class functions, assisted in developing the User and Resource class hierarchies, and helped add a coloured interface to the CLI for improved visual presentation. He also added CMake support for building the project and worked on preparing the project documentation/report.
+**Moosa** contributed to the implementation of Library class functions and assisted in developing the User and Resource class hierarchies. He further assisted in the CLI's visual presentation by integrating a color-coded interface. In addition, he configured CMake build support for the project and took the lead in preparing the project documentation and final report.
