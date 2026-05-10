@@ -27,7 +27,7 @@ namespace Utils
         return value;
     }
     // validates that input is not empty and not just digits
-    string getValidString(const string &prompt)
+    string getValidString(const string &prompt, bool allowEmpty = false)
     {
         string value;
         cout << prompt;
@@ -40,13 +40,14 @@ namespace Utils
         {
             throw invalid_argument("Expected text input, not just digits.");
         }
-        else if (value.empty())
+        if (!allowEmpty && value.empty())
         {
             throw invalid_argument("Input cannot be empty.");
         }
 
         return value;
     }
+
     // validates that input is a valid double (for balance input)
     double getValidDouble(const string &prompt)
     {

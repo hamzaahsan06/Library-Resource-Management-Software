@@ -308,10 +308,22 @@ void Admin::updateResource(Library &lib)
             int newCopies;
 
             newTitle = getValidString(COLOR_INPUT_PROMPT "Enter new title (leave blank to keep current): " RESET);
+            if (newTitle.empty())
+            {
+                newTitle = r->getTitle(); // keep old value
+            }
             newAuthor = getValidString(COLOR_INPUT_PROMPT "Enter new author/creator (leave blank to keep current): " RESET);
+            if (newAuthor.empty())
+            {
+                newAuthor = r->getAuthorCreator(); // keep old value
+            }
             newCategory = getValidString(COLOR_INPUT_PROMPT "Enter new category (leave blank to keep current): " RESET);
+            if (newCategory.empty())
+            {
+                newCategory = r->getCategory(); // keep old value
+            }
             newCopies = getValidInt(COLOR_INPUT_PROMPT "Enter new total copies (0 to keep current): " RESET);
-
+            
             // Apply common updates
             if (!newTitle.empty())
                 r->setTitle(newTitle);
