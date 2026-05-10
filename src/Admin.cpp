@@ -307,17 +307,17 @@ void Admin::updateResource(Library &lib)
             string newTitle, newAuthor, newCategory;
             int newCopies;
 
-            newTitle = getValidString(COLOR_INPUT_PROMPT "Enter new title (leave blank to keep current): " RESET);
+            newTitle = getValidString(COLOR_INPUT_PROMPT "Enter new title (leave blank to keep current): " RESET, true);
             if (newTitle.empty())
             {
                 newTitle = r->getTitle(); // keep old value
             }
-            newAuthor = getValidString(COLOR_INPUT_PROMPT "Enter new author/creator (leave blank to keep current): " RESET);
+            newAuthor = getValidString(COLOR_INPUT_PROMPT "Enter new author/creator (leave blank to keep current): " RESET, true);
             if (newAuthor.empty())
             {
                 newAuthor = r->getAuthorCreator(); // keep old value
             }
-            newCategory = getValidString(COLOR_INPUT_PROMPT "Enter new category (leave blank to keep current): " RESET);
+            newCategory = getValidString(COLOR_INPUT_PROMPT "Enter new category (leave blank to keep current): " RESET, true);
             if (newCategory.empty())
             {
                 newCategory = r->getCategory(); // keep old value
@@ -348,8 +348,8 @@ void Admin::updateResource(Library &lib)
                     string newISBN, newPublisher;
                     int newYear;
 
-                    newISBN = getValidString(COLOR_INPUT_PROMPT "Enter new ISBN (leave blank to keep current): " RESET);
-                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
+                    newISBN = getValidString(COLOR_INPUT_PROMPT "Enter new ISBN (leave blank to keep current): " RESET, true);
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET, true);
                     newYear = getValidInt(COLOR_INPUT_PROMPT "Enter new year (0 to keep current): " RESET);
 
                     if (!newISBN.empty())
@@ -368,8 +368,8 @@ void Admin::updateResource(Library &lib)
                     string newDirector, newGenre;
                     int newDuration;
 
-                    newDirector = getValidString(COLOR_INPUT_PROMPT "Enter new director (leave blank to keep current): " RESET);
-                    newGenre = getValidString(COLOR_INPUT_PROMPT "Enter new genre (leave blank to keep current): " RESET);
+                    newDirector = getValidString(COLOR_INPUT_PROMPT "Enter new director (leave blank to keep current): " RESET, true);
+                    newGenre = getValidString(COLOR_INPUT_PROMPT "Enter new genre (leave blank to keep current): " RESET, true);
                     newDuration = getValidInt(COLOR_INPUT_PROMPT "Enter new duration in minutes (0 to keep current): " RESET);
 
                     if (!newDirector.empty())
@@ -388,8 +388,8 @@ void Admin::updateResource(Library &lib)
                     string newNarrator, newFormat;
                     int newDuration;
 
-                    newNarrator = getValidString(COLOR_INPUT_PROMPT "Enter new narrator (leave blank to keep current): " RESET);
-                    newFormat = getValidString(COLOR_INPUT_PROMPT "Enter new format (leave blank to keep current): " RESET);
+                    newNarrator = getValidString(COLOR_INPUT_PROMPT "Enter new narrator (leave blank to keep current): " RESET, true);
+                    newFormat = getValidString(COLOR_INPUT_PROMPT "Enter new format (leave blank to keep current): " RESET, true);
                     newDuration = getValidInt(COLOR_INPUT_PROMPT "Enter new duration in minutes (0 to keep current): " RESET);
 
                     if (!newNarrator.empty())
@@ -408,8 +408,8 @@ void Admin::updateResource(Library &lib)
                     string newPublisher, newPubDate;
                     int newVolume, newIssue;
 
-                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
-                    newPubDate = getValidString(COLOR_INPUT_PROMPT "Enter new publication date (leave blank to keep current): " RESET);
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET, true);
+                    newPubDate = getValidString(COLOR_INPUT_PROMPT "Enter new publication date (leave blank to keep current): " RESET, true);
                     newVolume = getValidInt(COLOR_INPUT_PROMPT "Enter new volume number (0 to keep current): " RESET);
                     newIssue = getValidInt(COLOR_INPUT_PROMPT "Enter new issue number (0 to keep current): " RESET);
 
@@ -430,9 +430,9 @@ void Admin::updateResource(Library &lib)
                 {
                     string newPublisher, newEditionDate, newRegion;
 
-                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET);
-                    newEditionDate = getValidString(COLOR_INPUT_PROMPT "Enter new edition date (leave blank to keep current): " RESET);
-                    newRegion = getValidString(COLOR_INPUT_PROMPT "Enter new region (leave blank to keep current): " RESET);
+                    newPublisher = getValidString(COLOR_INPUT_PROMPT "Enter new publisher (leave blank to keep current): " RESET, true);
+                    newEditionDate = getValidString(COLOR_INPUT_PROMPT "Enter new edition date (leave blank to keep current): " RESET, true);
+                    newRegion = getValidString(COLOR_INPUT_PROMPT "Enter new region (leave blank to keep current): " RESET, true);
 
                     if (!newPublisher.empty())
                         newspaper->setPublisher(newPublisher);

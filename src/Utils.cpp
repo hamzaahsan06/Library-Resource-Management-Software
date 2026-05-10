@@ -27,7 +27,7 @@ namespace Utils
         return value;
     }
     // validates that input is not empty and not just digits
-    string getValidString(const string &prompt, bool allowEmpty = false)
+    string getValidString(const std::string &prompt, bool allowEmpty)
     {
         string value;
         cout << prompt;

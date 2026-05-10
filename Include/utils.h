@@ -10,7 +10,7 @@ namespace Utils
     // input validation functions
     int getValidInt(const string &prompt);
     double getValidDouble(const string &prompt);
-    string getValidString(const string &prompt);
+    string getValidString(const string &prompt, bool allowEmpty = false);
     // screen management functions
     void clearScreen();
     void pauseScreen();
